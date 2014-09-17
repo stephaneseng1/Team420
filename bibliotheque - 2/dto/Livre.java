@@ -1,39 +1,33 @@
 import java.sql.*;
 
 /**
- * Permet d'effectuer les accès à la table membre.
- * Cette classe gère tous les accès à la table membre.
- *
- *</pre>
+ * Permet d'effectuer les accès à la table livre.
  */
 
-public class Membre {
+public class Livre {
 
 private PreparedStatement stmtExiste;
 private PreparedStatement stmtInsert;
-private PreparedStatement stmtUpdateIncrNbPret;
-private PreparedStatement stmtUpdateDecNbPret;
+private PreparedStatement stmtUpdate;
 private PreparedStatement stmtDelete;
 private Connexion cx;
 
 /**
-  * Creation d'une instance. Précompilation d'énoncés SQL.
+  * Creation d'une instance. Des énoncés SQL pour chaque requête sont précompilés.
   */
-public Membre(Connexion cx)
-  throws SQLException
-{
+public Livre(Connexion cx) throws SQLException {
+
 this.cx = cx;
 stmtExiste = cx.getConnection().prepareStatement
-    ("select idMembre, nom, telephone, limitePret, nbpret from membre where idmembre = ?");
+    ("select idlivre, titre, auteur, dateAcquisition, idMembre, datePret from livre where idlivre = ?");
 stmtInsert = cx.getConnection().prepareStatement
-    ("insert into membre (idmembre, nom, telephone, limitepret, nbpret) " +
-    "values (?,?,?,?,0)");
-stmtUpdateIncrNbPret = cx.getConnection().prepareStatement
-    ("update membre set nbpret = nbPret + 1 where idMembre = ?");
-stmtUpdateDecNbPret = cx.getConnection().prepareStatement
-    ("update membre set nbpret = nbPret - 1 where idMembre = ?");
+    ("insert into livre (idLivre, titre, auteur, dateAcquisition, idMembre, datePret) " +
+      "values (?,?,?,?,null,null)");
+stmtUpdate = cx.getConnection().prepareStatement
+    ("update livre set idMembre = ?, datePret = ? " +
+      "where idLivre = ?");
 stmtDelete = cx.getConnection().prepareStatement
-    ("delete from membre where idmembre = ?");
+    ("delete from livre where idlivre = ?");
 }
 
 /**
@@ -41,85 +35,91 @@ stmtDelete = cx.getConnection().prepareStatement
   */
 public Connexion getConnexion() {
 
-  return cx;
+return cx;
 }
 
 /**
-  * Verifie si un membre existe.
+  * Verifie si un livre existe.
   */
-public boolean existe(int idMembre)
-  throws SQLException
-{
-stmtExiste.setInt(1,idMembre);
+public boolean existe(int idLivre) throws SQLException {
+
+stmtExiste.setInt(1,idLivre);
 ResultSet rset = stmtExiste.executeQuery();
-boolean membreExiste = rset.next();
+boolean livreExiste = rset.next();
 rset.close();
-return membreExiste;
+return livreExiste;
 }
 
 /**
-  * Lecture d'un membre.
+  * Lecture d'un livre.
   */
-public TupleMembre getMembre(int idMembre)
-  throws SQLException
-{
-stmtExiste.setInt(1,idMembre);
+public TupleLivre getLivre(int idLivre) throws SQLException {
+
+stmtExiste.setInt(1,idLivre);
 ResultSet rset = stmtExiste.executeQuery();
 if (rset.next())
     {
-    TupleMembre tupleMembre = new TupleMembre();
-    tupleMembre.idMembre = idMembre;
-    tupleMembre.nom = rset.getString(2);
-    tupleMembre.telephone = rset.getLong(3);
-    tupleMembre.limitePret = rset.getInt(4);
-    tupleMembre.nbPret = rset.getInt(5);
-    return tupleMembre;
+    TupleLivre tupleLivre = new TupleLivre();
+    tupleLivre.idLivre = idLivre;
+    tupleLivre.titre = rset.getString(2);
+    tupleLivre.auteur = rset.getString(3);
+    tupleLivre.dateAcquisition = rset.getDate(4);
+    tupleLivre.idMembre = rset.getInt(5);
+    tupleLivre.datePret = rset.getDate(6);
+    return tupleLivre;
     }
 else
     return null;
 }
 
 /**
-  * Ajout d'un nouveau membre.
+  * Ajout d'un nouveau livre dans la base de donnees.
   */
-public void inscrire(int idMembre, String nom, long telephone, int limitePret)
+public void acquerir(int idLivre, String titre, String auteur, String dateAcquisition)
   throws SQLException
 {
-/* Ajout du membre. */
-stmtInsert.setInt(1,idMembre);
-stmtInsert.setString(2,nom);
-stmtInsert.setLong(3,telephone);
-stmtInsert.setInt(4,limitePret);
+/* Ajout du livre. */
+stmtInsert.setInt(1,idLivre);
+stmtInsert.setString(2,titre);
+stmtInsert.setString(3,auteur);
+stmtInsert.setDate(4,Date.valueOf(dateAcquisition));
 stmtInsert.executeUpdate();
 }
 
 /**
-  * Incrementer le nb de pret d'un membre.
+  * Enregistrement de l'emprunteur d'un livre.
   */
-public int preter(int idMembre)
+public int preter(int idLivre, int idMembre, String datePret)
   throws SQLException
 {
-stmtUpdateIncrNbPret.setInt(1,idMembre);
-return stmtUpdateIncrNbPret.executeUpdate();
+/* Enregistrement du pret. */
+stmtUpdate.setInt(1,idMembre);
+stmtUpdate.setDate(2,Date.valueOf(datePret));
+stmtUpdate.setInt(3,idLivre);
+return stmtUpdate.executeUpdate();
 }
 
 /**
-  * Decrementer le nb de pret d'un membre.
+  * Rendre le livre disponible (non-prêté)
   */
-public int retourner(int idMembre)
+public int retourner(int idLivre)
   throws SQLException
 {
-stmtUpdateDecNbPret.setInt(1,idMembre);
-return stmtUpdateDecNbPret.executeUpdate();
+/* Enregistrement du pret. */
+stmtUpdate.setNull(1,Types.INTEGER);
+stmtUpdate.setNull(2,Types.DATE);
+stmtUpdate.setInt(3,idLivre);
+return stmtUpdate.executeUpdate();
 }
 
 /**
-  * Suppression d'un membre.
+  * Suppression d'un livre.
   */
-public int desinscrire(int idMembre)
+public int vendre(int idLivre)
   throws SQLException
 {
-stmtDelete.setInt(1,idMembre);
+/* Suppression du livre. */
+stmtDelete.setInt(1,idLivre);
 return stmtDelete.executeUpdate();
 }
 }
