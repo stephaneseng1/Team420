@@ -13,7 +13,7 @@ import java.util.StringTokenizer;
  * bibliothèque.  Il gère des livres, des membres et des
  * réservations. Les données sont conservées dans une base de
  * données relationnelles accédée avec JDBC. Pour une liste des
- * transactions trait�es, voir la méthode afficherAide().
+ * transactions traitées, voir la méthode afficherAide().
  *
  * Paramètres
  * 0- site du serveur SQL ("local", "distant" ou "postgres")
