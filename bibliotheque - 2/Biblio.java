@@ -5,15 +5,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.util.StringTokenizer;
-//tttttttttttttttttttttttttttttttt
+
 /**
  * Interface du système de gestion d'une bibliothèque
  *
  * Ce programme permet d'appeler les transactions de base d'une
  * bibliothèque.  Il gère des livres, des membres et des
  * réservations. Les données sont conservées dans une base de
- * données relationnelles accèdée avec JDBC. Pour une liste des
- * transactions traitées, voir la méthode afficherAide().
+ * données relationnelles accédée avec JDBC. Pour une liste des
+ * transactions trait�es, voir la méthode afficherAide().
  *
  * Paramètres
  * 0- site du serveur SQL ("local", "distant" ou "postgres")
@@ -24,7 +24,7 @@ import java.util.StringTokenizer;
  *           si non spécifié, les transactions sont lues au
  *           clavier (System.in)
  *
- * Pr�-condition
+ * Pré-condition
  *   la base de données de la bibliothèque doit exister
  *
  * Post-condition
@@ -43,7 +43,7 @@ public class Biblio {
      * fermeture de la BD.
      */
     public static void main(String argv[]) throws Exception {
-        // validation du nombre de paramètres
+    	// validation du nombre de paramètres
         if(argv.length < 4) {
             System.out.println("Usage: java Biblio <serveur> <bd> <user> <password> [<fichier-transactions>]");
             System.out.println(Connexion.serveursSupportes());
@@ -51,7 +51,7 @@ public class Biblio {
         }
 
         try {
-            // ouverture du fichier de transactions
+        	 // ouverture du fichier de transactions
             // s'il est spécifié comme argument
             lectureAuClavier = true;
             InputStream sourceTransaction = System.in;
@@ -74,7 +74,7 @@ public class Biblio {
     }
 
     /**
-      * Traitement des transactions de la biblioth�que
+     * Traitement des transactions de la bibliothèque
       */
     static void traiterTransactions(BufferedReader reader) throws Exception {
         afficherAide();
@@ -223,7 +223,7 @@ public class Biblio {
         if(tokenizer.hasMoreElements()) {
             return tokenizer.nextToken();
         } else {
-            throw new BiblioException("autre param�tre attendu");
+            throw new BiblioException("autre paramètre attendu");
         }
     }
 
@@ -236,17 +236,17 @@ public class Biblio {
             try {
                 return Integer.valueOf(token).intValue();
             } catch(NumberFormatException e) {
-                throw new BiblioException("Nombre attendu � la place de \""
+                throw new BiblioException("Nombre attendu à la place de \""
                     + token
                     + "\"");
             }
         } else {
-            throw new BiblioException("autre param�tre attendu");
+            throw new BiblioException("autre paramètre attendu");
         }
     }
 
     /**
-      * lecture d'un long java de la transaction entr�e � l'�cran
+      * lecture d'un long java de la transaction entrée à l'écran
       */
     static long readLong(StringTokenizer tokenizer) throws BiblioException {
         if(tokenizer.hasMoreElements()) {
@@ -254,12 +254,12 @@ public class Biblio {
             try {
                 return Long.valueOf(token).longValue();
             } catch(NumberFormatException e) {
-                throw new BiblioException("Nombre attendu � la place de \""
+                throw new BiblioException("Nombre attendu ;a la place de \""
                     + token
                     + "\"");
             }
         } else {
-            throw new BiblioException("autre param�tre attendu");
+            throw new BiblioException("autre paramètre attendu");
         }
     }
 
@@ -273,12 +273,12 @@ public class Biblio {
                 FormatDate.convertirDate(token);
                 return token;
             } catch(ParseException e) {
-                throw new BiblioException("Date en format YYYY-MM-DD attendue � la place  de \""
+                throw new BiblioException("Date en format YYYY-MM-DD attendue à la place  de \""
                     + token
                     + "\"");
             }
         } else {
-            throw new BiblioException("autre param�tre attendu");
+            throw new BiblioException("autre paramètre attendu");
         }
     }
 }//class
