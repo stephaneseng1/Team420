@@ -1,4 +1,4 @@
-package CA.QC.COLLEGEAHUNTSIC;
+package Facade;
 /**
  * L'exception BiblioException est levée lorsqu'une transaction est inadéquate.
  * Par exemple -- livre inexistant

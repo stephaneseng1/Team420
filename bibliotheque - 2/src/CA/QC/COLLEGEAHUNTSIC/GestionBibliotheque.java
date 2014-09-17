@@ -3,6 +3,7 @@ import java.sql.SQLException;
 import DTO.Livre;
 import DTO.Membre;
 import DTO.Reservation;
+import Facade.BiblioException;
 
 /**
  * Système de gestion d'une bibliothèque

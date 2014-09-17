@@ -1,4 +1,4 @@
-package CA.QC.COLLEGEAHUNTSIC;
+package Facade;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

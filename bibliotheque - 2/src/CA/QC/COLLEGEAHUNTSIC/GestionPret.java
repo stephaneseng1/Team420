@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import DTO.Livre;
 import DTO.Membre;
 import DTO.Reservation;
+import Facade.BiblioException;
 
 /**
  * Gestion des transactions de reliées aux prêts de livres
