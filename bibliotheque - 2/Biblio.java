@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.util.StringTokenizer;
 
-/**TTTTTTTTTTTTTTESSSTujghssas
+/**
  * Interface du système de gestion d'une bibliothèque
  *
  * Ce programme permet d'appeler les transactions de base d'une
