@@ -4,11 +4,11 @@ import java.io.*;
 /**
  *<pre>
  *
- *Permet de créer la BD utilisée par Biblio.java.
+ *Permet de crï¿½er la BD utilisï¿½e par Biblio.java.
  *
- *Paramètres:0- serveur SQL 
+ *Paramï¿½tres:0- serveur SQL 
  *           1- bd nom de la BD 
- *           2- user id pour établir une connexion avec le serveur SQL
+ *           2- user id pour ï¿½tablir une connexion avec le serveur SQL
  *           3- mot de passe pour le user id
  *</pre>
  */

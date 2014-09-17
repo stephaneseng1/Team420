@@ -1,5 +1,5 @@
 /**
- * L'exception BiblioException est levée lorsqu'une transaction est inadéquate.
+ * L'exception BiblioException est levÃ©e lorsqu'une transaction est inadÃ©quate.
  * Par exemple -- livre inexistant
  */
 

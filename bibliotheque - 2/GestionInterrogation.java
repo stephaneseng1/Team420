@@ -1,18 +1,18 @@
 import java.sql.*;
 
 /**
- * Gestion des transactions d'interrogation dans une bibliothèque.
+ * Gestion des transactions d'interrogation dans une bibliothÃ¨que.
  * 
  * <pre>
  * 
  *   Ce programme permet de faire diverses interrogations
- *   sur l'état de la bibliothèque.
+ *   sur l'Ã©tat de la bibliothÃ¨que.
  *  
- *   Pré-condition
- *     la base de données de la bibliothèque doit exister
+ *   PrÃ©-condition
+ *     la base de donnÃ©es de la bibliothÃ¨que doit exister
  *  
  *   Post-condition
- *     le programme effectue les maj associées à chaque
+ *     le programme effectue les maj associÃ©es Ã  chaque
  *     transaction
  *   
  *  
@@ -21,81 +21,74 @@ import java.sql.*;
 
 public class GestionInterrogation {
 
-    private PreparedStatement stmtLivresTitreMot;
+private PreparedStatement stmtLivresTitreMot;
+private PreparedStatement stmtListeTousLivres;
+private Connexion cx;
 
-    private PreparedStatement stmtListeTousLivres;
+/**
+ * Creation d'une instance
+ */
+public GestionInterrogation(Connexion cx) throws SQLException {
 
-    private Connexion cx;
+this.cx = cx;
+stmtLivresTitreMot = cx.getConnection().prepareStatement
+    ("select t1.idLivre, t1.titre, t1.auteur, t1.idmembre, t1.datePret + 14 " +
+      "from livre t1 " +
+      "where lower(titre) like ?");
 
-    /**
-     * Creation d'une instance
-     */
-    public GestionInterrogation(Connexion cx) throws SQLException {
+stmtListeTousLivres = cx.getConnection().prepareStatement
+	("select t1.idLivre, t1.titre, t1.auteur, t1.idmembre, t1.datePret " +
+        "from livre t1");
+}
 
-        this.cx = cx;
-        stmtLivresTitreMot = cx.getConnection().prepareStatement("select t1.idLivre, t1.titre, t1.auteur, t1.idmembre, t1.datePret + 14 "
-            + "from livre t1 "
-            + "where lower(titre) like ?");
+/**
+ * Affiche les livres contenu un mot dans le titre
+ */
+public void listerLivresTitre(String mot) throws SQLException {
 
-        stmtListeTousLivres = cx.getConnection().prepareStatement("select t1.idLivre, t1.titre, t1.auteur, t1.idmembre, t1.datePret "
-            + "from livre t1");
-    }
+stmtLivresTitreMot.setString(1,"%" + mot + "%");
+ResultSet rset = stmtLivresTitreMot.executeQuery();
 
-    /**
-     * Affiche les livres contenu un mot dans le titre
-     */
-    public void listerLivresTitre(String mot) throws SQLException {
-
-        stmtLivresTitreMot.setString(1,
-            "%"
-                + mot
-                + "%");
-        ResultSet rset = stmtLivresTitreMot.executeQuery();
-
-        int idMembre;
-        System.out.println("idLivre titre auteur idMembre dateRetour");
-        while(rset.next()) {
-            System.out.print(rset.getInt(1)
-                + " "
-                + rset.getString(2)
-                + " "
-                + rset.getString(3));
-            idMembre = rset.getInt(4);
-            if(!rset.wasNull()) {
-                System.out.print(" "
-                    + idMembre
-                    + " "
-                    + rset.getDate(5));
-            }
-            System.out.println();
+int idMembre;
+System.out.println("idLivre titre auteur idMembre dateRetour");
+while (rset.next())
+    {
+    System.out.print(
+        rset.getInt(1) + " " +
+        rset.getString(2) + " " +
+        rset.getString(3));
+    idMembre = rset.getInt(4);
+    if (!rset.wasNull())
+        {
+        System.out.print(" " + idMembre + " " + rset.getDate(5));
         }
-        cx.commit();
+    System.out.println();
     }
+cx.commit();
+}
 
-    /**
-     * Affiche tous les livres de la BD
-     */
-    public void listerLivres() throws SQLException {
+/**
+ * Affiche tous les livres de la BD
+ */
+public void listerLivres() throws SQLException {
 
-        ResultSet rset = stmtListeTousLivres.executeQuery();
+ResultSet rset = stmtListeTousLivres.executeQuery();
 
-        System.out.println("idLivre titre auteur idMembre datePret");
-        int idMembre;
-        while(rset.next()) {
-            System.out.print(rset.getInt("idLivre")
-                + " "
-                + rset.getString("titre")
-                + " "
-                + rset.getString("auteur"));
-            idMembre = rset.getInt("idMembre");
-            if(!rset.wasNull()) {
-                System.out.print(" "
-                    + idMembre
-                    + " "
-                    + rset.getDate("datePret"));
-            }
-            System.out.println();
+System.out.println("idLivre titre auteur idMembre datePret");
+int idMembre;
+while (rset.next())
+    {
+    System.out.print(
+        rset.getInt("idLivre") + " " +
+        rset.getString("titre") + " " +
+        rset.getString("auteur"));
+    idMembre = rset.getInt("idMembre");
+    if (!rset.wasNull())
+        {
+        System.out.print(" " + idMembre + " " + rset.getDate("datePret"));
         }
-        cx.commit();
+    System.out.println();
     }
+cx.commit();
+}
 }
