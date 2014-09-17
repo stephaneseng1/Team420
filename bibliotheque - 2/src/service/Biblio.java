@@ -1,4 +1,4 @@
-package CA.QC.COLLEGEAHUNTSIC;
+package service;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -6,8 +6,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.util.StringTokenizer;
-import Facade.BiblioException;
-import Facade.FormatDate;
+
+
+import facade.BiblioException;
+import facade.FormatDate;
+
 
 /**
  * Interface du système de gestion d'une bibliothèque

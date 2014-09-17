@@ -1,10 +1,15 @@
-package CA.QC.COLLEGEAHUNTSIC;
+package service;
 import java.sql.Date;
 import java.sql.SQLException;
-import DTO.Livre;
-import DTO.Membre;
-import DTO.Reservation;
-import Facade.BiblioException;
+
+import dao.Livre;
+import dao.Membre;
+import dao.Reservation;
+import dto.TupleLivre;
+import dto.TupleMembre;
+import dto.TupleReservation;
+import facade.BiblioException;
+
 
 /**
  * Gestion des transactions de reliées aux prêts de livres

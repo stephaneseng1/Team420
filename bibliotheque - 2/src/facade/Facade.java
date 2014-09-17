@@ -1,5 +1,5 @@
 
-package Facade;
+package facade;
 
 public class Facade {
 

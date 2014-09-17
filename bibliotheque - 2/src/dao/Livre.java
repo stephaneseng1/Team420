@@ -1,11 +1,12 @@
-package DTO;
+package dao;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import CA.QC.COLLEGEAHUNTSIC.BIBLIOTHQUE.Connexion;
-import CA.QC.COLLEGEAHUNTSIC.BIBLIOTHQUE.TupleLivre;
+
+import ca.qc.collegeahuntsic.bibliotheque.BIBLIOTHQUE.Connexion;
+import ca.qc.collegeahuntsic.bibliotheque.BIBLIOTHQUE.TupleLivre;
 
 /**
  * Permet d'effectuer les accès à la table livre.

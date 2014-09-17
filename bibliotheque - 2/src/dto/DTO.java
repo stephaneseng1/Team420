@@ -1,5 +1,5 @@
 
-package DTO;
+package dto;
 
 public class DTO {
 

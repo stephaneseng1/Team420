@@ -1,4 +1,4 @@
-package CA.QC.COLLEGEAHUNTSIC;
+package dto;
 /**
  * Permet de représenter un tuple de la table membre.
  * 

@@ -1,5 +1,5 @@
 
-package Service;
+package service;
 
 public class Service {
 

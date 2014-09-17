@@ -1,4 +1,4 @@
-package CA.QC.COLLEGEAHUNTSIC;
+package dto;
 import java.sql.Date;
 
 /**

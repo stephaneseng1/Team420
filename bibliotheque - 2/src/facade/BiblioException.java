@@ -1,4 +1,4 @@
-package Facade;
+package facade;
 /**
  * L'exception BiblioException est levée lorsqu'une transaction est inadéquate.
  * Par exemple -- livre inexistant

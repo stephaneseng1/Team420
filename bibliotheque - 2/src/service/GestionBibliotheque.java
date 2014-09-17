@@ -1,9 +1,11 @@
-package CA.QC.COLLEGEAHUNTSIC;
+package service;
 import java.sql.SQLException;
-import DTO.Livre;
-import DTO.Membre;
-import DTO.Reservation;
-import Facade.BiblioException;
+
+import dao.Livre;
+import dao.Membre;
+import dao.Reservation;
+import facade.BiblioException;
+
 
 /**
  * Système de gestion d'une bibliothèque

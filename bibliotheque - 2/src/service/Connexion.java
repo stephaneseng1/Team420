@@ -1,4 +1,4 @@
-package CA.QC.COLLEGEAHUNTSIC;
+package service;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
