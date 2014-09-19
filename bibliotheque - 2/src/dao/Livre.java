@@ -1,15 +1,15 @@
-package ca.qc.collegeahuntsic.bibliotheque.dao;
+package dao;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-import ca.qc.collegeahuntsic.bibliotheque.BIBLIOTHQUE.Connexion;
-import ca.qc.collegeahuntsic.bibliotheque.BIBLIOTHQUE.TupleLivre;
+import ca.qc.collegeahuntsic.bibliotheque.bibliotheque.bibliotheque.BIBLIOTHQUE.Connexion;
+import ca.qc.collegeahuntsic.bibliotheque.bibliotheque.bibliotheque.BIBLIOTHQUE.TupleLivre;
 
 /**
- * Permet d'effectuer les accès à la table livre.
+ * Permet d'effectuer les accï¿½s ï¿½ la table livre.
  */
 
 public class Livre {
@@ -25,7 +25,7 @@ public class Livre {
 	private Connexion cx;
 
 	/**
-	  * Creation d'une instance. Des énoncés SQL pour chaque requête sont précompilés.
+	  * Creation d'une instance. Des ï¿½noncï¿½s SQL pour chaque requï¿½te sont prï¿½compilï¿½s.
 	  */
 	public Livre(Connexion cx) throws SQLException {
 
@@ -39,7 +39,7 @@ public class Livre {
 	}
 
 	/**
-	  * Retourner la connexion associée.
+	  * Retourner la connexion associï¿½e.
 	  */
 	public Connexion getConnexion() {
 
@@ -116,7 +116,7 @@ public class Livre {
 	}
 
 	/**
-	  * Rendre le livre disponible (non-prêté)
+	  * Rendre le livre disponible (non-prï¿½tï¿½)
 	  */
 	public int retourner(int idLivre) throws SQLException {
 		/* Enregistrement du pret. */

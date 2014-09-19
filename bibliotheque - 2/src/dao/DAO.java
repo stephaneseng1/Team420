@@ -1,5 +1,5 @@
 
-package ca.qc.collegeahuntsic.bibliotheque.dao;
+package dao;
 
 public class DAO extends Connection {
 	

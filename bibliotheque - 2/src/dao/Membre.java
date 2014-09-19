@@ -1,14 +1,14 @@
-package ca.qc.collegeahuntsic.bibliotheque.dao;
+package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import ca.qc.collegeahuntsic.bibliotheque.BIBLIOTHQUE.Connexion;
-import ca.qc.collegeahuntsic.bibliotheque.BIBLIOTHQUE.TupleMembre;
+import ca.qc.collegeahuntsic.bibliotheque.bibliotheque.bibliotheque.BIBLIOTHQUE.Connexion;
+import ca.qc.collegeahuntsic.bibliotheque.bibliotheque.bibliotheque.BIBLIOTHQUE.TupleMembre;
 
 /**
- * Permet d'effectuer les accès à la table membre.
- * Cette classe gère tous les accès à la table membre.
+ * Permet d'effectuer les accï¿½s ï¿½ la table membre.
+ * Cette classe gï¿½re tous les accï¿½s ï¿½ la table membre.
  *
  *</pre>
  */
@@ -28,7 +28,7 @@ public class Membre {
 	private Connexion cx;
 
 	/**
-	  * Creation d'une instance. Précompilation d'énoncés SQL.
+	  * Creation d'une instance. Prï¿½compilation d'ï¿½noncï¿½s SQL.
 	  */
 	public Membre(Connexion cx) throws SQLException {
 		this.cx = cx;
@@ -41,7 +41,7 @@ public class Membre {
 	}
 
 	/**
-	  * Retourner la connexion associée.
+	  * Retourner la connexion associï¿½e.
 	  */
 	public Connexion getConnexion() {
 

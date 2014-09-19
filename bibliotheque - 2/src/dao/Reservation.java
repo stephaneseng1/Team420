@@ -1,16 +1,16 @@
-package ca.qc.collegeahuntsic.bibliotheque.dao;
+package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import ca.qc.collegeahuntsic.bibliotheque.BIBLIOTHQUE.Connexion;
-import ca.qc.collegeahuntsic.bibliotheque.BIBLIOTHQUE.TupleReservation;
+import ca.qc.collegeahuntsic.bibliotheque.bibliotheque.bibliotheque.BIBLIOTHQUE.Connexion;
+import ca.qc.collegeahuntsic.bibliotheque.bibliotheque.bibliotheque.BIBLIOTHQUE.TupleReservation;
 
 /**
- * Permet d'effectuer les accès à la table reservation.
+ * Permet d'effectuer les accï¿½s ï¿½ la table reservation.
  *<pre>
  *
- * Cette classe gère tous les accès à la table reservation.
+ * Cette classe gï¿½re tous les accï¿½s ï¿½ la table reservation.
  *
  *</pre>
  */
@@ -48,7 +48,7 @@ public class Reservation {
 	}
 
 	/**
-	  * Retourner la connexion associée.
+	  * Retourner la connexion associï¿½e.
 	  */
 	public Connexion getConnexion() {
 
@@ -90,7 +90,7 @@ public class Reservation {
 	}
 
 	/**
-	  * Lecture de la première reservation d'un livre.
+	  * Lecture de la premiï¿½re reservation d'un livre.
 	  */
 	public TupleReservation getReservationLivre(int idLivre) throws SQLException {
 
@@ -111,7 +111,7 @@ public class Reservation {
 	}
 
 	/**
-	  * Lecture de la première reservation d'un livre.
+	  * Lecture de la premiï¿½re reservation d'un livre.
 	  */
 	public TupleReservation getReservationMembre(int idMembre) throws SQLException {
 
@@ -132,7 +132,7 @@ public class Reservation {
 	}
 
 	/**
-	  * Réservation d'un livre.
+	  * Rï¿½servation d'un livre.
 	  */
 	public void reserver(int idReservation,
 		int idLivre,
