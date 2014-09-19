@@ -1,4 +1,4 @@
-package ca.qc.collegeahuntsic.bibliotheque.facade;
+package ca.qc.collegeahuntsic.bibliotheque.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
