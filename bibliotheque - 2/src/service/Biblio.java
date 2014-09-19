@@ -1,4 +1,4 @@
-package service;
+package ca.qc.collegeahuntsic.bibliotheque.service;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;

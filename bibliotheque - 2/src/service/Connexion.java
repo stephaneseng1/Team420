@@ -1,4 +1,4 @@
-package service;
+package ca.qc.collegeahuntsic.bibliotheque.service;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;

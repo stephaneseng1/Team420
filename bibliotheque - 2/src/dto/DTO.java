@@ -1,6 +1,7 @@
 
-package dto;
+package ca.qc.collegeahuntsic.bibliotheque.dto;
 
-public class DTO {
-
+import java.io.Serializable;
+public class DTO implements Serializable{
+	
 }

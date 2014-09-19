@@ -1,4 +1,4 @@
-package service;
+package ca.qc.collegeahuntsic.bibliotheque.service;
 import java.sql.SQLException;
 
 import dao.Livre;

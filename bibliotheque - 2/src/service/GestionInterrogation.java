@@ -1,4 +1,4 @@
-package service;
+package ca.qc.collegeahuntsic.bibliotheque.service;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,4 +1,4 @@
-package dto;
+package ca.qc.collegeahuntsic.bibliotheque.dto;
 /**
  * Permet de représenter un tuple de la table membre.
  * 
