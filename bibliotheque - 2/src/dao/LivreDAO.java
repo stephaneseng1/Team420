@@ -12,8 +12,30 @@ import ca.qc.collegeahuntsic.bibliotheque.bibliotheque.bibliotheque.BIBLIOTHQUE.
  * Permet d'effectuer les acc�s � la table livre.
  */
 
-public class Livre {
-
+public class LivreDAO extends DAO{
+	private static final long serialVersionUID = 1L;
+	
+	//INSERT LIVRE
+	private static final String ADD_REQUEST = "INSERT INTO livre(idLivre, titre, auteur, dateAcquisition, idMembre, datePret) "
+			+ "values (?,?,?,?,null,null)");
+	
+	//SELECT BY IDLIVRE
+			
+	//UPDATE
+			
+	//DELETE
+			
+	//SELECT ALL REQUEST
+			
+	//FIND BY TITLE
+			
+	//FIND BY MEMBER
+			
+	//REQUEST EMPRUNT (UPDATE)
+	
+	//REQUEST RETOUR (UPDATE)
+			
+	
 	private PreparedStatement stmtExiste;
 
 	private PreparedStatement stmtInsert;
@@ -27,7 +49,7 @@ public class Livre {
 	/**
 	  * Creation d'une instance. Des �nonc�s SQL pour chaque requ�te sont pr�compil�s.
 	  */
-	public Livre(Connexion cx) throws SQLException {
+	public LivreDAO(Connexion cx) throws SQLException {
 
 		this.cx = cx;
 		stmtExiste = cx.getConnection().prepareStatement("select idlivre, titre, auteur, dateAcquisition, idMembre, datePret from livre where idlivre = ?");
@@ -44,6 +66,14 @@ public class Livre {
 	public Connexion getConnexion() {
 
 		return cx;
+	}
+	
+	public void add(LivreDTO livreDTO) throws DAOException{
+		try{
+			PreparedStatement PrepAdd = getConnection().preparedStatement(LivreDAO.ADD_REQUEST).
+		} catch(SQLException sqlException){
+			throw new DAOException(sqlException);
+		}
 	}
 
 	/**
@@ -62,13 +92,13 @@ public class Livre {
 	/**
 	  * Lecture d'un livre.
 	  */
-	public TupleLivre getLivre(int idLivre) throws SQLException {
+	public LivreDTO getLivre(int idLivre) throws SQLException {
 
 		stmtExiste.setInt(1,
 			idLivre);
 		ResultSet rset = stmtExiste.executeQuery();
 		if(rset.next()) {
-			TupleLivre tupleLivre = new TupleLivre();
+			LivreDTO tupleLivre = new LivreDTO();
 			tupleLivre.idLivre = idLivre;
 			tupleLivre.titre = rset.getString(2);
 			tupleLivre.auteur = rset.getString(3);

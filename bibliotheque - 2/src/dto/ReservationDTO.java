@@ -1,12 +1,12 @@
-package ca.qc.collegeahuntsic.bibliotheque.dto;
+package dto;
 import java.sql.Date;
 
 /**
- * Permet de représenter un tuple de la table membre.
+ * Permet de reprï¿½senter un tuple de la table membre.
  * 
  */
 
-public class TupleReservation {
+public class ReservationDTO {
 
 	public int idReservation;
 

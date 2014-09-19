@@ -1,12 +1,13 @@
-package ca.qc.collegeahuntsic.bibliotheque.dto;
+package dto;
 import java.sql.Date;
 
 /**
- * Permet de représenter un tuple de la table livre.
+ * Permet de reprï¿½senter un tuple de la table livre.
  * 
 */
 
-public class TupleLivre {
+public class LivreDTO {
+	private static final long serialVersionUID =1;
 
 	public int idLivre;
 

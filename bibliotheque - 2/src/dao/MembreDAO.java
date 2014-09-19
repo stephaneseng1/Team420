@@ -13,7 +13,7 @@ import ca.qc.collegeahuntsic.bibliotheque.bibliotheque.bibliotheque.BIBLIOTHQUE.
  *</pre>
  */
 
-public class Membre {
+public class MembreDAO {
 
 	private PreparedStatement stmtExiste;
 
@@ -30,7 +30,7 @@ public class Membre {
 	/**
 	  * Creation d'une instance. Pr�compilation d'�nonc�s SQL.
 	  */
-	public Membre(Connexion cx) throws SQLException {
+	public MembreDAO(Connexion cx) throws SQLException {
 		this.cx = cx;
 		stmtExiste = cx.getConnection().prepareStatement("select idMembre, nom, telephone, limitePret, nbpret from membre where idmembre = ?");
 		stmtInsert = cx.getConnection().prepareStatement("insert into membre (idmembre, nom, telephone, limitepret, nbpret) "
@@ -63,12 +63,12 @@ public class Membre {
 	/**
 	  * Lecture d'un membre.
 	  */
-	public TupleMembre getMembre(int idMembre) throws SQLException {
+	public MembreDTO getMembre(int idMembre) throws SQLException {
 		stmtExiste.setInt(1,
 			idMembre);
 		ResultSet rset = stmtExiste.executeQuery();
 		if(rset.next()) {
-			TupleMembre tupleMembre = new TupleMembre();
+			MembreDTO tupleMembre = new MembreDTO();
 			tupleMembre.idMembre = idMembre;
 			tupleMembre.nom = rset.getString(2);
 			tupleMembre.telephone = rset.getLong(3);

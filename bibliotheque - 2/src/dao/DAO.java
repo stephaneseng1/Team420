@@ -1,6 +1,8 @@
 
 package dao;
 
+import java.io.serializable;
+
 public class DAO extends Connection {
 	
 	//Getter

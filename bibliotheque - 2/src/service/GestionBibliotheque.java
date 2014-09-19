@@ -1,9 +1,10 @@
 package ca.qc.collegeahuntsic.bibliotheque.service;
 import java.sql.SQLException;
 
-import dao.Livre;
-import dao.Membre;
-import dao.Reservation;
+import dao.LivreDAO;
+import dao.MembreDAO;
+import dao.ReservationDAO;
+
 
 import facade.BiblioException;
 
@@ -28,11 +29,11 @@ import facade.BiblioException;
 public class GestionBibliotheque {
 	public Connexion cx;
 
-	public Livre livre;
+	public LivreDAO livre;
 
-	public Membre membre;
+	public MembreDAO membre;
 
-	public Reservation reservation;
+	public ReservationDAO reservation;
 
 	public GestionLivre gestionLivre;
 
@@ -65,9 +66,9 @@ public class GestionBibliotheque {
 			bd,
 			user,
 			password);
-		livre = new Livre(cx);
-		membre = new Membre(cx);
-		reservation = new Reservation(cx);
+		livre = new LivreDAO(cx);
+		membre = new MembreDAO(cx);
+		reservation = new ReservationDAO(cx);
 		gestionLivre = new GestionLivre(livre,
 			reservation);
 		gestionMembre = new GestionMembre(membre,

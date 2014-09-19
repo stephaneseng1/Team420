@@ -3,12 +3,13 @@ import java.sql.Date;
 import java.sql.SQLException;
 
 
-import dao.Livre;
-import dao.Membre;
-import dao.Reservation;
-import dto.TupleLivre;
-import dto.TupleMembre;
-import dto.TupleReservation;
+
+import dao.LivreDAO;
+import dao.MembreDAO;
+import dao.ReservationDAO;
+import dto.LivreDTO;
+import dto.MembreDTO;
+import dto.ReservationDTO;
 import facade.BiblioException;
 
 
@@ -30,11 +31,11 @@ import facade.BiblioException;
 
 public class GestionReservation {
 
-	private Livre livre;
+	private LivreDAO livre;
 
-	private Membre membre;
+	private MembreDAO membre;
 
-	private Reservation reservation;
+	private ReservationDAO reservation;
 
 	private Connexion cx;
 
@@ -43,9 +44,9 @@ public class GestionReservation {
 	  * La connection de l'instance de livre et de membre doit �tre la m�me que cx,
 	  * afin d'assurer l'int�grit� des transactions.
 	  */
-	public GestionReservation(Livre livre,
-		Membre membre,
-		Reservation reservation) throws BiblioException {
+	public GestionReservation(LivreDAO livre,
+		MembreDAO membre,
+		ReservationDAO reservation) throws BiblioException {
 		if(livre.getConnexion() != membre.getConnexion()
 			|| reservation.getConnexion() != membre.getConnexion())
 			throw new BiblioException("Les instances de livre, de membre et de reservation n'utilisent pas la m�me connexion au serveur");
@@ -67,7 +68,7 @@ public class GestionReservation {
 		Exception {
 		try {
 			/* Verifier que le livre est pret� */
-			TupleLivre tupleLivre = livre.getLivre(idLivre);
+			LivreDTO tupleLivre = livre.getLivre(idLivre);
 			if(tupleLivre == null)
 				throw new BiblioException("Livre inexistant: "
 					+ idLivre);
@@ -81,7 +82,7 @@ public class GestionReservation {
 					+ " deja prete a ce membre");
 
 			/* V�rifier que le membre existe */
-			TupleMembre tupleMembre = membre.getMembre(idMembre);
+			MembreDTO tupleMembre = membre.getMembre(idMembre);
 			if(tupleMembre == null)
 				throw new BiblioException("Membre inexistant: "
 					+ idMembre);
@@ -120,20 +121,20 @@ public class GestionReservation {
 		Exception {
 		try {
 			/* V�rifie s'il existe une r�servation pour le livre */
-			TupleReservation tupleReservation = reservation.getReservation(idReservation);
+			ReservationDTO tupleReservation = reservation.getReservation(idReservation);
 			if(tupleReservation == null)
 				throw new BiblioException("R�servation inexistante : "
 					+ idReservation);
 
 			/* V�rifie que c'est la premi�re r�servation pour le livre */
-			TupleReservation tupleReservationPremiere = reservation.getReservationLivre(tupleReservation.idLivre);
+			ReservationDTO tupleReservationPremiere = reservation.getReservationLivre(tupleReservation.idLivre);
 			if(tupleReservation.idReservation != tupleReservationPremiere.idReservation)
 				throw new BiblioException("La r�servation n'est pas la premi�re de la liste "
 					+ "pour ce livre; la premiere est "
 					+ tupleReservationPremiere.idReservation);
 
 			/* Verifier si le livre est disponible */
-			TupleLivre tupleLivre = livre.getLivre(tupleReservation.idLivre);
+			LivreDTO tupleLivre = livre.getLivre(tupleReservation.idLivre);
 			if(tupleLivre == null)
 				throw new BiblioException("Livre inexistant: "
 					+ tupleReservation.idLivre);
@@ -144,7 +145,7 @@ public class GestionReservation {
 					+ tupleLivre.idMembre);
 
 			/* V�rifie si le membre existe et sa limite de pret */
-			TupleMembre tupleMembre = membre.getMembre(tupleReservation.idMembre);
+			MembreDTO tupleMembre = membre.getMembre(tupleReservation.idMembre);
 			if(tupleMembre == null)
 				throw new BiblioException("Membre inexistant: "
 					+ tupleReservation.idMembre);
