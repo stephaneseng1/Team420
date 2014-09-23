@@ -1,6 +1,12 @@
 package ca.qc.collegeahuntsic.bibliotheque.dao;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
 import ca.qc.collegeahuntsic.bibliotheque.dto.MembreDTO;
+import ca.qc.collegeahuntsic.bibliotheque.exception.ConnexionException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.DAOException;
 
 /**
  * Permet d'effectuer les accès à la table membre.
@@ -9,7 +15,7 @@ import ca.qc.collegeahuntsic.bibliotheque.dto.MembreDTO;
  *</pre>
  */
 
-public class MembreDAO {
+public class MembreDAO extends DAO {
 
 	private PreparedStatement stmtExiste;
 
@@ -26,8 +32,10 @@ public class MembreDAO {
 	/**
 	  * Creation d'une instance. Précompilation d'énoncés SQL.
 	  */
-	public MembreDAO(Connexion cx) throws SQLException {
-		this.cx = cx;
+	
+	public MembreDAO(Connexion cx) throws DAOException, SQLException {
+		
+		super(cx);
 		stmtExiste = cx.getConnection().prepareStatement("select idMembre, nom, telephone, limitePret, nbpret from membre where idmembre = ?");
 		stmtInsert = cx.getConnection().prepareStatement("insert into membre (idmembre, nom, telephone, limitepret, nbpret) "
 			+ "values (?,?,?,?,0)");
@@ -119,5 +127,10 @@ public class MembreDAO {
 		stmtDelete.setInt(1,
 			idMembre);
 		return stmtDelete.executeUpdate();
+	}
+
+	public MembreDTO read(int idMembre) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

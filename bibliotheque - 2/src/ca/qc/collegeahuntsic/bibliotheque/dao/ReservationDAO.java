@@ -1,5 +1,11 @@
 package ca.qc.collegeahuntsic.bibliotheque.dao;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
 import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
+import ca.qc.collegeahuntsic.bibliotheque.dto.LivreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.dto.ReservationDTO;
 
 /**
@@ -11,7 +17,7 @@ import ca.qc.collegeahuntsic.bibliotheque.dto.ReservationDTO;
  *</pre>
  */
 
-public class ReservationDAO {
+public class ReservationDAO extends DAO{
 
 	private PreparedStatement stmtExiste;
 
@@ -29,6 +35,8 @@ public class ReservationDAO {
 	  * Creation d'une instance.
 	  */
 	public ReservationDAO(Connexion cx) throws SQLException {
+		
+		super(cx);
 
 		this.cx = cx;
 		this.stmtExiste = cx.getConnection().prepareStatement("select idReservation, idLivre, idMembre, dateReservation "
@@ -152,5 +160,10 @@ public class ReservationDAO {
 		this.stmtDelete.setInt(1,
 			idReservation);
 		return this.stmtDelete.executeUpdate();
+	}
+
+	public List<LivreDTO> findByLivre(LivreDTO unLivreDTO) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

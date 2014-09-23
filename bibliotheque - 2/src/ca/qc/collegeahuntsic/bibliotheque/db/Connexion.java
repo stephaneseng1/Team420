@@ -1,5 +1,10 @@
 package ca.qc.collegeahuntsic.bibliotheque.db;
 
+import java.sql.Connection;
+import java.sql.Driver;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
  * Gestionnaire d'une connexion avec une BD relationnelle via JDBC.
  *
@@ -81,9 +86,11 @@ public class Connexion {
 			throw e;
 		} catch(Exception e) {
 			e.printStackTrace(System.out);
-			throw new SQLException("JDBC Driver non instanci�");
+			throw new SQLException("JDBC Driver non instancie");
 		}
 	}
+	
+	
 
 	/**
 	 *fermeture d'une connexion
@@ -91,7 +98,7 @@ public class Connexion {
 	public void fermer() throws SQLException {
 		this.conn.rollback();
 		this.conn.close();
-		System.out.println("Connexion ferm�e"
+		System.out.println("Connexion fermee"
 			+ " "
 			+ this.conn);
 	}
@@ -122,7 +129,7 @@ public class Connexion {
 	  */
 	public static String serveursSupportes() {
 		return "local : MySQL installé localement\n"
-			+ "distant : Oracle installé au D�partement d'Informatique du Collège Ahuntsic\n"
+			+ "distant : Oracle installé au Département d'Informatique du Collège Ahuntsic\n"
 			+ "postgres : Postgres installé localement\n"
 			+ "access : Microsoft Access installé localement et inscrit dans ODBC";
 	}

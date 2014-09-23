@@ -309,4 +309,19 @@ public class LivreDAO extends DAO {
             throw new DAOException(sqlException);
         }
     }
+
+	public int preter(int idLivre, int idMembre, String datePret) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public LivreDTO getLivre(int idLivre) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int retourner(int idLivre) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

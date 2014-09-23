@@ -1,4 +1,6 @@
 package ca.qc.collegeahuntsic.bibliotheque;
+import java.sql.SQLException;
+
 import ca.qc.collegeahuntsic.bibliotheque.dao.LivreDAO;
 import ca.qc.collegeahuntsic.bibliotheque.dao.MembreDAO;
 import ca.qc.collegeahuntsic.bibliotheque.dao.ReservationDAO;
@@ -19,7 +21,7 @@ import ca.qc.collegeahuntsic.bibliotheque.service.ReservationService;
  * donn�es relationnelles acc�d�e avec JDBC.
  *
  * Pr�-condition
- *   la base de donn�es de la biblioth�que doit exister
+ *   la base de donnees de la biblioth�que doit exister
  *
  * Post-condition
  *   le programme effectue les maj associ�es � chaque

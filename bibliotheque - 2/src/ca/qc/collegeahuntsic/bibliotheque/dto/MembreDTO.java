@@ -12,7 +12,7 @@ public class MembreDTO {
 	public int limitePret;
 	public int nbPret;
 
-	private int getIdMembre() {
+	public int getIdMembre() {
 		return idMembre;
 	}
 
@@ -20,7 +20,7 @@ public class MembreDTO {
 		this.idMembre = idMembre;
 	}
 
-	private String getNom() {
+	public String getNom() {
 		return nom;
 	}
 

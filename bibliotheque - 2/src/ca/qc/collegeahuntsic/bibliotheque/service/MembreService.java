@@ -1,9 +1,11 @@
 package ca.qc.collegeahuntsic.bibliotheque.service;
+import java.sql.SQLException;
+
 import ca.qc.collegeahuntsic.bibliotheque.dao.MembreDAO;
 import ca.qc.collegeahuntsic.bibliotheque.dao.ReservationDAO;
 import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
 import ca.qc.collegeahuntsic.bibliotheque.dto.MembreDTO;
-import ca.qc.collegeahuntsic.bibliotheque.facade.BiblioException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.BibliothequeException;
 
 
 /**
@@ -22,7 +24,7 @@ import ca.qc.collegeahuntsic.bibliotheque.facade.BiblioException;
  * </pre>
  */
 
-public class MembreService {
+public class MembreService extends Service {
 
 	private Connexion cx;
 
@@ -49,12 +51,12 @@ public class MembreService {
 		String nom,
 		long telephone,
 		int limitePret) throws SQLException,
-		BiblioException,
+		BibliothequeException,
 		Exception {
 		try {
 			/* Vérifie si le membre existe déja */
 			if(membre.existe(idMembre))
-				throw new BiblioException("Membre existe deja: "
+				throw new BibliothequeException("Membre existe deja: "
 					+ idMembre);
 
 			/* Ajout du membre. */
@@ -73,27 +75,27 @@ public class MembreService {
 	  * Suppression d'un membre de la base de donnees.
 	  */
 	public void desinscrire(int idMembre) throws SQLException,
-		BiblioException,
+		BibliothequeException,
 		Exception {
 		try {
 			/* Verifie si le membre existe et son nombre de pret en cours */
 			MembreDTO tupleMembre = membre.getMembre(idMembre);
 			if(tupleMembre == null)
-				throw new BiblioException("Membre inexistant: "
+				throw new BibliothequeException("Membre inexistant: "
 					+ idMembre);
 			if(tupleMembre.nbPret > 0)
-				throw new BiblioException("Le membre "
+				throw new BibliothequeException("Le membre "
 					+ idMembre
 					+ " a encore des prets.");
 			if(reservation.getReservationMembre(idMembre) != null)
-				throw new BiblioException("Membre "
+				throw new BibliothequeException("Membre "
 					+ idMembre
 					+ " a des r�servations");
 
 			/* Suppression du membre */
 			int nb = membre.desinscrire(idMembre);
 			if(nb == 0)
-				throw new BiblioException("Membre "
+				throw new BibliothequeException("Membre "
 					+ idMembre
 					+ " inexistant");
 			cx.commit();
