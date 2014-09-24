@@ -35,28 +35,35 @@ public class PretService extends Service {
 
 	private ReservationDAO reservation;
 
-	private Connexion cx;
-
 	/**
 	  * Creation d'une instance.
 	  * La connection de l'instance de livre et de membre doit être la même que cx,
 	  * afin d'assurer l'intégrité des transactions.
 	  */
-	public PretService(LivreDAO livre,
-		MembreDAO membre,
-		ReservationDAO reservation) throws BibliothequeException {
+	public PretService(LivreDAO livre, MembreDAO membre, ReservationDAO reservation) throws BibliothequeException {
 		if(livre.getConnexion() != membre.getConnexion()
 			|| reservation.getConnexion() != membre.getConnexion())
 			throw new BibliothequeException("Les instances de livre, de membre et de reservation n'utilisent pas la même connexion au serveur");
-		this.cx = livre.getConnexion();
+		setLivre(livre);
+		setMembre(membre);
+		setReservation(reservation);
+	}
+
+	private void setLivre(LivreDAO livre) {
 		this.livre = livre;
+	}
+
+	private void setMembre(MembreDAO membre) {
 		this.membre = membre;
+	}
+
+	private void setReservation(ReservationDAO reservation) {
 		this.reservation = reservation;
 	}
 
 	/**
 	  * Pret d'un livre à un membre.
-	  * Le livre ne doit pas être pr�t�.
+	  * Le livre ne doit pas être prete.
 	  * Le membre ne doit pas avoir dépassé sa limite de prêt.
 	  */
 	public void preter(int idLivre,

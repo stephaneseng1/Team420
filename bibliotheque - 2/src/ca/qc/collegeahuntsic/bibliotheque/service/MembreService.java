@@ -26,8 +26,6 @@ import ca.qc.collegeahuntsic.bibliotheque.exception.BibliothequeException;
 
 public class MembreService extends Service {
 
-	private Connexion cx;
-
 	private MembreDAO membre;
 
 	private ReservationDAO reservation;
@@ -35,11 +33,25 @@ public class MembreService extends Service {
 	/**
 	  * Creation d'une instance
 	  */
-	public MembreService(MembreDAO membre,
-		ReservationDAO reservation) {
+	public MembreService(MembreDAO membre, ReservationDAO reservation) {
 
-		this.cx = membre.getConnexion();
+		setMembre(membre);
+		setReservation(reservation);
+	}
+
+	private MembreDAO getMembre() {
+		return membre;
+	}
+
+	private void setMembre(MembreDAO membre) {
 		this.membre = membre;
+	}
+
+	private ReservationDAO getReservation() {
+		return reservation;
+	}
+
+	private void setReservation(ReservationDAO reservation) {
 		this.reservation = reservation;
 	}
 

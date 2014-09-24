@@ -34,9 +34,7 @@ public class LivreService extends Service {
      * @param membreDAO Le DAO de la table <code>membre</code>
      * @param reservationDAO Le DAO de la table <code>reservation</code>
      */
-    public LivreService(LivreDAO livreDAO,
-        MembreDAO membreDAO,
-        ReservationDAO reservationDAO) {
+    public LivreService(LivreDAO livreDAO, MembreDAO membreDAO, ReservationDAO reservationDAO) {
         super();
         setLivreDAO(livreDAO);
         setMembreDAO(membreDAO);

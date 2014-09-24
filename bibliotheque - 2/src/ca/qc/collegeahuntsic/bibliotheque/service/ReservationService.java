@@ -35,9 +35,6 @@ public class ReservationService extends Service {
 	private MembreDAO membre;
 
 	private ReservationDAO reservation;
-
-	private Connexion cx;
-
 	/**
 	  * Creation d'une instance.
 	  * La connection de l'instance de livre et de membre doit être la même que cx,
@@ -49,9 +46,20 @@ public class ReservationService extends Service {
 		if(livre.getConnexion() != membre.getConnexion()
 			|| reservation.getConnexion() != membre.getConnexion())
 			throw new BibliothequeException("Les instances de livre, de membre et de reservation n'utilisent pas la même connexion au serveur");
-		this.cx = livre.getConnexion();
+		setLivre(livre);
+		setMembre(membre);
+		setReservation(reservation);
+	}
+
+	private void setLivre(LivreDAO livre) {
 		this.livre = livre;
+	}
+
+	private void setMembre(MembreDAO membre) {
 		this.membre = membre;
+	}
+
+	private void setReservation(ReservationDAO reservation) {
 		this.reservation = reservation;
 	}
 
