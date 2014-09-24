@@ -75,7 +75,7 @@ public class Bibliotheque {
 			LivreDAO livreDAO = new LivreDAO(cx);
 			MembreDAO membreDAO = new MembreDAO(cx);
 			ReservationDAO reservationDAO = new ReservationDAO(cx);
-
+//
 			LivreService livreService = new LivreService(livreDAO, membreDAO,
 					reservationDAO);
 			MembreService membreService = new MembreService(membreDAO,
