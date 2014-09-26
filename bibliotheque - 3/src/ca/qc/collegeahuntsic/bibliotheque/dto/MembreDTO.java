@@ -1,8 +1,11 @@
 // Fichier MembreDTO.java
-// Auteur : Gilles BÃ©nichou
-// Date de crÃ©ation : 2014-08-24
-
+// Auteur : Gilles Bénichou
+// Date de création : 2014-08-24
+//
 package ca.qc.collegeahuntsic.bibliotheque.dto;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * DTO de la table <code>membre</code>.
@@ -22,7 +25,6 @@ public class MembreDTO extends DTO {
 
     private int nbPret;
 
-    // Region Getters and Setters
     /**
      * Getter de la variable d'instance <code>this.idMembre</code>.
      *
@@ -35,7 +37,7 @@ public class MembreDTO extends DTO {
     /**
      * Setter de la variable d'instance <code>this.idMembre</code>.
      *
-     * @param idMembre La valeur Ã  utiliser pour la variable d'instance <code>this.idMembre</code>
+     * @param idMembre La valeur à utiliser pour la variable d'instance <code>this.idMembre</code>
      */
     public void setIdMembre(int idMembre) {
         this.idMembre = idMembre;
@@ -53,7 +55,7 @@ public class MembreDTO extends DTO {
     /**
      * Setter de la variable d'instance <code>this.nom</code>.
      *
-     * @param nom La valeur Ã  utiliser pour la variable d'instance <code>this.nom</code>
+     * @param nom La valeur à utiliser pour la variable d'instance <code>this.nom</code>
      */
     public void setNom(String nom) {
         this.nom = nom;
@@ -71,7 +73,7 @@ public class MembreDTO extends DTO {
     /**
      * Setter de la variable d'instance <code>this.telephone</code>.
      *
-     * @param telephone La valeur Ã  utiliser pour la variable d'instance <code>this.telephone</code>
+     * @param telephone La valeur à utiliser pour la variable d'instance <code>this.telephone</code>
      */
     public void setTelephone(long telephone) {
         this.telephone = telephone;
@@ -89,7 +91,7 @@ public class MembreDTO extends DTO {
     /**
      * Setter de la variable d'instance <code>this.limitePret</code>.
      *
-     * @param limitePret La valeur Ã  utiliser pour la variable d'instance <code>this.limitePret</code>
+     * @param limitePret La valeur à utiliser pour la variable d'instance <code>this.limitePret</code>
      */
     public void setLimitePret(int limitePret) {
         this.limitePret = limitePret;
@@ -107,10 +109,42 @@ public class MembreDTO extends DTO {
     /**
      * Setter de la variable d'instance <code>this.nbPret</code>.
      *
-     * @param nbPret La valeur Ã  utiliser pour la variable d'instance <code>this.nbPret</code>
+     * @param nbPret La valeur à utiliser pour la variable d'instance <code>this.nbPret</code>
      */
     public void setNbPret(int nbPret) {
         this.nbPret = nbPret;
     }
-    // EndRegion Getters and Setters
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(Object obj) {
+        boolean equals = this == obj;
+        if(!equals) {
+            equals = obj != null
+                && obj instanceof MembreDTO;
+            if(equals) {
+                MembreDTO membreDTO = (MembreDTO) obj;
+                EqualsBuilder equalsBuilder = new EqualsBuilder();
+                equalsBuilder.appendSuper(super.equals(membreDTO));
+                equalsBuilder.append(getIdMembre(),
+                    membreDTO.getIdMembre());
+                equals = equalsBuilder.isEquals();
+            }
+        }
+        return equals;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        HashCodeBuilder hashCodeBuilder = new HashCodeBuilder(461,
+            451);
+        hashCodeBuilder.appendSuper(super.hashCode());
+        hashCodeBuilder.append(getIdMembre());
+        return hashCodeBuilder.toHashCode();
+    }
 }
