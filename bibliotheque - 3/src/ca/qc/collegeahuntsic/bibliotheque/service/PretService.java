@@ -13,7 +13,7 @@ public class PretService extends Service {
     private static final long serialVersionUID = 1L;
 
     /**
-     * CrÃ©e le service de la table <code>pret</code>.
+     * Crée le service de la table <code>pret</code>.
      */
     public PretService() {
         super();
