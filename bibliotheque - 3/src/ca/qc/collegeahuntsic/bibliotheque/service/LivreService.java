@@ -1,6 +1,6 @@
 // Fichier LivreService.java
-// Auteur : Gilles Bénichou
-// Date de création : 2014-08-24
+// Auteur : Gilles BÃ©nichou
+// Date de crÃ©ation : 2014-08-24
 
 package ca.qc.collegeahuntsic.bibliotheque.service;
 
@@ -28,20 +28,22 @@ public class LivreService extends Service {
     private ReservationDAO reservationDAO;
 
     /**
-     * Crée un service à partir des DAOs de livre, member et réservation
+     * CrÃ©e le service de la table <code>livre</code>.
      * 
      * @param livreDAO Le DAO de la table <code>livre</code>
      * @param membreDAO Le DAO de la table <code>membre</code>
      * @param reservationDAO Le DAO de la table <code>reservation</code>
      */
-    public LivreService(LivreDAO livreDAO, MembreDAO membreDAO, ReservationDAO reservationDAO) {
+    public LivreService(LivreDAO livreDAO,
+        MembreDAO membreDAO,
+        ReservationDAO reservationDAO) {
         super();
         setLivreDAO(livreDAO);
         setMembreDAO(membreDAO);
         setReservationDAO(reservationDAO);
-        
     }
 
+    // Region Getters and Setters
     /**
      * Getter de la variable d'instance <code>this.livreDAO</code>.
      *
@@ -54,7 +56,7 @@ public class LivreService extends Service {
     /**
      * Setter de la variable d'instance <code>this.livreDAO</code>.
      *
-     * @param livreDAO La valeur à utiliser pour la variable d'instance <code>this.livreDAO</code>
+     * @param livreDAO La valeur Ã  utiliser pour la variable d'instance <code>this.livreDAO</code>
      */
     private void setLivreDAO(LivreDAO livreDAO) {
         this.livreDAO = livreDAO;
@@ -72,7 +74,7 @@ public class LivreService extends Service {
     /**
      * Setter de la variable d'instance <code>this.membreDAO</code>.
      *
-     * @param membreDAO La valeur à utiliser pour la variable d'instance <code>this.membreDAO</code>
+     * @param membreDAO La valeur Ã  utiliser pour la variable d'instance <code>this.membreDAO</code>
      */
     private void setMembreDAO(MembreDAO membreDAO) {
         this.membreDAO = membreDAO;
@@ -90,17 +92,19 @@ public class LivreService extends Service {
     /**
      * Setter de la variable d'instance <code>this.reservationDAO</code>.
      *
-     * @param reservationDAO La valeur à utiliser pour la variable d'instance <code>this.reservationDAO</code>
+     * @param reservationDAO La valeur Ã  utiliser pour la variable d'instance <code>this.reservationDAO</code>
      */
     private void setReservationDAO(ReservationDAO reservationDAO) {
         this.reservationDAO = reservationDAO;
     }
 
+    // EndRegion Getters and Setters
+
     /**
      * Ajoute un nouveau livre.
      * 
-     * @param livreDTO Le livre à ajouter
-     * @throws ServiceException S'il y a une erreur avec la base de données
+     * @param livreDTO Le livre Ã  ajouter
+     * @throws ServiceException S'il y a une erreur avec la base de donnÃ©es
      */
     public void add(LivreDTO livreDTO) throws ServiceException {
         try {
@@ -113,8 +117,8 @@ public class LivreService extends Service {
     /**
      * Lit un livre.
      * 
-     * @param idLivre L'ID du livre à lire
-     * @throws ServiceException S'il y a une erreur avec la base de données
+     * @param idLivre L'ID du livre Ã  lire
+     * @throws ServiceException S'il y a une erreur avec la base de donnÃ©es
      */
     public LivreDTO read(int idLivre) throws ServiceException {
         try {
@@ -125,10 +129,10 @@ public class LivreService extends Service {
     }
 
     /**
-     * Met à jour un livre.
+     * Met Ã  jour un livre.
      * 
-     * @param livreDTO Le livre à mettre à jour
-     * @throws ServiceException S'il y a une erreur avec la base de données
+     * @param livreDTO Le livre Ã  mettre Ã  jour
+     * @throws ServiceException S'il y a une erreur avec la base de donnÃ©es
      */
     public void update(LivreDTO livreDTO) throws ServiceException {
         try {
@@ -141,8 +145,8 @@ public class LivreService extends Service {
     /**
      * Supprime un livre.
      * 
-     * @param livreDTO Le livre à supprimer
-     * @throws ServiceException S'il y a une erreur avec la base de données
+     * @param livreDTO Le livre Ã  supprimer
+     * @throws ServiceException S'il y a une erreur avec la base de donnÃ©es
      */
     public void delete(LivreDTO livreDTO) throws ServiceException {
         try {
@@ -156,7 +160,7 @@ public class LivreService extends Service {
      * Trouve tous les livres.
      * 
      * @return La liste des livres ; une liste vide sinon
-     * @throws ServiceException S'il y a une erreur avec la base de données
+     * @throws ServiceException S'il y a une erreur avec la base de donnÃ©es
      */
     public List<LivreDTO> getAll() throws ServiceException {
         try {
@@ -167,11 +171,11 @@ public class LivreService extends Service {
     }
 
     /**
-     * Trouve les livres à partir d'un titre.
+     * Trouve les livres Ã  partir d'un titre.
      * 
-     * @param titre Le titre à utiliser
+     * @param titre Le titre Ã  utiliser
      * @return La liste des livres correspondants ; une liste vide sinon
-     * @throws ServiceException S'il y a une erreur avec la base de données
+     * @throws ServiceException S'il y a une erreur avec la base de donnÃ©es
      */
     public List<LivreDTO> findByTitre(String titre) throws ServiceException {
         try {
@@ -182,11 +186,11 @@ public class LivreService extends Service {
     }
 
     /**
-     * Trouve les livres à partir d'un membre.
+     * Trouve les livres Ã  partir d'un membre.
      * 
-     * @param membreDTO Le membre à utiliser
+     * @param membreDTO Le membre Ã  utiliser
      * @return Le livre correspondant ; null sinon
-     * @throws ServiceException S'il y a une erreur avec la base de données
+     * @throws ServiceException S'il y a une erreur avec la base de donnÃ©es
      */
     public LivreDTO findByMembre(MembreDTO membreDTO) throws ServiceException {
         try {
@@ -199,14 +203,14 @@ public class LivreService extends Service {
     /**
      * Acquiert un livre.
      * 
-     * @param livreDTO Le livre à ajouter
-     * @throws ServiceException Si le livre existe déjà ou s'il y a une erreur avec la base de données
+     * @param livreDTO Le livre Ã  ajouter
+     * @throws ServiceException Si le livre existe dÃ©jÃ  ou s'il y a une erreur avec la base de donnÃ©es
      */
     public void acquerir(LivreDTO livreDTO) throws ServiceException {
         if(read(livreDTO.getIdLivre()) != null) {
             throw new ServiceException("Le livre "
                 + livreDTO.getIdLivre()
-                + " existe déjà");
+                + " existe dÃ©jÃ ");
         }
         add(livreDTO);
     }
@@ -215,11 +219,11 @@ public class LivreService extends Service {
      * Emprunte un livre.
      * 
      * @param membreDTO Le membre qui emprunte
-     * @param livreDTO Le livre à emprunter
-     * @throws ServiceException S'il y a une erreur avec la base de données
+     * @param livreDTO Le livre Ã  emprunter
+     * @throws ServiceException S'il y a une erreur avec la base de donnÃ©es
      */
     public void emprunter(MembreDTO membreDTO,
-        // On voit le manque de la table prêt avec le décalage illogique (bancal) entre MembreService.emprunte et cette méthode
+        // On voit le manque de la table prÃªt avec le dÃ©calage illogique (bancal) entre MembreService.emprunte et cette mÃ©thode
         LivreDTO livreDTO) throws ServiceException {
         try {
             livreDTO.setIdMembre(membreDTO.getIdMembre());
@@ -233,12 +237,12 @@ public class LivreService extends Service {
      * Retourne un livre.
      * 
      * @param membreDTO Le membre qui retourne le livre
-     * @param livreDTO Le livre à retourner
-     * @throws ServiceException S'il y a une erreur avec la base de données
+     * @param livreDTO Le livre Ã  retourner
+     * @throws ServiceException S'il y a une erreur avec la base de donnÃ©es
      */
     public void retourner(MembreDTO membreDTO,
         LivreDTO livreDTO) throws ServiceException {
-        // On voit le manque de la table prêt avec le décalage illogique (bancal) entre MembreService.emprunte et cette méthode
+        // On voit le manque de la table prÃªt avec le dÃ©calage illogique (bancal) entre MembreService.emprunte et cette mÃ©thode
         try {
             livreDTO.setIdMembre(membreDTO.getIdMembre());
             getLivreDAO().retourner(livreDTO);
@@ -250,9 +254,9 @@ public class LivreService extends Service {
     /**
      * Vendre un livre.
      * 
-     * @param livreDTO Le livre à vendre
-     * @throws ServiceException Si le livre n'existe pas, si le livre a été prêté, si le livre a été réservé ou s'il y a une erreur avec la base
-     *         de données
+     * @param livreDTO Le livre Ã  vendre
+     * @throws ServiceException Si le livre n'existe pas, si le livre a Ã©tÃ© prÃªtÃ©, si le livre a Ã©tÃ© rÃ©servÃ© ou s'il y a une erreur avec la base
+     *         de donnÃ©es
      */
     public void vendre(LivreDTO livreDTO) throws ServiceException {
         try {
@@ -268,7 +272,7 @@ public class LivreService extends Service {
                     + unLivreDTO.getTitre()
                     + " (ID de livre : "
                     + unLivreDTO.getIdLivre()
-                    + ") a été prêté à "
+                    + ") a Ã©tÃ© prÃªtÃ© Ã  "
                     + membreDTO.getNom()
                     + " (ID de membre : "
                     + membreDTO.getIdMembre()
@@ -279,7 +283,7 @@ public class LivreService extends Service {
                     + unLivreDTO.getTitre()
                     + " (ID de livre : "
                     + unLivreDTO.getIdLivre()
-                    + ") a des réservations");
+                    + ") a des rÃ©servations");
             }
             delete(unLivreDTO);
         } catch(DAOException daoException) {

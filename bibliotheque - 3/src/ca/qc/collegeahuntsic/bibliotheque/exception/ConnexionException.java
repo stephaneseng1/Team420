@@ -1,11 +1,11 @@
 // Fichier ConnexionException.java
-// Auteur : Gilles Bénichou
-// Date de création : 2014-08-24
+// Auteur : Gilles BÃ©nichou
+// Date de crÃ©ation : 2014-08-24
 
 package ca.qc.collegeahuntsic.bibliotheque.exception;
 
 /**
- * Cette exception est utilisée en cas de problème avec l'objet {@link ca.qc.collegeahuntsic.bibliotheque.db.Connexion}.
+ * Cette exception est utilisÃ©e en cas de problÃ¨me avec l'objet {@link ca.qc.collegeahuntsic.bibliotheque.db.Connexion}.
  *
  * @author Gilles Benichou
  */

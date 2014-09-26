@@ -1,131 +1,200 @@
+// Fichier MembreDAO.java
+// Auteur : Gilles BÃ©nichou
+// Date de crÃ©ation : 2014-08-24
+
 package ca.qc.collegeahuntsic.bibliotheque.dao;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
 import ca.qc.collegeahuntsic.bibliotheque.dto.MembreDTO;
-import ca.qc.collegeahuntsic.bibliotheque.exception.ConnexionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.DAOException;
 
 /**
- * Permet d'effectuer les accès à la table membre.
- * Cette classe gère tous les accès à la table membre.
- *
- *</pre>
+ * DAO pour effectuer des CRUDs avec la table <code>membre</code>.
+ * 
+ * @author Gilles Benichou
  */
-
 public class MembreDAO extends DAO {
+    private static final long serialVersionUID = 1L;
 
-	private PreparedStatement stmtExiste;
+    private static final String ADD_REQUEST = "INSERT INTO membre (idMembre, nom, telephone, limitePret, nbPret) "
+        + "VALUES (? ,? ,? ,? , 0)";
 
-	private PreparedStatement stmtInsert;
+    private static final String READ_REQUEST = "SELECT idMembre, nom, telephone, limitePret, nbPret "
+        + "FROM membre "
+        + "WHERE idMembre = ?";
 
-	private PreparedStatement stmtUpdateIncrNbPret;
+    private static final String UPDATE_REQUEST = "UPDATE membre "
+        + "SET idMembre = ?, nom = ?,  telephone = ?, limitePret = ?, nbPret = ? "
+        + "WHERE idMembre = ?";
 
-	private PreparedStatement stmtUpdateDecNbPret;
+    private static final String DELETE_REQUEST = "DELETE FROM membre "
+        + "WHERE idMembre = ?";
 
-	private PreparedStatement stmtDelete;
+    private static final String GET_ALL_REQUEST = "SELECT idMembre, nom, telephone, limitePret, nbPret "
+        + "FROM membre";
 
-	private Connexion cx;
+    /**
+     * CrÃ©e un DAO Ã  partir d'une connexion Ã  la base de donnÃ©es.
+     * 
+     * @param connexion La connexion Ã  utiliser
+     */
+    public MembreDAO(Connexion connexion) {
+        super(connexion);
+    }
 
-	/**
-	  * Creation d'une instance. Précompilation d'énoncés SQL.
-	  */
-	
-	public MembreDAO(Connexion cx) throws DAOException, SQLException {
-		
-		super(cx);
-		stmtExiste = cx.getConnection().prepareStatement("select idMembre, nom, telephone, limitePret, nbpret from membre where idmembre = ?");
-		stmtInsert = cx.getConnection().prepareStatement("insert into membre (idmembre, nom, telephone, limitepret, nbpret) "
-			+ "values (?,?,?,?,0)");
-		stmtUpdateIncrNbPret = cx.getConnection().prepareStatement("update membre set nbpret = nbPret + 1 where idMembre = ?");
-		stmtUpdateDecNbPret = cx.getConnection().prepareStatement("update membre set nbpret = nbPret - 1 where idMembre = ?");
-		stmtDelete = cx.getConnection().prepareStatement("delete from membre where idmembre = ?");
-	}
+    /**
+     * Ajoute un nouveau membre.
+     * 
+     * @param membreDTO Le membre Ã  ajouter
+     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     */
+    public void add(MembreDTO membreDTO) throws DAOException {
+        try(
+            PreparedStatement addPreparedStatement = getConnection().prepareStatement(MembreDAO.ADD_REQUEST)) {
+            addPreparedStatement.setInt(1,
+                membreDTO.getIdMembre());
+            addPreparedStatement.setString(2,
+                membreDTO.getNom());
+            addPreparedStatement.setLong(3,
+                membreDTO.getTelephone());
+            addPreparedStatement.setInt(4,
+                membreDTO.getLimitePret());
+            addPreparedStatement.executeUpdate();
+        } catch(SQLException sqlException) {
+            throw new DAOException(sqlException);
+        }
+    }
 
-	/**
-	  * Retourner la connexion associée.
-	  */
-	/**
-	  * Vérifie si un membre existe.
-	  */
-	public boolean existe(int idMembre) throws SQLException {
-		stmtExiste.setInt(1,
-			idMembre);
-		ResultSet rset = stmtExiste.executeQuery();
-		boolean membreExiste = rset.next();
-		rset.close();
-		return membreExiste;
-	}
+    /**
+     * Lit un membre.
+     * 
+     * @param idMembre Le membre Ã  lire
+     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     */
+    public MembreDTO read(int idMembre) throws DAOException {
+        MembreDTO membreDTO = null;
+        try(
+            PreparedStatement readPreparedStatement = getConnection().prepareStatement(MembreDAO.READ_REQUEST)) {
+            readPreparedStatement.setInt(1,
+                idMembre);
+            try(
+                ResultSet resultSet = readPreparedStatement.executeQuery()) {
+                if(resultSet.next()) {
+                    membreDTO = new MembreDTO();
+                    membreDTO.setIdMembre(resultSet.getInt(1));
+                    membreDTO.setNom(resultSet.getString(2));
+                    membreDTO.setTelephone(resultSet.getLong(3));
+                    membreDTO.setLimitePret(resultSet.getInt(4));
+                    membreDTO.setNbPret(resultSet.getInt(5));
+                }
+            }
+        } catch(SQLException sqlException) {
+            throw new DAOException(sqlException);
+        }
+        return membreDTO;
+    }
 
-	/**
-	  * Lecture d'un membre.
-	  */
-	public MembreDTO getMembre(int idMembre) throws SQLException {
-		stmtExiste.setInt(1,
-			idMembre);
-		ResultSet rset = stmtExiste.executeQuery();
-		if(rset.next()) {
-			MembreDTO tupleMembre = new MembreDTO();
-			tupleMembre.idMembre = idMembre;
-			tupleMembre.nom = rset.getString(2);
-			tupleMembre.telephone = rset.getLong(3);
-			tupleMembre.limitePret = rset.getInt(4);
-			tupleMembre.nbPret = rset.getInt(5);
-			return tupleMembre;
-		} else
-			return null;
-	}
+    /**
+     * Met Ã  jour un membre.
+     * 
+     * @param membreDTO Le membre Ã  mettre Ã  jour
+     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     */
+    public void update(MembreDTO membreDTO) throws DAOException {
+        try(
+            PreparedStatement updatePreparedStatement = getConnection().prepareStatement(MembreDAO.UPDATE_REQUEST)) {
+            updatePreparedStatement.setInt(1,
+                membreDTO.getIdMembre());
+            updatePreparedStatement.setString(2,
+                membreDTO.getNom());
+            updatePreparedStatement.setLong(3,
+                membreDTO.getTelephone());
+            updatePreparedStatement.setInt(4,
+                membreDTO.getLimitePret());
+            updatePreparedStatement.setInt(5,
+                membreDTO.getNbPret());
+            updatePreparedStatement.setInt(6,
+                membreDTO.getIdMembre());
+            updatePreparedStatement.executeUpdate();
+        } catch(SQLException sqlException) {
+            throw new DAOException(sqlException);
+        }
+    }
 
-	/**
-	  * Ajout d'un nouveau membre.
-	  */
-	public void inscrire(int idMembre,
-		String nom,
-		long telephone,
-		int limitePret) throws SQLException {
-		/* Ajout du membre. */
-		stmtInsert.setInt(1,
-			idMembre);
-		stmtInsert.setString(2,
-			nom);
-		stmtInsert.setLong(3,
-			telephone);
-		stmtInsert.setInt(4,
-			limitePret);
-		stmtInsert.executeUpdate();
-	}
+    /**
+     * Supprime un membre.
+     * 
+     * @param membreDTO Le membre Ã  supprimer
+     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     */
+    public void delete(MembreDTO membreDTO) throws DAOException {
+        try(
+            PreparedStatement deletePreparedStatement = getConnection().prepareStatement(MembreDAO.DELETE_REQUEST)) {
+            deletePreparedStatement.setInt(1,
+                membreDTO.getIdMembre());
+            deletePreparedStatement.executeUpdate();
+        } catch(SQLException sqlException) {
+            throw new DAOException(sqlException);
+        }
+    }
 
-	/**
-	  * Incrementer le nb de pret d'un membre.
-	  */
-	public int preter(int idMembre) throws SQLException {
-		stmtUpdateIncrNbPret.setInt(1,
-			idMembre);
-		return stmtUpdateIncrNbPret.executeUpdate();
-	}
+    /**
+     * Trouve tous les membres.
+     * 
+     * @return La liste des membres ; une liste vide sinon
+     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     */
+    public List<MembreDTO> getAll() throws DAOException {
+        List<MembreDTO> membres = Collections.EMPTY_LIST;
+        try(
+            PreparedStatement getAll = getConnection().prepareStatement(MembreDAO.GET_ALL_REQUEST)) {
+            try(
+                ResultSet resultSet = getAll.executeQuery()) {
+                MembreDTO membreDTO = null;
+                if(resultSet.next()) {
+                    membres = new ArrayList<>();
+                    do {
+                        membreDTO = new MembreDTO();
+                        membreDTO.setIdMembre(resultSet.getInt(1));
+                        membreDTO.setNom(resultSet.getString(2));
+                        membreDTO.setTelephone(resultSet.getLong(3));
+                        membreDTO.setLimitePret(resultSet.getInt(4));
+                        membreDTO.setNbPret(resultSet.getInt(5));
+                        membres.add(membreDTO);
+                    } while(resultSet.next());
+                }
+            }
+        } catch(SQLException sqlException) {
+            throw new DAOException(sqlException);
+        }
+        return membres;
+    }
 
-	/**
-	  * Decrementer le nb de pret d'un membre.
-	  */
-	public int retourner(int idMembre) throws SQLException {
-		stmtUpdateDecNbPret.setInt(1,
-			idMembre);
-		return stmtUpdateDecNbPret.executeUpdate();
-	}
+    /**
+     * Emprunte un livre.
+     * 
+     * @param membreDTO Le membre Ã  mettre Ã  jour
+     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     */
+    public void emprunter(MembreDTO membreDTO) throws DAOException {
+        membreDTO.setNbPret(membreDTO.getNbPret() + 1);
+        update(membreDTO);
+    }
 
-	/**
-	  * Suppression d'un membre.
-	  */
-	public int desinscrire(int idMembre) throws SQLException {
-		stmtDelete.setInt(1,
-			idMembre);
-		return stmtDelete.executeUpdate();
-	}
-
-	public MembreDTO read(int idMembre) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /**
+     * Retourne un livre.
+     * 
+     * @param membreDTO Le membre Ã  mettre Ã  jour
+     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     */
+    public void retourner(MembreDTO membreDTO) throws DAOException {
+        membreDTO.setNbPret(membreDTO.getNbPret() - 1);
+        update(membreDTO);
+    }
 }
