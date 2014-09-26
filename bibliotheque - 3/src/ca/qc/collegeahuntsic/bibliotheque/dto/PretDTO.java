@@ -1,6 +1,6 @@
-// Fichier ReservationDTO.java
+// Fichier PretDTO.java
 // Auteur : Gilles Bénichou
-// Date de création : 2014-08-24
+// Date de création : 2014-08-26
 
 package ca.qc.collegeahuntsic.bibliotheque.dto;
 
@@ -9,37 +9,39 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
- * DTO de la table <code>reservation</code>.
+ * DTO de la table <code>pret</code>.
  * 
  * @author Gilles Benichou
  */
-public class ReservationDTO extends DTO {
+public class PretDTO extends DTO {
     private static final long serialVersionUID = 1L;
 
-    private int idReservation;
+    private int idPret;
 
     private MembreDTO membreDTO;
 
     private LivreDTO livreDTO;
 
-    private Timestamp dateReservation;
+    private Timestamp datePret;
+
+    private Timestamp dateRetour;
 
     /**
-     * Getter de la variable d'instance <code>this.idReservation</code>.
+     * Getter de la variable d'instance <code>this.idPret</code>.
      *
-     * @return La variable d'instance <code>this.idReservation</code>
+     * @return La variable d'instance <code>this.idPret</code>
      */
-    public int getIdReservation() {
-        return this.idReservation;
+    public int getIdPret() {
+        return this.idPret;
     }
 
     /**
-     * Setter de la variable d'instance <code>this.idReservation</code>.
+     * Setter de la variable d'instance <code>this.idPret</code>.
      *
-     * @param idReservation La valeur à utiliser pour la variable d'instance <code>this.idReservation</code>
+     * @param idPret La valeur à utiliser pour la variable d'instance <code>this.idPret</code>
      */
-    public void setIdReservation(int idReservation) {
-        this.idReservation = idReservation;
+    public void setIdPret(int idPret) {
+        this.idPret = idPret;
     }
 
     /**
@@ -79,21 +81,39 @@ public class ReservationDTO extends DTO {
     }
 
     /**
-     * Getter de la variable d'instance <code>this.dateReservation</code>.
+     * Getter de la variable d'instance <code>this.datePret</code>.
      *
-     * @return La variable d'instance <code>this.dateReservation</code>
+     * @return La variable d'instance <code>this.datePret</code>
      */
-    public Timestamp getDateReservation() {
-        return this.dateReservation;
+    public Timestamp getDatePret() {
+        return this.datePret;
     }
 
     /**
-     * Setter de la variable d'instance <code>this.dateReservation</code>.
+     * Setter de la variable d'instance <code>this.datePret</code>.
      *
-     * @param dateReservation La valeur à utiliser pour la variable d'instance <code>this.dateReservation</code>
+     * @param datePret La valeur à utiliser pour la variable d'instance <code>this.datePret</code>
      */
-    public void setDateReservation(Timestamp dateReservation) {
-        this.dateReservation = dateReservation;
+    public void setDatePret(Timestamp datePret) {
+        this.datePret = datePret;
+    }
+
+    /**
+     * Getter de la variable d'instance <code>this.dateRetour</code>.
+     *
+     * @return La variable d'instance <code>this.dateRetour</code>
+     */
+    public Timestamp getDateRetour() {
+        return this.dateRetour;
+    }
+
+    /**
+     * Setter de la variable d'instance <code>this.dateRetour</code>.
+     *
+     * @param dateRetour La valeur à utiliser pour la variable d'instance <code>this.dateRetour</code>
+     */
+    public void setDateRetour(Timestamp dateRetour) {
+        this.dateRetour = dateRetour;
     }
 
     /**
@@ -104,13 +124,13 @@ public class ReservationDTO extends DTO {
         boolean equals = this == obj;
         if(!equals) {
             equals = obj != null
-                && obj instanceof ReservationDTO;
+                && obj instanceof PretDTO;
             if(equals) {
-                ReservationDTO reservationDTO = (ReservationDTO) obj;
+                PretDTO pretDTO = (PretDTO) obj;
                 EqualsBuilder equalsBuilder = new EqualsBuilder();
-                equalsBuilder.appendSuper(super.equals(reservationDTO));
-                equalsBuilder.append(getIdReservation(),
-                    reservationDTO.getIdReservation());
+                equalsBuilder.appendSuper(super.equals(pretDTO));
+                equalsBuilder.append(getIdPret(),
+                    pretDTO.getIdPret());
                 equals = equalsBuilder.isEquals();
             }
         }
@@ -122,10 +142,10 @@ public class ReservationDTO extends DTO {
      */
     @Override
     public int hashCode() {
-        HashCodeBuilder hashCodeBuilder = new HashCodeBuilder(25,
-            15);
+        HashCodeBuilder hashCodeBuilder = new HashCodeBuilder(23,
+            13);
         hashCodeBuilder.appendSuper(super.hashCode());
-        hashCodeBuilder.append(getIdReservation());
+        hashCodeBuilder.append(getIdPret());
         return hashCodeBuilder.toHashCode();
     }
 }
