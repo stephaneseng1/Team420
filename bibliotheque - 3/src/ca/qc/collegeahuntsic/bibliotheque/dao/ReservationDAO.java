@@ -17,7 +17,7 @@ import ca.qc.collegeahuntsic.bibliotheque.dto.ReservationDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.DAOException;
 
 /**
- * DAO pour effectuer des CRUDs avec la table <code>reservation</code>.
+ * DAO pour effectuer des CRUDs avec la table <code>réservation</code>.
  * 
  * @author Gilles Benichou
  */
@@ -51,19 +51,19 @@ public class ReservationDAO extends DAO {
         + "WHERE idMembre = ?";
 
     /**
-     * CrÃ©e un DAO Ã  partir d'une connexion Ã  la base de donnÃ©es.
+     * Créer un DAO à  partir d'une connexion à  la base de données.
      * 
-     * @param connexion La connexion Ã  utiliser
+     * @param connexion La connexion à utiliser
      */
     public ReservationDAO(Connexion connexion) {
         super(connexion);
     }
 
     /**
-     * Ajoute une nouvelle rÃ©servation.
+     * Ajoute une nouvelle réservation.
      * 
-     * @param reservationDTO La rÃ©servation Ã  ajouter
-     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     * @param reservationDTO La réservation à  ajouter
+     * @throws DAOException S'il y a une erreur avec la base de données
      */
     public void add(ReservationDTO reservationDTO) throws DAOException {
         try(
@@ -81,10 +81,10 @@ public class ReservationDAO extends DAO {
     }
 
     /**
-     * Lit une rÃ©servation.
+     * Lit une réservation.
      * 
-     * @param idReservation La rÃ©servation Ã  lire
-     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     * @param idReservation La réservation Ã  lire
+     * @throws DAOException S'il y a une erreur avec la base de données
      */
     public ReservationDTO read(int idReservation) throws DAOException {
         ReservationDTO reservationDTO = null;
@@ -109,10 +109,10 @@ public class ReservationDAO extends DAO {
     }
 
     /**
-     * Met Ã  jour une rÃ©servation.
+     * Met à  jour une réservation.
      * 
-     * @param reservationDTO La rÃ©servation Ã  mettre Ã  jour
-     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     * @param reservationDTO La réservation à  mettre à  jour
+     * @throws DAOException S'il y a une erreur avec la base de données
      */
     public void update(ReservationDTO reservationDTO) throws DAOException {
         try(
@@ -134,10 +134,10 @@ public class ReservationDAO extends DAO {
     }
 
     /**
-     * Supprime une rÃ©servation.
+     * Supprime une réservation.
      * 
-     * @param reservationDTO La rÃ©servation Ã  supprimer
-     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     * @param reservationDTO La réservation à  supprimer
+     * @throws DAOException S'il y a une erreur avec la base de données
      */
     public void delete(ReservationDTO reservationDTO) throws DAOException {
         try(
@@ -151,10 +151,10 @@ public class ReservationDAO extends DAO {
     }
 
     /**
-     * Trouve toutes les rÃ©servations.
+     * Trouve toutes les réservations.
      * 
-     * @return La liste des rÃ©servations ; une liste vide sinon
-     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     * @return La liste des réservations ; une liste vide sinon
+     * @throws DAOException S'il y a une erreur avec la base de données
      */
     public List<ReservationDTO> getAll() throws DAOException {
         List<ReservationDTO> reservations = Collections.EMPTY_LIST;
@@ -182,11 +182,11 @@ public class ReservationDAO extends DAO {
     }
 
     /**
-     * Trouve les rÃ©servations Ã  partir d'un livre.
+     * Trouve les réservations à  partir d'un livre.
      * 
-     * @param livreDTO Le livre Ã  utiliser
-     * @return La liste des rÃ©servations correspondantes, triÃ©e par date de rÃ©servation croissante ; une liste vide sinon
-     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     * @param livreDTO Le livre à  utiliser
+     * @return La liste des réservations correspondantes, triée par date de réservation croissante ; une liste vide sinon
+     * @throws DAOException S'il y a une erreur avec la base de données
      */
     public List<ReservationDTO> findByLivre(LivreDTO livreDTO) throws DAOException {
         List<ReservationDTO> reservations = Collections.EMPTY_LIST;
@@ -216,11 +216,11 @@ public class ReservationDAO extends DAO {
     }
 
     /**
-     * Trouve les rÃ©servations Ã  partir d'un membre.
+     * Trouve les réservations à  partir d'un membre.
      * 
-     * @param membreDTO Le membre Ã  utiliser
-     * @return La liste des rÃ©servations correspondantes ; une liste vide sinon
-     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     * @param membreDTO Le membre à  utiliser
+     * @return La liste des réservations correspondantes ; une liste vide sinon
+     * @throws DAOException S'il y a une erreur avec la base de données
      */
     public List<ReservationDTO> findByMembre(MembreDTO membreDTO) throws DAOException {
         List<ReservationDTO> reservations = Collections.EMPTY_LIST;

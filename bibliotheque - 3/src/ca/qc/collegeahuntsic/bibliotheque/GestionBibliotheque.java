@@ -12,19 +12,19 @@ import ca.qc.collegeahuntsic.bibliotheque.service.ReservationService;
 
 
 /**
- * Syst�me de gestion d'une biblioth�que
+ * Système de gestion d'une bibliothèque
  *
  *<pre>
- * Ce programme permet de g�rer les transaction de base d'une
- * biblioth�que.  Il g�re des livres, des membres et des
- * r�servations. Les donn�es sont conserv�es dans une base de
- * donn�es relationnelles acc�d�e avec JDBC.
+ * Ce programme permet de gérer les transaction de base d'une
+ * bibliothèque.  Il gère des livres, des membres et des
+ * réservations. Les données sont conservées dans une base de
+ * données relationnelles accédée avec JDBC.
  *
- * Pr�-condition
- *   la base de donnees de la biblioth�que doit exister
+ * Pré-condition
+ *   la base de donnees de la bibliothèque doit exister
  *
  * Post-condition
- *   le programme effectue les maj associ�es � chaque
+ *   le programme effectue les maj associées à chaque
  *   transaction
  * </pre>
  */
@@ -53,8 +53,8 @@ public class GestionBibliotheque {
 	  * <pre>
 	  * 
 	  * @param serveur SQL
-	  * @param bd nom de la bade de donn�es
-	  * @param user user id pour �tablir une connexion avec le serveur SQL
+	  * @param bd nom de la bade de données
+	  * @param user user id pour établir une connexion avec le serveur SQL
 	  * @param password mot de passe pour le user id
 	  *</pre>
 	  */

@@ -202,7 +202,7 @@ public class Bibliotheque {
 //		}
 //	}
 
-	/** Affiche le menu des transactions accept�es par le syst�me */
+	/** Affiche le menu des transactions acceptées par le système */
 	static void afficherAide() {
 		System.out.println();
 		System.out
@@ -256,7 +256,7 @@ public class Bibliotheque {
 		}
 	}
 
-	/** lecture d'une chaîne de caractères de la transaction entrée � l'écran */
+	/** lecture d'une chaîne de caractères de la transaction entrée à l'écran */
 	static String readString(StringTokenizer tokenizer)
 			throws BibliothequeException {
 		if (tokenizer.hasMoreElements()) {

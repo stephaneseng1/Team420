@@ -40,9 +40,9 @@ public class MembreDAO extends DAO {
         + "FROM membre";
 
     /**
-     * CrÃ©e un DAO Ã  partir d'une connexion Ã  la base de donnÃ©es.
+     * Crée un DAO à  partir d'une connexion à  la base de données.
      * 
-     * @param connexion La connexion Ã  utiliser
+     * @param connexion La connexion à  utiliser
      */
     public MembreDAO(Connexion connexion) {
         super(connexion);
@@ -51,8 +51,8 @@ public class MembreDAO extends DAO {
     /**
      * Ajoute un nouveau membre.
      * 
-     * @param membreDTO Le membre Ã  ajouter
-     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     * @param membreDTO Le membre à  ajouter
+     * @throws DAOException S'il y a une erreur avec la base de données
      */
     public void add(MembreDTO membreDTO) throws DAOException {
         try(
@@ -74,8 +74,8 @@ public class MembreDAO extends DAO {
     /**
      * Lit un membre.
      * 
-     * @param idMembre Le membre Ã  lire
-     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     * @param idMembre Le membre à  lire
+     * @throws DAOException S'il y a une erreur avec la base de données
      */
     public MembreDTO read(int idMembre) throws DAOException {
         MembreDTO membreDTO = null;
@@ -101,10 +101,10 @@ public class MembreDAO extends DAO {
     }
 
     /**
-     * Met Ã  jour un membre.
+     * Met à  jour un membre.
      * 
-     * @param membreDTO Le membre Ã  mettre Ã  jour
-     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     * @param membreDTO Le membre à  mettre à  jour
+     * @throws DAOException S'il y a une erreur avec la base de données
      */
     public void update(MembreDTO membreDTO) throws DAOException {
         try(
@@ -130,8 +130,8 @@ public class MembreDAO extends DAO {
     /**
      * Supprime un membre.
      * 
-     * @param membreDTO Le membre Ã  supprimer
-     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     * @param membreDTO Le membre à  supprimer
+     * @throws DAOException S'il y a une erreur avec la base de données
      */
     public void delete(MembreDTO membreDTO) throws DAOException {
         try(
@@ -148,7 +148,7 @@ public class MembreDAO extends DAO {
      * Trouve tous les membres.
      * 
      * @return La liste des membres ; une liste vide sinon
-     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     * @throws DAOException S'il y a une erreur avec la base de données
      */
     public List<MembreDTO> getAll() throws DAOException {
         List<MembreDTO> membres = Collections.EMPTY_LIST;
@@ -179,8 +179,8 @@ public class MembreDAO extends DAO {
     /**
      * Emprunte un livre.
      * 
-     * @param membreDTO Le membre Ã  mettre Ã  jour
-     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     * @param membreDTO Le membre à  mettre à  jour
+     * @throws DAOException S'il y a une erreur avec la base de données
      */
     public void emprunter(MembreDTO membreDTO) throws DAOException {
         membreDTO.setNbPret(membreDTO.getNbPret() + 1);
@@ -190,8 +190,8 @@ public class MembreDAO extends DAO {
     /**
      * Retourne un livre.
      * 
-     * @param membreDTO Le membre Ã  mettre Ã  jour
-     * @throws DAOException S'il y a une erreur avec la base de donnÃ©es
+     * @param membreDTO Le membre à  mettre à  jour
+     * @throws DAOException S'il y a une erreur avec la base de données
      */
     public void retourner(MembreDTO membreDTO) throws DAOException {
         membreDTO.setNbPret(membreDTO.getNbPret() - 1);
