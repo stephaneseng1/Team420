@@ -5,7 +5,7 @@
 package ca.qc.collegeahuntsic.bibliotheque.exception;
 
 /**
- * Cette exception est utilisÃ©e en cas de problÃ¨me avec un objet {@link ca.qc.collegeahuntsic.bibliotheque.service.Service}.
+ * Cette exception est utilisée en cas de problème avec un objet {@link ca.qc.collegeahuntsic.bibliotheque.service.Service}.
  *
  * @author Gilles Benichou
  */
