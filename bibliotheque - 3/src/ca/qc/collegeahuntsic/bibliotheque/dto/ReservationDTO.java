@@ -1,7 +1,7 @@
 // Fichier ReservationDTO.java
 // Auteur : Gilles Bénichou
 // Date de création : 2014-08-24
-
+//
 package ca.qc.collegeahuntsic.bibliotheque.dto;
 
 import java.sql.Timestamp;

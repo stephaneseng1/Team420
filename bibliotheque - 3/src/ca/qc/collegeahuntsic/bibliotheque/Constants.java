@@ -1,7 +1,7 @@
 // Fichier DTO.java
 // Auteur : Gilles Bénichou
 // Date de création : 2014-08-31
-
+//
 package ca.qc.collegeahuntsic.bibliotheque;
 
 /**

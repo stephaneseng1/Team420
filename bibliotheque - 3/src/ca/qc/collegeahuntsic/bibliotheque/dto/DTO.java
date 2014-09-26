@@ -1,5 +1,5 @@
 // Fichier DTO.java
-
+//
 package ca.qc.collegeahuntsic.bibliotheque.dto;
 
 import java.beans.BeanInfo;
