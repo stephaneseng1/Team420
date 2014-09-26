@@ -5,7 +5,7 @@
 package ca.qc.collegeahuntsic.bibliotheque.exception;
 
 /**
- * Cette exception est utilisÃ©e en cas de problÃ¨me avec l'exÃ©cution de la bibliothÃ¨que.
+ * Cette exception est utilisée en cas de problème avec l'exécution de la bibliothèque.
  *
  * @author Gilles Benichou
  */

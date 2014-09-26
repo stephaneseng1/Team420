@@ -28,7 +28,7 @@ public class MembreService extends Service {
     private ReservationDAO reservationDAO;
 
     /**
-     * CrÃ©e le service de la table <code>membre</code>.
+     * Crée le service de la table <code>membre</code>.
      * 
      * @param membreDAO Le DAO de la table <code>membre</code>
      * @param livreDAO Le DAO de la table <code>livre</code>
@@ -56,7 +56,7 @@ public class MembreService extends Service {
     /**
      * Setter de la variable d'instance <code>this.membreDAO</code>.
      *
-     * @param membreDAO La valeur Ã  utiliser pour la variable d'instance <code>this.membreDAO</code>
+     * @param membreDAO La valeur à utiliser pour la variable d'instance <code>this.membreDAO</code>
      */
     private void setMembreDAO(MembreDAO membreDAO) {
         this.membreDAO = membreDAO;
@@ -74,7 +74,7 @@ public class MembreService extends Service {
     /**
      * Setter de la variable d'instance <code>this.livreDAO</code>.
      *
-     * @param livreDAO La valeur Ã  utiliser pour la variable d'instance <code>this.livreDAO</code>
+     * @param livreDAO La valeur à utiliser pour la variable d'instance <code>this.livreDAO</code>
      */
     private void setLivreDAO(LivreDAO livreDAO) {
         this.livreDAO = livreDAO;
@@ -92,7 +92,7 @@ public class MembreService extends Service {
     /**
      * Setter de la variable d'instance <code>this.reservationDAO</code>.
      *
-     * @param reservationDAO La valeur Ã  utiliser pour la variable d'instance <code>this.reservationDAO</code>
+     * @param reservationDAO La valeur à utiliser pour la variable d'instance <code>this.reservationDAO</code>
      */
     private void setReservationDAO(ReservationDAO reservationDAO) {
         this.reservationDAO = reservationDAO;
@@ -103,8 +103,8 @@ public class MembreService extends Service {
     /**
      * Ajoute un nouveau membre.
      * 
-     * @param membreDTO Le membre Ã  ajouter
-     * @throws ServiceException S'il y a une erreur avec la base de donnÃ©es
+     * @param membreDTO Le membre à ajouter
+     * @throws ServiceException S'il y a une erreur avec la base de données
      */
     public void add(MembreDTO membreDTO) throws ServiceException {
         try {
@@ -117,8 +117,8 @@ public class MembreService extends Service {
     /**
      * Lit un membre.
      * 
-     * @param idMembre L'ID du membre Ã  lire
-     * @throws ServiceException S'il y a une erreur avec la base de donnÃ©es
+     * @param idMembre L'ID du membre à lire
+     * @throws ServiceException S'il y a une erreur avec la base de données
      */
     public MembreDTO read(int idMembre) throws ServiceException {
         try {
@@ -131,8 +131,8 @@ public class MembreService extends Service {
     /**
      * Met Ã  jour un membre.
      * 
-     * @param membreDTO Le membre Ã  mettre Ã  jour
-     * @throws ServiceException S'il y a une erreur avec la base de donnÃ©es
+     * @param membreDTO Le membre à mettre à jour
+     * @throws ServiceException S'il y a une erreur avec la base de données
      */
     public void update(MembreDTO membreDTO) throws ServiceException {
         try {
@@ -145,8 +145,8 @@ public class MembreService extends Service {
     /**
      * Supprime un membre.
      * 
-     * @param membreDTO Le membre Ã  supprimer
-     * @throws ServiceException Si le membre a encore des prÃªts, s'il a des rÃ©servations ou s'il y a une erreur avec la base de donnÃ©es
+     * @param membreDTO Le membre à supprimer
+     * @throws ServiceException Si le membre a encore des prêts, s'il a des réservations ou s'il y a une erreur avec la base de données
      */
     public void delete(MembreDTO membreDTO) throws ServiceException {
         try {
@@ -160,7 +160,7 @@ public class MembreService extends Service {
      * Trouve tous les membres.
      * 
      * @return La liste des membres ; une liste vide sinon
-     * @throws ServiceException S'il y a une erreur avec la base de donnÃ©es
+     * @throws ServiceException S'il y a une erreur avec la base de données
      */
     public List<MembreDTO> getAll() throws ServiceException {
         try {
@@ -173,14 +173,14 @@ public class MembreService extends Service {
     /**
      * Inscrit un membre.
      * 
-     * @param membreDTO Le membre Ã  ajouter
-     * @throws ServiceException Si le membre existe dÃ©jÃ  ou s'il y a une erreur avec la base de donnÃ©es
+     * @param membreDTO Le membre à ajouter
+     * @throws ServiceException Si le membre existe déjà ou s'il y a une erreur avec la base de données
      */
     public void inscrire(MembreDTO membreDTO) throws ServiceException {
         if(read(membreDTO.getIdMembre()) != null) {
             throw new ServiceException("Le membre "
                 + membreDTO.getIdMembre()
-                + " existe dÃ©jÃ ");
+                + " existe déjà ");
         }
         add(membreDTO);
     }
@@ -189,9 +189,9 @@ public class MembreService extends Service {
      * Emprunte un livre.
      * 
      * @param membreDTO Le membre qui emprunte
-     * @param livreDTO Le livre Ã  emprunter
-     * @throws ServiceException Si le membre n'existe pas, si le livre n'existe pas, si le livre a Ã©tÃ© prÃªtÃ©, si le livre a Ã©tÃ© rÃ©servÃ©, si le
-     *         membre a atteint sa limite de prÃªt ou s'il y a une erreur avec la base de donnÃ©es
+     * @param livreDTO Le livre à emprunter
+     * @throws ServiceException Si le membre n'existe pas, si le livre n'existe pas, si le livre a été prété, si le livre a été réservé, si le
+     *         membre a atteint sa limite de prêt ou s'il y a une erreur avec la base de données
      */
     public void emprunter(MembreDTO membreDTO,
         LivreDTO livreDTO) throws ServiceException {
@@ -214,7 +214,7 @@ public class MembreService extends Service {
                     + unLivreDTO.getTitre()
                     + " (ID de livre : "
                     + unLivreDTO.getIdLivre()
-                    + ") a Ã©tÃ© prÃªtÃ© Ã  "
+                    + ") a été prêté à  "
                     + emprunteur.getNom()
                     + " (ID de membre : "
                     + emprunteur.getIdMembre()
@@ -225,7 +225,7 @@ public class MembreService extends Service {
                     + unMembreDTO.getNom()
                     + " (ID de membre : "
                     + unMembreDTO.getIdMembre()
-                    + ") a atteint sa limite de prÃªt ("
+                    + ") a atteint sa limite de prêt ("
                     + unMembreDTO.getLimitePret()
                     + " emprunt(s) maximum)");
             }
@@ -234,10 +234,10 @@ public class MembreService extends Service {
                     + unLivreDTO.getTitre()
                     + " (ID de livre : "
                     + unLivreDTO.getIdLivre()
-                    + ") a des rÃ©servations");
+                    + ") a des réservations");
             }
-            // ProblÃ¨me de la date de prÃªt
-            // On voit Ã©galement le manque de la table prÃªt simulÃ©e en ce moment par les deux tables
+            // Problème de la date de prêt
+            // On voit également le manque de la table prêt simulée en ce moment par les deux tables
             unLivreDTO.setIdMembre(unMembreDTO.getIdMembre());
             getLivreDAO().emprunter(unLivreDTO);
             getMembreDAO().emprunter(unMembreDTO);
@@ -247,12 +247,12 @@ public class MembreService extends Service {
     }
 
     /**
-     * Renouvelle le prÃªt d'un livre.
+     * Renouvelle le prêt d'un livre.
      * 
      * @param membreDTO Le membre qui renouvelle
-     * @param livreDTO Le livre Ã  renouveler
-     * @throws ServiceException Si le membre n'existe pas, si le livre n'existe pas, si le livre n'a pas encore Ã©tÃ© prÃªtÃ©, si le livre a Ã©tÃ©
-     *         prÃªtÃ© Ã  quelqu'un d'autre, si le livre a Ã©tÃ© rÃ©servÃ© ou s'il y a une erreur avec la base de donnÃ©es
+     * @param livreDTO Le livre à renouveler
+     * @throws ServiceException Si le membre n'existe pas, si le livre n'existe pas, si le livre n'a pas encore étét prêté, si le livre a été
+     *         prêté à  quelqu'un d'autre, si le livre a été réservé ou s'il y a une erreur avec la base de données
      */
     public void renouveler(MembreDTO membreDTO,
         LivreDTO livreDTO) throws ServiceException {
@@ -275,14 +275,14 @@ public class MembreService extends Service {
                     + unLivreDTO.getTitre()
                     + " (ID de livre : "
                     + unLivreDTO.getIdLivre()
-                    + ") n'est pas encore prÃªtÃ©");
+                    + ") n'est pas encore prêté");
             }
             if(unMembreDTO.getIdMembre() != emprunteur.getIdMembre()) {
                 throw new ServiceException("Le livre "
                     + unLivreDTO.getTitre()
                     + " (ID de livre : "
                     + unLivreDTO.getIdLivre()
-                    + ") a Ã©tÃ© prÃªtÃ© Ã  "
+                    + ") a été prêté à  "
                     + emprunteur.getNom()
                     + " (ID de membre : "
                     + emprunteur.getIdMembre()
@@ -293,14 +293,14 @@ public class MembreService extends Service {
                     + unLivreDTO.getTitre()
                     + " (ID de livre : "
                     + unLivreDTO.getIdLivre()
-                    + ") a des rÃ©servations");
+                    + ") a des réservations");
             }
 
-            // Cas Ã©liminÃ© en utilisant la date de prÃªt comme Ã©tant la date systÃ¨me de la base de donnÃ©es
+            // Cas éliminé en utilisant la date de prêt comme étant la date système de la base de données
 
             /* Verifier si date renouvellement >= datePret */
             //			if(Date.valueOf(datePret).before(tupleLivre.getDatePret())) {
-            //				throw new BibliothequeException("Date de renouvellement infÃ©rieure Ã  la date de prÃªt");
+            //				throw new BibliothequeException("Date de renouvellement inférieure à la date de prêt");
             //			}
 
             getLivreDAO().emprunter(unLivreDTO);
@@ -314,8 +314,8 @@ public class MembreService extends Service {
      * 
      * @param membreDTO Le membre qui retourne
      * @param livreDTO Le livre Ã  retourner
-     * @throws ServiceException Si le membre n'existe pas, si le livre n'existe pas, si le livre n'a pas encore Ã©tÃ© prÃªtÃ©, si le livre a Ã©tÃ©
-     *         prÃªtÃ© Ã  quelqu'un d'autre ou s'il y a une erreur avec la base de donnÃ©es
+     * @throws ServiceException Si le membre n'existe pas, si le livre n'existe pas, si le livre n'a pas encore été prêté, si le livre a été
+     *         prêté à quelqu'un d'autre ou s'il y a une erreur avec la base de données
      */
     public void retourner(MembreDTO membreDTO,
         LivreDTO livreDTO) throws ServiceException {
@@ -338,28 +338,28 @@ public class MembreService extends Service {
                     + unLivreDTO.getTitre()
                     + " (ID de livre : "
                     + unLivreDTO.getIdLivre()
-                    + ") n'est pas encore prÃªtÃ©");
+                    + ") n'est pas encore preté");
             }
             if(unMembreDTO.getIdMembre() != emprunteur.getIdMembre()) {
                 throw new ServiceException("Le livre "
                     + unLivreDTO.getTitre()
                     + " (ID de livre : "
                     + unLivreDTO.getIdLivre()
-                    + ") a Ã©tÃ© prÃªtÃ© Ã  "
+                    + ") a été prêté à  "
                     + emprunteur.getNom()
                     + " (ID de membre : "
                     + emprunteur.getIdMembre()
                     + ")");
             }
 
-            // Cas Ã©liminÃ© en utilisant la date de prÃªt comme Ã©tant la date systÃ¨me de la base de donnÃ©es
+            // Cas éliminé en utilisant la date de prêt comme étant la date systême de la base de données
 
             /* Verifier si date retour >= datePret */
             //			if(Date.valueOf(dateRetour).before(tupleLivre.getDatePret())) {
-            //				throw new BibliothequeException("Date de retour infÃ©rieure Ã  la date de prÃªt");
+            //				throw new BibliothequeException("Date de retour inférieure à la date de prêt");
             //			}
 
-            // On voit le manque de la table prÃªt simulÃ©e en ce moment par les deux tables
+            // On voit le manque de la table prêt simulée en ce moment par les deux tables
             getLivreDAO().retourner(unLivreDTO);
             getMembreDAO().retourner(unMembreDTO);
         } catch(DAOException daoException) {
@@ -368,11 +368,11 @@ public class MembreService extends Service {
     }
 
     /**
-     * DÃ©sincrit un membre.
+     * Désincrit un membre.
      * 
-     * @param membreDTO Le membre Ã  dÃ©sinscrire
-     * @throws ServiceException Si le membre n'existe pas, si le membre a encore des prÃªts, s'il a des rÃ©servations ou s'il y a une erreur avec
-     *         la base de donnÃ©es
+     * @param membreDTO Le membre à désinscrire
+     * @throws ServiceException Si le membre n'existe pas, si le membre a encore des prêts, s'il a des réservations ou s'il y a une erreur avec
+     *         la base de données
      */
     public void desincrire(MembreDTO membreDTO) throws ServiceException {
         try {
@@ -387,14 +387,14 @@ public class MembreService extends Service {
                     + unMembreDTO.getNom()
                     + " (ID de membre : "
                     + unMembreDTO.getIdMembre()
-                    + ") a encore des prÃªts");
+                    + ") a encore des prêts");
             }
             if(!getReservationDAO().findByMembre(unMembreDTO).isEmpty()) {
                 throw new ServiceException("Le membre "
                     + unMembreDTO.getNom()
                     + " (ID de membre : "
                     + unMembreDTO.getIdMembre()
-                    + ") a des rÃ©servations");
+                    + ") a des réservations");
             }
             delete(unMembreDTO);
         } catch(DAOException daoException) {
