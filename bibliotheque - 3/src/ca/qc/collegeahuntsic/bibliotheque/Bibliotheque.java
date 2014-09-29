@@ -172,8 +172,9 @@ public class Bibliotheque {
 //				gestionBiblio.gestionMembre
 //						.desinscrire(readInt(tokenizer) /* idMembre */);
 //			} else if ("reserver".startsWith(command)) {
+//							Thread.sleep(1);  // Juste pour éviter deux timestamps de réservation strictement identiques
 //				gestionBiblio.gestionReservation
-//						.reserver(readInt(tokenizer) /* idReservation */,
+//						.reserver(readInt(tokenizer) /* idReservation */,		
 //								readInt(tokenizer) /* idLivre */,
 //								readInt(tokenizer) /* idMembre */,
 //								readDate(tokenizer) /* dateReservation */);
