@@ -1,5 +1,6 @@
 package ca.qc.collegeahuntsic.bibliotheque.dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,9 +40,9 @@ public class PretDAO extends DAO {
 	        + "WHERE idLivre = ? "
 	        + "ORDER BY datePret ASC";
 
-	    private static final String FIND_BY_MEMBRE_REQUEST = "SELECT idPret, idLivre, idMembre, datePret "
+	    private static final String FIND_BY_RETURN_DATE_REQUEST = "SELECT idPret, idLivre, idMembre, datePret "
 	        + "FROM pret "
-	        + "WHERE idMembre = ?";
+	        + "WHERE dateRetour = ?";
 
 	    /**
 	     * Créer un DAO à  partir d'une connexion à  la base de données.
@@ -215,14 +216,14 @@ public class PretDAO extends DAO {
 	     * @return La liste des réservations correspondantes ; une liste vide sinon
 	     * @throws DAOException S'il y a une erreur avec la base de données
 	     */
-	    public List<PretDTO> findByMembre(MembreDTO membreDTO) throws DAOException {
+	    public List<PretDTO> findByReturnDate(Date date) throws DAOException {
 	        List<PretDTO> prets = Collections.EMPTY_LIST;
 	        try(
-	            PreparedStatement findByMembrePreparedStatement = getConnection().prepareStatement(PretDAO.FIND_BY_MEMBRE_REQUEST)) {
-	            findByMembrePreparedStatement.setInt(1,
-	                membreDTO.getIdMembre());
+	            PreparedStatement findByreturnDatePreparedStatement = getConnection().prepareStatement(PretDAO.FIND_BY_RETURN_DATE_REQUEST)) {
+	            findByreturnDatePreparedStatement.setDate(1,
+	                date);
 	            try(
-	                ResultSet resultSet = findByMembrePreparedStatement.executeQuery()) {
+	                ResultSet resultSet = findByreturnDatePreparedStatement.executeQuery()) {
 	                PretDTO pretDTO = null;
 	                if(resultSet.next()) {
 	                    prets = new ArrayList<>();
