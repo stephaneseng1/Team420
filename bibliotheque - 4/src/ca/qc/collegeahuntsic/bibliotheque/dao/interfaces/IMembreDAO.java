@@ -10,6 +10,7 @@ import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionE
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidSortByPropertyException;
 
 public interface IMembreDAO extends IReservationDAO {
+    //Trouve les membres à partir d'un nom.
     List<MembreDTO> findByNom(Connexion connexion,
         String nom,
         String sortByPropertyName) throws InvalidHibernateSessionException,
