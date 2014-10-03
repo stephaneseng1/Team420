@@ -9,7 +9,7 @@ import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionExceptio
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidSortByPropertyException;
 
-public interface IMembreDAO extends IReservationDAO {
+public interface IMembreDAO extends IDAO {
     //Trouve les membres à partir d'un nom.
     List<MembreDTO> findByNom(Connexion connexion,
         String nom,

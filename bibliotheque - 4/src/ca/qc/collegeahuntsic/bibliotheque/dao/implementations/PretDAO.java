@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import ca.qc.collegeahuntsic.bibliotheque.dao.interfaces.IDAO;
+import ca.qc.collegeahuntsic.bibliotheque.dao.interfaces.IPretDAO;
 import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
 import ca.qc.collegeahuntsic.bibliotheque.dto.DTO;
 import ca.qc.collegeahuntsic.bibliotheque.dto.LivreDTO;
