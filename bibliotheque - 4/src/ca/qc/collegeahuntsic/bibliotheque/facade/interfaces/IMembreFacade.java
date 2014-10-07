@@ -15,7 +15,7 @@ import ca.qc.collegeahuntsic.bibliotheque.exception.facade.FacadeException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.ExistingLoanException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.ExistingReservationException;
 
-public interface IMembreFacade extends IReservationFacade {
+public interface IMembreFacade extends IFacade {
     void inscrire(Connexion connexion,
         MembreDTO membreDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,

@@ -17,12 +17,28 @@ import ca.qc.collegeahuntsic.bibliotheque.exception.service.ExistingLoanExceptio
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.ExistingReservationException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.InvalidLoanLimitException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.MissingLoanException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.service.ServiceException;
 import ca.qc.collegeahuntsic.bibliotheque.facade.interfaces.IPretFacade;
 import ca.qc.collegeahuntsic.bibliotheque.service.interfaces.IPretService;
 
 public class PretFacade extends Facade implements IPretFacade {
-
-    public PretFacade(IPretService pretService) throws InvalidServiceException {
+	
+	private IPretService pretService;
+	
+    public PretFacade(IPretService pretService) throws InvalidServiceException { // TODO: Change to package when switching to Spring
+        super();
+        if(pretService == null) {
+            throw new InvalidServiceException("Le service de prets ne peut être null");
+        }
+        setPretService(pretService);
+    }
+    
+    private IPretService getPretService() {
+        return this.pretService;
+    }
+    
+    private void setPretService(IPretService pretService) {
+        this.pretService = pretService;
     }
 
     @Override
@@ -38,7 +54,15 @@ public class PretFacade extends Facade implements IPretFacade {
         ExistingReservationException,
         InvalidDTOClassException,
         InvalidPrimaryKeyRequestException,
-        FacadeException;
+        FacadeException{
+    	
+        try {
+            getPretService().commencer(connexion,
+                pretDTO);
+        } catch(ServiceException serviceException) {
+            throw new FacadeException(serviceException);
+        }
+    }
 
     @Override
     public void renouveler(Connexion connexion,
@@ -52,7 +76,16 @@ public class PretFacade extends Facade implements IPretFacade {
         ExistingLoanException,
         ExistingReservationException,
         InvalidDTOClassException,
-        FacadeException;
+        FacadeException{
+    	
+        try {
+            getPretService().renouveler(connexion,
+                pretDTO);
+        } catch(ServiceException serviceException) {
+            throw new FacadeException(serviceException);
+        }
+    	
+    }
 
     @Override
     public void terminer(Connexion connexion,
@@ -65,6 +98,15 @@ public class PretFacade extends Facade implements IPretFacade {
         MissingLoanException,
         ExistingLoanException,
         InvalidDTOClassException,
-        FacadeException;
+        FacadeException{
+    	
+        try {
+            getPretService().terminer(connexion,
+                pretDTO);
+        } catch(ServiceException serviceException) {
+            throw new FacadeException(serviceException);
+        }
+    	
+    }
 
 }

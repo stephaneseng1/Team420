@@ -69,7 +69,12 @@ public class MembreFacade extends Facade implements IMembreFacade {
         MembreDTO membreDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidDTOClassException,
-        InvalidPrimaryKeyRequestException,
+        InvalidPrimaryKeyException,
+        MissingDTOException,
+        ExistingLoanException,
+        InvalidCriterionException,
+        InvalidSortByPropertyException,
+        ExistingReservationException,
         FacadeException {
         try {
             getMembreService().desinscrire(connexion,

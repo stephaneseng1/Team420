@@ -273,10 +273,6 @@ public class MembreService extends Service implements IMembreService {
  /**
   * {@inheritDoc}
   */
- 
- /**
-  * {@inheritDoc}
-  */
  @Override
  public MembreDTO get(Connexion connexion,
      String idMembre) throws InvalidHibernateSessionException,

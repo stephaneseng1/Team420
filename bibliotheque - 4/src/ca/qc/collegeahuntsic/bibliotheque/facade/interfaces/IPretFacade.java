@@ -17,7 +17,7 @@ import ca.qc.collegeahuntsic.bibliotheque.exception.service.ExistingReservationE
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.InvalidLoanLimitException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.MissingLoanException;
 
-public interface IPretFacade extends IReservationFacade {
+public interface IPretFacade extends IFacade {
     void commencer(Connexion connexion,
         PretDTO pretDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
