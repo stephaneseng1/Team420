@@ -24,6 +24,7 @@ import ca.qc.collegeahuntsic.bibliotheque.exception.dto.MissingDTOException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.ExistingLoanException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.ExistingReservationException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.InvalidDAOException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.service.InvalidLoanLimitException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.MissingLoanException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.ServiceException;
 import ca.qc.collegeahuntsic.bibliotheque.service.interfaces.IPretService;
@@ -308,14 +309,82 @@ public class PretService extends Service implements IPretService {
 	
 	//doesn't exist in DAO
 	public void commencer(Connexion connexion, PretDTO pretDTO)
-			throws InvalidHibernateSessionException, InvalidDTOException,
-			InvalidDTOClassException, InvalidPrimaryKeyRequestException,
-			ServiceException {
+			throws InvalidHibernateSessionException,
+            InvalidDTOException,
+            InvalidPrimaryKeyException,
+            MissingDTOException,
+            InvalidCriterionException,
+            InvalidSortByPropertyException,
+            ExistingLoanException,
+            InvalidLoanLimitException,
+            ExistingReservationException,
+            InvalidDTOClassException,
+            InvalidPrimaryKeyRequestException,
+            ServiceException {
         if(connexion == null) {
             throw new InvalidHibernateSessionException("La connexion ne peut être null");
         }
         if(pretDTO == null) {
             throw new InvalidDTOException("La pret ne peut être null");
+        }
+        
+        try{
+            MembreDTO unMembreDTO = (MembreDTO) getMembreDAO().get(connexion,
+                pretDTO.getMembreDTO().getIdMembre());
+            if(unMembreDTO == null) {
+                throw new MissingDTOException("Le membre "
+                    + pretDTO.getMembreDTO().getIdMembre()
+                    + " n'existe pas");
+            }
+            
+            LivreDTO unLivreDTO = (LivreDTO) getLivreDAO().get(connexion,
+                pretDTO.getLivreDTO().getIdLivre());
+            if(unLivreDTO == null) {
+                throw new MissingDTOException("Le livre "
+                    + pretDTO.getLivreDTO().getIdLivre()
+                    + " n'existe pas");
+            }
+            
+            List<PretDTO> prets = getPretDAO().findByLivre(connexion,
+                unLivreDTO.getIdLivre(),
+                PretDTO.DATE_PRET_COLUMN_NAME);
+            boolean aEteEmprunteParMembre = false;
+            for(PretDTO pretDTO1 : prets) {
+                aEteEmprunteParMembre = unMembreDTO.equals(pretDTO1.getMembreDTO());
+            }
+            if(aEteEmprunteParMembre) {
+                throw new ExistingLoanException("Le livre "
+                    + unLivreDTO.getTitre()
+                    + " (ID de livre : "
+                    + unLivreDTO.getIdLivre()
+                    + ") est déjà prêté à "
+                    + unMembreDTO.getNom()
+                    + " (ID de membre : "
+                    + unMembreDTO.getIdMembre()
+                    + ")");
+            }
+            
+/*            List<ReservationDTO> reservations = findByMembre(connexion,
+                unMembreDTO.getIdMembre(),
+                MembreDTO.ID_MEMBRE_COLUMN_NAME);
+            for(ReservationDTO uneAutreReservationDTO : reservations) {
+                if(unLivreDTO.equals(uneAutreReservationDTO.getLivreDTO())) {
+                    throw new ExistingReservationException("Le livre "
+                        + unLivreDTO.getTitre()
+                        + " (ID de livre : "
+                        + unLivreDTO.getIdLivre()
+                        + ") est déjà réservé pour quelqu'un d'autre");
+                }
+            }
+            */
+            
+            pretDTO.setDatePret(new Timestamp(System.currentTimeMillis()));
+            //pretDTO.setDateRetour(new Timestamp(System.currentTimeMillis()));
+            add(connexion,
+                    pretDTO);
+        	
+        }catch(DAOException daoException) {
+            throw new ServiceException(daoException);
         }
 	}
 	
