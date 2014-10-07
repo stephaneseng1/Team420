@@ -1,15 +1,88 @@
+
 package ca.qc.collegeahuntsic.bibliotheque;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Properties;
+import java.util.Scanner;
+import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
+import ca.qc.collegeahuntsic.bibliotheque.exception.db.ConnexionException;
+
 public class GestionBibliotheque {
+    static String url = null;
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		new GestionBibliotheque();
-		
-	}
-	public GestionBibliotheque(){}
+    static String user = null;
 
+    static String password = null;
+
+    static InputStream inStream = null;
+
+    static Connexion connexion = null;
+
+    static GestionBibliotheque gestionBibliotheque;
+
+    static Scanner scanner = new Scanner(new InputStreamReader(System.in));
+
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        gestionBibliotheque = new GestionBibliotheque();
+    }
+
+    public GestionBibliotheque() {
+        aide();
+    }
+
+    public void init() {
+        Properties config = new Properties();
+        String propFileName = "config.properties";
+        try {
+            inStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+            config.load(inStream);
+            url = config.getProperty("url");
+            user = config.getProperty("user");
+            password = config.getProperty("password");
+            inStream.close();
+        } catch(IOException e) {
+            System.err.println("ERROR: lecture du fichier.");
+            e.printStackTrace();
+        }
+        try {
+            connexion = new Connexion("distant",
+                url,
+                user,
+                password);
+        } catch(ConnexionException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void aide() {
+        System.out.println();
+        System.out.println("");
+        System.out.println("separes par des espaces. La liste peut etre vide.");
+        System.out.println(" Les dates sont en format yyyy-mm-dd.");
+        System.out.println("");
+        System.out.println("Les transactions sont :");
+        System.out.println("  aide");
+        System.out.println("  exit");
+        System.out.println("  acquerir <idLivre> <titre> <auteur> <dateAcquisition>");
+        System.out.println("  preter <idMembre> <idLivre>");
+        System.out.println("  renouveler <idLivre>");
+        System.out.println("  retourner <idLivre>");
+        System.out.println("  vendre <idLivre>");
+        System.out.println("  inscrire <idMembre> <nom> <telephone> <limitePret>");
+        System.out.println("  desinscrire <idMembre>");
+        System.out.println("  reserver <idReservation> <idMembre> <idLivre>");
+        System.out.println("  utiliser <idReservation>");
+        System.out.println("  annuler <idReservation>");
+    }
+
+    public void traiterFicher() {
+        //TODO
+        inStream = getClass().getClassLoader().getResourceAsStream("bibliotheque.dat");
+    }
 }
