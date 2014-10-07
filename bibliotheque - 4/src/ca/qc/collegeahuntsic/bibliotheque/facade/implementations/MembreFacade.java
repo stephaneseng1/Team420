@@ -15,6 +15,7 @@ import ca.qc.collegeahuntsic.bibliotheque.exception.facade.InvalidServiceExcepti
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.ExistingLoanException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.ExistingReservationException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.ServiceException;
+import ca.qc.collegeahuntsic.bibliotheque.facade.interfaces.IMembreFacade;
 import ca.qc.collegeahuntsic.bibliotheque.service.interfaces.IMembreService;
 
 /**

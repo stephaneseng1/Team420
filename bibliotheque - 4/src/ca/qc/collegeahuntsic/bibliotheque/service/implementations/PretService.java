@@ -310,6 +310,10 @@ public class PretService extends Service implements IPretService {
 			InvalidDTOClassException, InvalidPrimaryKeyRequestException,
 			ServiceException {
 		try {
+			//if livre pas deja empreunter
+			//if limitePret du membre <
+			//if deja reservé
+			//else
 			getPretDAO().commencer(connexion, pretDTO);
 		} catch (DAOException daoException) {
 			throw new ServiceException(daoException);
@@ -342,4 +346,5 @@ public class PretService extends Service implements IPretService {
 
 
 	//,  , , renouveler, terminer.
+//	get membre, get livre (+gestion error), si dja reserver,empreunter, limitPret
 }
