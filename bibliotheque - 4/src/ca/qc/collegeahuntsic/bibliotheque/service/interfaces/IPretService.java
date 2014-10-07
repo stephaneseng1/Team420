@@ -17,7 +17,7 @@ import ca.qc.collegeahuntsic.bibliotheque.exception.service.ExistingReservationE
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.InvalidLoanLimitException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.MissingLoanException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.ServiceException;
-import com.sun.jmx.snmp.Timestamp;
+import java.sql.Timestamp;
 
 public interface IPretService extends IService {
     void add(Connexion connexion,

@@ -8,10 +8,7 @@ import ca.qc.collegeahuntsic.bibliotheque.dao.interfaces.IMembreDAO;
 import ca.qc.collegeahuntsic.bibliotheque.dao.interfaces.IPretDAO;
 import ca.qc.collegeahuntsic.bibliotheque.dao.interfaces.IReservationDAO;
 import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
-import ca.qc.collegeahuntsic.bibliotheque.dto.LivreDTO;
-import ca.qc.collegeahuntsic.bibliotheque.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.dto.PretDTO;
-import ca.qc.collegeahuntsic.bibliotheque.dto.ReservationDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.DAOException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
@@ -24,10 +21,10 @@ import ca.qc.collegeahuntsic.bibliotheque.exception.dto.MissingDTOException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.ExistingLoanException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.ExistingReservationException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.InvalidDAOException;
-import ca.qc.collegeahuntsic.bibliotheque.exception.service.InvalidLoanLimitException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.MissingLoanException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.ServiceException;
-import ca.qc.collegeahuntsic.bibliotheque.service.interfaces.IReservationService;
+import ca.qc.collegeahuntsic.bibliotheque.service.interfaces.IPretService;
+import java.sql.Timestamp;
 
 public class PretService extends Service implements IPretService {
 	private IPretDAO pretDAO;
@@ -54,11 +51,11 @@ public class PretService extends Service implements IPretService {
 	 *             membre est <code>null</code>, si le DAO de livre est
 	 *             <code>null</code> ou si le DAO de prêt est <code>null</code>
 	 */
-	public PretService(
-			IPretDAO pretDAO, // TODO: Change to package when switching to
-								// Spring
-			IMembreDAO membreDAO, ILivreDAO livreDAO,
-			IReservationDAO reservationDAO) throws InvalidDAOException {
+	public PretService(// TODO: Change to package when switching to Spring
+		IPretDAO pretDAO, 			
+		IMembreDAO membreDAO, 
+		ILivreDAO livreDAO,
+		IReservationDAO reservationDAO) throws InvalidDAOException {
 		super();
 		if (reservationDAO == null) {
 			throw new InvalidDAOException(
@@ -77,7 +74,6 @@ public class PretService extends Service implements IPretService {
 		setReservationDAO(reservationDAO);
 		setMembreDAO(membreDAO);
 		setLivreDAO(livreDAO);
-
 	}
 
 	// Region Getters and Setters
@@ -261,7 +257,7 @@ public class PretService extends Service implements IPretService {
 			throws InvalidHibernateSessionException, InvalidCriterionException,
 			InvalidSortByPropertyException, ServiceException {
 		try {
-			return getReservationDAO().findByLivre(connexion, idLivre,
+			return getPretDAO().findByLivre(connexion, idLivre,
 					sortByPropertyName);
 		} catch (DAOException daoException) {
 			throw new ServiceException(daoException);
@@ -274,10 +270,12 @@ public class PretService extends Service implements IPretService {
 	@Override
 	public List<PretDTO> findByDatePret(Connexion connexion,
 			Timestamp datePret, String sortByPropertyName)
-			throws InvalidHibernateSessionException, InvalidCriterionException,
-			InvalidSortByPropertyException, ServiceException {
+			throws InvalidHibernateSessionException,
+            InvalidCriterionException,
+            InvalidSortByPropertyException,
+            ServiceException {
 		try {
-			return getReservationDAO().findByDatePret(connexion, datePret,
+			return getPretDAO().findByDatePret(connexion, datePret,
 					sortByPropertyName);
 		} catch (DAOException daoException) {
 			throw new ServiceException(daoException);
@@ -290,10 +288,12 @@ public class PretService extends Service implements IPretService {
 	@Override
 	public List<PretDTO> findByDateRetour(Connexion connexion,
 			Timestamp dateRetour, String sortByPropertyName)
-			throws InvalidHibernateSessionException, InvalidCriterionException,
-			InvalidSortByPropertyException, ServiceException {
+			throws InvalidHibernateSessionException,
+            InvalidCriterionException,
+            InvalidSortByPropertyException,
+            ServiceException {
 		try {
-			return getReservationDAO().findByDateRetour(connexion, dateRetour,
+			return getPretDAO().findByDateRetour(connexion, dateRetour,
 					sortByPropertyName);
 		} catch (DAOException daoException) {
 			throw new ServiceException(daoException);
@@ -321,9 +321,17 @@ public class PretService extends Service implements IPretService {
 	}
 	
 	public void renouveler(Connexion connexion, PretDTO pretDTO)
-			throws InvalidHibernateSessionException, InvalidDTOException,
-			InvalidDTOClassException, InvalidPrimaryKeyRequestException,
-			ServiceException {
+			throws InvalidHibernateSessionException,
+            InvalidDTOException,
+            InvalidPrimaryKeyException,
+            MissingDTOException,
+            InvalidCriterionException,
+            InvalidSortByPropertyException,
+            MissingLoanException,
+            ExistingLoanException,
+            ExistingReservationException,
+            InvalidDTOClassException,
+            ServiceException {
 		try {
 			getPretDAO().renouveler(connexion, pretDTO);
 		} catch (DAOException daoException) {
@@ -332,9 +340,16 @@ public class PretService extends Service implements IPretService {
 	}
 	
 	public void terminer(Connexion connexion, PretDTO pretDTO)
-			throws InvalidHibernateSessionException, InvalidDTOException,
-			InvalidDTOClassException, InvalidPrimaryKeyRequestException,
-			ServiceException {
+			throws InvalidHibernateSessionException,
+            InvalidDTOException,
+            InvalidPrimaryKeyException,
+            MissingDTOException,
+            InvalidCriterionException,
+            InvalidSortByPropertyException,
+            MissingLoanException,
+            ExistingLoanException,
+            InvalidDTOClassException,
+            ServiceException {
 		try {
 			getPretDAO().terminer(connexion, pretDTO);
 		} catch (DAOException daoException) {
