@@ -201,19 +201,29 @@ public class MembreService extends Service implements IMembreService {
  
  /**
   * {@inheritDoc}
+ * @throws InvalidPrimaryKeyException 
   */
  @Override
  public void desinscrire(Connexion connexion,
      MembreDTO membreDTO) throws InvalidHibernateSessionException,
      InvalidDTOException,
      InvalidDTOClassException,
+     InvalidPrimaryKeyException,
+     MissingDTOException,
+     ExistingLoanException,
+     InvalidCriterionException,
+     InvalidSortByPropertyException,
+     ExistingReservationException,
      ServiceException {
-     try {
-         getMembreDAO().desinscrire(connexion,
-             membreDTO);
-     } catch(DAOException daoException) {
-         throw new ServiceException(daoException);
+	 
+     if(connexion == null) {
+         throw new InvalidHibernateSessionException("La connexion ne peut être null");
      }
+     if(membreDTO == null) {
+         throw new InvalidDTOException("La membre ne peut être null");
+     }
+     delete(connexion,
+    		 membreDTO);
  }
 
  /**
@@ -224,13 +234,16 @@ public class MembreService extends Service implements IMembreService {
      MembreDTO membreDTO) throws InvalidHibernateSessionException,
      InvalidDTOException,
      InvalidDTOClassException,
+     InvalidPrimaryKeyRequestException,
      ServiceException {	
-     try {
-         getMembreDAO().inscrire(connexion,
-             membreDTO);
-     } catch(DAOException daoException) {
-         throw new ServiceException(daoException);
+     if(connexion == null) {
+         throw new InvalidHibernateSessionException("La connexion ne peut être null");
      }
+     if(membreDTO == null) {
+         throw new InvalidDTOException("La membre ne peut être null");
+     }
+     add(connexion,
+    		 membreDTO);
  }
 
 

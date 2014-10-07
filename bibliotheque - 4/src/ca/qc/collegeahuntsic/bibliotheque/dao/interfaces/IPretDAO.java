@@ -41,4 +41,6 @@ public interface IPretDAO extends IDAO {
         InvalidSortByPropertyException,
         DAOException;
 
+	//void commencer(Connexion connexion, PretDTO pretDTO);
+
 }

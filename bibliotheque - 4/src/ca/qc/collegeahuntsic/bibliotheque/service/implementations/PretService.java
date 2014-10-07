@@ -8,7 +8,10 @@ import ca.qc.collegeahuntsic.bibliotheque.dao.interfaces.IMembreDAO;
 import ca.qc.collegeahuntsic.bibliotheque.dao.interfaces.IPretDAO;
 import ca.qc.collegeahuntsic.bibliotheque.dao.interfaces.IReservationDAO;
 import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
+import ca.qc.collegeahuntsic.bibliotheque.dto.LivreDTO;
+import ca.qc.collegeahuntsic.bibliotheque.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.dto.PretDTO;
+import ca.qc.collegeahuntsic.bibliotheque.dto.ReservationDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.DAOException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
@@ -24,7 +27,6 @@ import ca.qc.collegeahuntsic.bibliotheque.exception.service.InvalidDAOException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.MissingLoanException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.ServiceException;
 import ca.qc.collegeahuntsic.bibliotheque.service.interfaces.IPretService;
-import java.sql.Timestamp;
 
 public class PretService extends Service implements IPretService {
 	private IPretDAO pretDAO;
@@ -309,15 +311,12 @@ public class PretService extends Service implements IPretService {
 			throws InvalidHibernateSessionException, InvalidDTOException,
 			InvalidDTOClassException, InvalidPrimaryKeyRequestException,
 			ServiceException {
-		try {
-			//if livre pas deja empreunter
-			//if limitePret du membre <
-			//if deja reservé
-			//else
-			getPretDAO().commencer(connexion, pretDTO);
-		} catch (DAOException daoException) {
-			throw new ServiceException(daoException);
-		}
+        if(connexion == null) {
+            throw new InvalidHibernateSessionException("La connexion ne peut être null");
+        }
+        if(pretDTO == null) {
+            throw new InvalidDTOException("La pret ne peut être null");
+        }
 	}
 	
 	public void renouveler(Connexion connexion, PretDTO pretDTO)
@@ -331,12 +330,13 @@ public class PretService extends Service implements IPretService {
             ExistingLoanException,
             ExistingReservationException,
             InvalidDTOClassException,
-            ServiceException {
-		try {
-			getPretDAO().renouveler(connexion, pretDTO);
-		} catch (DAOException daoException) {
-			throw new ServiceException(daoException);
-		}
+            ServiceException {		
+        if(connexion == null) {
+            throw new InvalidHibernateSessionException("La connexion ne peut être null");
+        }
+        if(pretDTO == null) {
+            throw new InvalidDTOException("La pret ne peut être null");
+        }
 	}
 	
 	public void terminer(Connexion connexion, PretDTO pretDTO)
@@ -350,11 +350,21 @@ public class PretService extends Service implements IPretService {
             ExistingLoanException,
             InvalidDTOClassException,
             ServiceException {
-		try {
-			getPretDAO().terminer(connexion, pretDTO);
-		} catch (DAOException daoException) {
-			throw new ServiceException(daoException);
-		}
+        if(connexion == null) {
+            throw new InvalidHibernateSessionException("La connexion ne peut être null");
+        }
+        if(pretDTO == null) {
+            throw new InvalidDTOException("Le pret ne peut être null");
+        }
+        PretDTO unPretDTO = get(connexion,
+            pretDTO.getIdPret());
+        if(unPretDTO == null) {
+            throw new MissingDTOException("Le pret "
+                + pretDTO.getIdPret()
+                + " n'existe pas");
+        }
+        delete(connexion,
+            unPretDTO);
 	}
 
 

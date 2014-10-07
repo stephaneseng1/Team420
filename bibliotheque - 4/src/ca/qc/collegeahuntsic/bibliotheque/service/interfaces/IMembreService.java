@@ -46,13 +46,6 @@ public interface IMembreService extends IService {
         InvalidSortByPropertyException,
         ServiceException;
 
-    List<MembreDTO> findByMembre(Connexion connexion,
-        String idMembre,
-        String sortByPropertyName) throws InvalidHibernateSessionException,
-        InvalidCriterionException,
-        InvalidSortByPropertyException,
-        ServiceException;
-
     List<MembreDTO> findByNom(Connexion connexion,
         String nom,
         String sortByPropertyName) throws InvalidHibernateSessionException,
