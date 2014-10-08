@@ -19,6 +19,8 @@ import ca.qc.collegeahuntsic.bibliotheque.dto.PretDTO;
 import ca.qc.collegeahuntsic.bibliotheque.dto.ReservationDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.BibliothequeException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.db.ConnexionException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOClassException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.service.InvalidDAOException;
 import ca.qc.collegeahuntsic.bibliotheque.service.implementations.LivreService;
 import ca.qc.collegeahuntsic.bibliotheque.service.implementations.MembreService;
 import ca.qc.collegeahuntsic.bibliotheque.service.implementations.PretService;
@@ -81,8 +83,9 @@ public class BibliothequeCreateur {
                 membreDAO,
                 livreDAO,
                 pretDAO));
-        } catch(ConnexionException connexionException) {
-            throw new BibliothequeException(connexionException);
+        } catch(ConnexionException | InvalidDTOClassException | InvalidDAOException e) {
+            throw new BibliothequeException(e);
+            
         }
     }
 
@@ -92,7 +95,7 @@ public class BibliothequeCreateur {
      *
      * @return La variable d'instance <code>this.connexion</code>
      */
-    private Connexion getConnexion() {
+    public Connexion getConnexion() {
         return this.connexion;
     }
 
