@@ -12,12 +12,22 @@ import java.util.StringTokenizer;
 
 import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
 import ca.qc.collegeahuntsic.bibliotheque.dto.LivreDTO;
+import ca.qc.collegeahuntsic.bibliotheque.dto.MembreDTO;
+import ca.qc.collegeahuntsic.bibliotheque.dto.PretDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.BibliothequeException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyRequestException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidSortByPropertyException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.db.ConnexionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOClassException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.dto.MissingDTOException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.service.ExistingLoanException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.service.ExistingReservationException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.service.InvalidLoanLimitException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.service.MissingLoanException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.service.ServiceException;
 import ca.qc.collegeahuntsic.bibliotheque.util.BibliothequeCreateur;
 
@@ -115,21 +125,39 @@ public class GestionBibliotheque {
 			String type = tokenizer.nextToken();
 			switch (type) {
 			case "acquerir":
-				LivreDTO livreDTO = new LivreDTO();
-				livreDTO.setIdLivre(tokenizer.nextToken());
-				livreDTO.setTitre(tokenizer.nextToken());
-				livreDTO.setAuteur(tokenizer.nextToken());
-				Date date= new java.util.Date();
+				LivreDTO l1 = new LivreDTO();
+				l1.setIdLivre(tokenizer.nextToken());
+				l1.setTitre(tokenizer.nextToken());
+				l1.setAuteur(tokenizer.nextToken());
+				Date date = new java.util.Date();
 				Timestamp currentStamp = new Timestamp(date.getTime());
-				livreDTO.setDateAcquisition(currentStamp);
-				bc.getLivreService().acquerir(bc.getConnexion(), livreDTO);
+				l1.setDateAcquisition(currentStamp);
+				bc.getLivreService().acquerir(bc.getConnexion(), l1);
 				bc.commit();
 				break;
 			case "vendre":
+				LivreDTO l2 = new LivreDTO();
+				l2.setIdLivre(tokenizer.nextToken());
+				bc.getLivreService().vendre(bc.getConnexion(), l2);
+				bc.commit();
 				break;
 			case "preter":
+				PretDTO p1 = new PretDTO();
+				MembreDTO m1= new MembreDTO();
+				LivreDTO l3 = new LivreDTO();
+				m1.setIdMembre(tokenizer.nextToken());
+				l3.setIdLivre(tokenizer.nextToken());
+				p1.setMembreDTO(m1);
+				p1.setLivreDTO(l3);
+				bc.getPretService().commencer(bc.getConnexion(), p1);
+				bc.getPretService().add(bc.getConnexion(), p1);
+				bc.commit();
 				break;
 			case "renouveler":
+				PretDTO p2 = new PretDTO();
+				LivreDTO l4 = new LivreDTO();
+				bc.getPretService().renouveler(bc.getConnexion(), p2);
+				bc.commit();
 				break;
 			case "retourner":
 				break;
@@ -148,7 +176,10 @@ public class GestionBibliotheque {
 			}
 		} catch (InvalidHibernateSessionException | InvalidDTOException
 				| InvalidDTOClassException | InvalidPrimaryKeyRequestException
-				| ServiceException | BibliothequeException e) {
+				| ServiceException | BibliothequeException
+				| InvalidPrimaryKeyException | MissingDTOException
+				| InvalidCriterionException | InvalidSortByPropertyException
+				| ExistingLoanException | ExistingReservationException | InvalidLoanLimitException | MissingLoanException e) {
 			try {
 				bc.rollback();
 			} catch (BibliothequeException e1) {
