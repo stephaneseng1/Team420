@@ -14,6 +14,7 @@ import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
 import ca.qc.collegeahuntsic.bibliotheque.dto.LivreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.dto.PretDTO;
+import ca.qc.collegeahuntsic.bibliotheque.dto.ReservationDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.BibliothequeException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
@@ -143,7 +144,7 @@ public class GestionBibliotheque {
 				break;
 			case "preter":
 				PretDTO p1 = new PretDTO();
-				MembreDTO m1= new MembreDTO();
+				MembreDTO m1 = new MembreDTO();
 				LivreDTO l3 = new LivreDTO();
 				m1.setIdMembre(tokenizer.nextToken());
 				l3.setIdLivre(tokenizer.nextToken());
@@ -156,20 +157,56 @@ public class GestionBibliotheque {
 			case "renouveler":
 				PretDTO p2 = new PretDTO();
 				LivreDTO l4 = new LivreDTO();
+				l4.setIdLivre(tokenizer.nextToken());
+				p2.setLivreDTO(l4);
 				bc.getPretService().renouveler(bc.getConnexion(), p2);
 				bc.commit();
 				break;
 			case "retourner":
+				PretDTO p3 = new PretDTO();
+				LivreDTO l5 = new LivreDTO();
+				l5.setIdLivre(tokenizer.nextToken());
+				p3.setLivreDTO(l5);
+				// TODO : ajouter retourner a IPretService et PretService
 				break;
 			case "inscrire":
+				MembreDTO m2 = new MembreDTO();
+				//m2.setIdMembre(tokenizer.nextToken());
+				m2.setNom(tokenizer.nextToken());
+				m2.setTelephone(tokenizer.nextToken());
+				m2.setLimitePret(tokenizer.nextToken());
+				bc.getMembreService().add(bc.getConnexion(), m2);
+				bc.commit();
 				break;
 			case "desinscrire":
+				MembreDTO m3 = new MembreDTO();
+				m3.setIdMembre(tokenizer.nextToken());
+				bc.getMembreService().desinscrire(bc.getConnexion(), m3);
+				bc.commit();
 				break;
 			case "reserver":
+				Thread.sleep(1);
+				ReservationDTO r1 = new ReservationDTO();
+				MembreDTO m4 = new MembreDTO();
+				LivreDTO l6 = new LivreDTO();
+				r1.setIdReservation(tokenizer.nextToken());
+				m4.setIdMembre(tokenizer.nextToken());
+				l6.setIdLivre(tokenizer.nextToken());
+				r1.setMembreDTO(m4);
+				r1.setLivreDTO(l6);
+				bc.getReservationService().add(bc.getConnexion(), r1);
+				bc.commit();
 				break;
 			case "utiliser":
+				ReservationDTO r2 = new ReservationDTO();
+                r2.setIdReservation(tokenizer.nextToken());
+                bc.getReservationService().add(bc.getConnexion(), r2);
+                bc.commit();
 				break;
 			case "annuler":
+				ReservationDTO r3 = new ReservationDTO();
+                r3.setIdReservation(tokenizer.nextToken());
+                bc.getReservationService().annuler(bc.getConnexion(), r3);
 				break;
 			default:
 				break;
@@ -179,13 +216,17 @@ public class GestionBibliotheque {
 				| ServiceException | BibliothequeException
 				| InvalidPrimaryKeyException | MissingDTOException
 				| InvalidCriterionException | InvalidSortByPropertyException
-				| ExistingLoanException | ExistingReservationException | InvalidLoanLimitException | MissingLoanException e) {
+				| ExistingLoanException | ExistingReservationException
+				| InvalidLoanLimitException | MissingLoanException e) {
 			try {
 				bc.rollback();
 			} catch (BibliothequeException e1) {
 				System.out.println(e1.getMessage());
 			}
 			System.out.println(e.getMessage());
+		} catch (InterruptedException e) {
+			// au cas ou ya un problem avec le thread.sleep
+			e.printStackTrace();
 		}
 	}
 }
