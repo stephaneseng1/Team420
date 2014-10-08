@@ -1,12 +1,16 @@
 
 package ca.qc.collegeahuntsic.bibliotheque;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
 import java.util.Scanner;
+import java.util.StringTokenizer;
+
 import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
+import ca.qc.collegeahuntsic.bibliotheque.exception.BibliothequeException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.db.ConnexionException;
 
 public class GestionBibliotheque {
@@ -83,6 +87,38 @@ public class GestionBibliotheque {
 
     public void traiterFicher() {
         //TODO
-        inStream = getClass().getClassLoader().getResourceAsStream("bibliotheque.dat");
+    	try{
+    		inStream = getClass().getClassLoader().getResourceAsStream("bibliotheque.dat");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inStream));
+    		String ligne;
+			while ((ligne = reader.readLine()) != null) {
+				executerTransaction(ligne);
+    		}
+    	}
+    	catch(IOException e){
+    		e.printStackTrace();
+    	}
+    }
+    public void executerTransaction(String transaction){
+    	try{
+    		StringTokenizer tokenizer = new StringTokenizer(transaction," ");
+    		String type = tokenizer.nextToken();
+    		switch(type){
+    		case "acquerir":break;
+    		case "vendre":break;
+    		case "preter":break;
+    		case "renouveler":break;
+    		case "retourner":break;
+    		case "inscrire":break;
+    		case "desinscrire":break;
+    		case "reserver":break;
+    		case "utiliser":break;
+    		case "annuler":break;
+    		default:break;
+    		}
+    	}
+    	catch(BibliothequeException e){
+    		System.out.println();
+    	}
     }
 }
