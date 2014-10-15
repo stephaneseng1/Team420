@@ -5,9 +5,13 @@
 package ca.qc.collegeahuntsic.bibliotheque.service.interfaces;
 
 import java.util.List;
+
+import org.hibernate.Session;
+
 import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
 import ca.qc.collegeahuntsic.bibliotheque.dto.LivreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionValueException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyRequestException;
@@ -34,14 +38,12 @@ public interface ILivreService extends IService {
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
      * @throws InvalidDTOException Si le livre est <code>null</code>
      * @throws InvalidDTOClassException Si la classe du livre n'est pas celle que prend en charge le DAO
-     * @throws InvalidPrimaryKeyRequestException Si la requête de la clef primaire du livre est <code>null</code>
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
-    void add(Connexion connexion,
+    void addLivre(Session session,
         LivreDTO livreDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidDTOClassException,
-        InvalidPrimaryKeyRequestException,
         ServiceException;
 
     /**
@@ -51,10 +53,9 @@ public interface ILivreService extends IService {
      * @param idLivre L'ID du livre à lire
      * @return Le livre
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
-     * @throws InvalidPrimaryKeyException Si la clef primaire du livre est <code>null</code>
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
-    LivreDTO get(Connexion connexion,
+    LivreDTO getLivre(Session session,
         String idLivre) throws InvalidHibernateSessionException,
         InvalidPrimaryKeyException,
         ServiceException;
@@ -69,7 +70,7 @@ public interface ILivreService extends IService {
      * @throws InvalidDTOClassException Si la classe du livre n'est pas celle que prend en charge le DAO
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
-    void update(Connexion connexion,
+    void updateLivre(Session session,
         LivreDTO livreDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidDTOClassException,
@@ -85,7 +86,7 @@ public interface ILivreService extends IService {
      * @throws InvalidDTOClassException Si la classe du livre n'est pas celle que prend en charge le DAO
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
-    void delete(Connexion connexion,
+    void deleteLivre(Session session,
         LivreDTO livreDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidDTOClassException,
@@ -102,7 +103,7 @@ public interface ILivreService extends IService {
      * @throws InvalidSortByPropertyException Si la propriété à utiliser pour classer est <code>null</code>
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
-    List<LivreDTO> getAll(Connexion connexion,
+    List<LivreDTO> getAllLivre(Session session,
         String sortByPropertyName) throws InvalidHibernateSessionException,
         InvalidSortByPropertyException,
         ServiceException;
@@ -120,10 +121,11 @@ public interface ILivreService extends IService {
      * @throws InvalidSortByPropertyException Si la propriété à utiliser pour classer est <code>null</code>
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
-    List<LivreDTO> findByTitre(Connexion connexion,
+    List<LivreDTO> findLivreByTitre(Session session,
         String titre,
         String sortByPropertyName) throws InvalidHibernateSessionException,
         InvalidCriterionException,
+        InvalidCriterionValueException,
         InvalidSortByPropertyException,
         ServiceException;
 
@@ -138,7 +140,7 @@ public interface ILivreService extends IService {
      * @throws InvalidPrimaryKeyRequestException Si la requête de la clef primaire du livre est <code>null</code>
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
-    void acquerir(Connexion connexion,
+    void acquerir(Session session,
         LivreDTO livreDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidDTOClassException,
@@ -153,7 +155,6 @@ public interface ILivreService extends IService {
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
      * @throws InvalidDTOException Si le livre est <code>null</code>
      * @throws InvalidDTOClassException Si la classe du livre n'est pas celle que prend en charge le DAO
-     * @throws InvalidPrimaryKeyException Si la clef primaire du livre est <code>null</code>
      * @throws MissingDTOException Si le livre n'existe pas
      * @throws InvalidCriterionException Si l'ID du membre est <code>null</code>
      * @throws InvalidSortByPropertyException Si la propriété à utiliser pour classer est <code>null</code>
@@ -161,14 +162,14 @@ public interface ILivreService extends IService {
      * @throws ExistingReservationException Si le livre a été réservé
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
-    void vendre(Connexion connexion,
+    void vendre(Session session,
         LivreDTO livreDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidDTOClassException,
-        InvalidPrimaryKeyException,
         MissingDTOException,
         InvalidCriterionException,
         InvalidSortByPropertyException,
+        InvalidPrimaryKeyException,
         ExistingLoanException,
         ExistingReservationException,
         ServiceException;
