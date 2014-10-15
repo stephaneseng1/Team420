@@ -4,30 +4,18 @@
 
 package ca.qc.collegeahuntsic.bibliotheque.dao.implementations;
 
-import java.io.Serializable;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.hibernate.Session;
 
 import ca.qc.collegeahuntsic.bibliotheque.dao.interfaces.IMembreDAO;
-import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
-import ca.qc.collegeahuntsic.bibliotheque.dto.DTO;
-import ca.qc.collegeahuntsic.bibliotheque.dto.LivreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.DAOException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionValueException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
-import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyException;
-import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyRequestException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidSortByPropertyException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOClassException;
-import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOException;
 
 /**
  * DAO pour effectuer des CRUDs avec la table <code>membre</code>.
