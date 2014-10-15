@@ -8,13 +8,11 @@ import java.util.List;
 
 import org.hibernate.Session;
 
-import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
 import ca.qc.collegeahuntsic.bibliotheque.dto.LivreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionValueException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyException;
-import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyRequestException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidSortByPropertyException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOClassException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOException;
@@ -144,7 +142,6 @@ public interface ILivreService extends IService {
         LivreDTO livreDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidDTOClassException,
-        InvalidPrimaryKeyRequestException,
         ServiceException;
 
     /**

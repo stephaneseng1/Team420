@@ -23,7 +23,6 @@ import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionExceptio
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionValueException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyException;
-import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyRequestException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidSortByPropertyException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOClassException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOException;
@@ -201,7 +200,6 @@ public class LivreService extends Service implements ILivreService {
         LivreDTO livreDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidDTOClassException,
-        InvalidPrimaryKeyRequestException,
         ServiceException {
         addLivre(session,
             livreDTO);
