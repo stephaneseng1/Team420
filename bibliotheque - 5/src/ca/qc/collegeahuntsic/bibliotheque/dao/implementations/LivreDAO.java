@@ -63,23 +63,6 @@ public class LivreDAO extends DAO implements ILivreDAO {
     public LivreDAO(Class<LivreDTO> livreDTOClass) throws InvalidDTOClassException { // TODO: Change to package when switching to Spring
         super(livreDTOClass);
     }
-
-    /**
-     * Crée une nouvelle clef primaire pour la table <code>livre</code>.
-     * 
-     * @param connexion La connexion à utiliser
-     * @return La nouvelle clef primaire
-     * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
-     * @throws InvalidPrimaryKeyRequestException Si la requête de la clef primaire du livre est <code>null</code>
-     * @throws DAOException S'il y a une erreur avec la base de données
-     */
-    private static String getPrimaryKey(Connexion connexion) throws InvalidHibernateSessionException,
-        InvalidPrimaryKeyRequestException,
-        DAOException {
-        return DAO.getPrimaryKey(connexion,
-            LivreDAO.CREATE_PRIMARY_KEY);
-    }
-
     /**
      * {@inheritDoc}
      */
