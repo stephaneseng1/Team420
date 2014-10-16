@@ -4,6 +4,8 @@
 
 package ca.qc.collegeahuntsic.bibliotheque.util;
 
+import org.hibernate.Session;
+
 import ca.qc.collegeahuntsic.bibliotheque.dao.implementations.LivreDAO;
 import ca.qc.collegeahuntsic.bibliotheque.dao.implementations.MembreDAO;
 import ca.qc.collegeahuntsic.bibliotheque.dao.implementations.PretDAO;
@@ -64,7 +66,7 @@ public class BibliothequeCreateur {
      * @param motPasse Mot de passe sur le serveur SQL
      * @throws BibliothequeException S'il y a une erreur
      */
-    @SuppressWarnings("resource")
+  
     public BibliothequeCreateur(String typeServeur,
         String schema,
         String nomUtilisateur,
@@ -113,8 +115,8 @@ public class BibliothequeCreateur {
      *
      * @return La variable d'instance <code>this.connexion</code>
      */
-    public Connexion getConnexion() {
-        return this.connexion;
+    public Session getConnexion() {
+        return (Session) this.connexion;
     }
 
     /**
