@@ -27,12 +27,12 @@ public interface IPretDAO extends IDAO {
      * Trouve les prêts non retournés d'un membre. La liste est classée par ordre croissant sur <code>sortByPropertyName</code>. Si aucun prêt
      * n'est trouvé, une {@link List} vide est retournée.
      * 
-     * @param connexion La connexion à utiliser
+     * @param session La session à utiliser
      * @param idMembre L'ID du membre à trouver
      * @param sortByPropertyName The nom de la propriété à utiliser pour classer
      * @return La liste des prêts correspondants ; une liste vide sinon
-     * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
-     * @throws InvalidCriterionException Si l'ID du membre est <code>null</code>
+     * @throws InvalidHibernateSessionException Si la session est <code>null</code>
+     * @throws InvalidCriterionException Si l'ID du membre recherché est <code>null</code>
      * @throws InvalidSortByPropertyException Si la propriété à utiliser pour classer est <code>null</code>
      * @throws DAOException S'il y a une erreur avec la base de données
      * @throws InvalidCriterionValueException 
@@ -48,12 +48,12 @@ public interface IPretDAO extends IDAO {
      * Trouve les livres en cours d'emprunt. La liste est classée par ordre croissant sur <code>sortByPropertyName</code>. Si aucun prêt n'est
      * trouvé, une {@link List} vide est retournée.
      * 
-     * @param connexion La connexion à utiliser
+     * @param session La session à utiliser
      * @param idLivre L'ID du livre à trouver
      * @param sortByPropertyName The nom de la propriété à utiliser pour classer
      * @return La liste des prêts correspondants ; une liste vide sinon
-     * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
-     * @throws InvalidCriterionException Si l'ID du livre est <code>null</code>
+     * @throws InvalidHibernateSessionException Si la session est <code>null</code>
+     * @throws InvalidCriterionException Si l'ID du livre recherché est <code>null</code>
      * @throws InvalidSortByPropertyException Si la propriété à utiliser pour classer est <code>null</code>
      * @throws DAOException S'il y a une erreur avec la base de données
      * @throws InvalidCriterionValueException 
@@ -69,12 +69,12 @@ public interface IPretDAO extends IDAO {
      * Trouve les prêts à partir d'une date de prêt. La liste est classée par ordre croissant sur <code>sortByPropertyName</code>. Si aucun prêt
      * n'est trouvé, une {@link List} vide est retournée.
      * 
-     * @param connexion La connexion à utiliser
+     * @param session La session à utiliser
      * @param datePret La date de prêt à trouver
      * @param sortByPropertyName The nom de la propriété à utiliser pour classer
      * @return La liste des prêts correspondants ; une liste vide sinon
-     * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
-     * @throws InvalidCriterionException Si la date de prêt est <code>null</code>
+     * @throws InvalidHibernateSessionException Si la session est <code>null</code>
+     * @throws InvalidCriterionException Si la date de prêt recherché est <code>null</code>
      * @throws InvalidSortByPropertyException Si la propriété à utiliser pour classer est <code>null</code>
      * @throws DAOException S'il y a une erreur avec la base de données
      * @throws InvalidCriterionValueException 
@@ -90,12 +90,12 @@ public interface IPretDAO extends IDAO {
      * Trouve les prêts à partir d'une date de retour. La liste est classée par ordre croissant sur <code>sortByPropertyName</code>. Si aucun
      * prêt n'est trouvé, une {@link List} vide est retournée.
      * 
-     * @param connexion La connexion à utiliser
+     * @param session La session à utiliser
      * @param dateRetour La date de retour à trouver
      * @param sortByPropertyName The nom de la propriété à utiliser pour classer
      * @return La liste des prêts correspondants ; une liste vide sinon
-     * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
-     * @throws InvalidCriterionException Si la date de retour est <code>null</code>
+     * @throws InvalidHibernateSessionException Si la session est <code>null</code>
+     * @throws InvalidCriterionException Si la date de retour recherché est <code>null</code>
      * @throws InvalidSortByPropertyException Si la propriété à utiliser pour classer est <code>null</code>
      * @throws DAOException S'il y a une erreur avec la base de données
      * @throws InvalidCriterionValueException 

@@ -50,9 +50,9 @@ public class PretDAO extends DAO implements IPretDAO {
     /**
      * Crée une nouvelle clef primaire pour la table <code>pret</code>.
      * 
-     * @param connexion La connexion à utiliser
+     * @param session La session à utiliser
      * @return La nouvelle clef primaire
-     * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
+     * @throws InvalidHibernateSessionException Si la session est <code>null</code>
      * @throws InvalidPrimaryKeyRequestException Si la requête de la clef primaire du livre est <code>null</code>
      * @throws DAOException S'il y a une erreur avec la base de données
      */
