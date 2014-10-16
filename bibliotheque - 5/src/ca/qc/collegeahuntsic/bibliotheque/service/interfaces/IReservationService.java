@@ -230,11 +230,11 @@ public interface IReservationService extends IService {
      * @throws InvalidDTOClassException Si la classe de la réservation n'est pas celle que prend en charge le DAO
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
-    void annuler(Session session,
-        ReservationDTO reservationDTO) throws InvalidHibernateSessionException,
-        InvalidDTOException,
-        InvalidPrimaryKeyException,
-        MissingDTOException,
-        InvalidDTOClassException,
-        ServiceException;
+    
+		void annuler(Session session, ReservationDTO reservationDTO)throws InvalidHibernateSessionException,
+	    InvalidDTOException,
+	    InvalidPrimaryKeyException,
+	    MissingDTOException,
+	    InvalidDTOClassException,
+	    ServiceException;
 }

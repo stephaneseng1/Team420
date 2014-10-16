@@ -4,12 +4,14 @@
 
 package ca.qc.collegeahuntsic.bibliotheque.facade.interfaces;
 
+import org.hibernate.Session;
+
 import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
 import ca.qc.collegeahuntsic.bibliotheque.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionValueException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyException;
-import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyRequestException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidSortByPropertyException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOClassException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOException;
@@ -35,11 +37,10 @@ public interface IMembreFacade extends IFacade {
      * @throws InvalidPrimaryKeyRequestException Si la requête de la clef primaire du membre est <code>null</code>
      * @throws FacadeException S'il y a une erreur avec la base de données
      */
-    void inscrire(Connexion connexion,
+    void inscrire(Session session,
         MembreDTO membreDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidDTOClassException,
-        InvalidPrimaryKeyRequestException,
         FacadeException;
 
     /**
@@ -57,8 +58,9 @@ public interface IMembreFacade extends IFacade {
      * @throws InvalidSortByPropertyException Si la propriété à utiliser pour classer est <code>null</code>
      * @throws ExistingReservationException Si le membre a des réservations
      * @throws FacadeException S'il y a une erreur avec la base de données
+     * @throws InvalidCriterionValueException
      */
-    void desinscrire(Connexion connexion,
+    void desinscrire(Session session,
         MembreDTO membreDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidDTOClassException,
@@ -68,5 +70,6 @@ public interface IMembreFacade extends IFacade {
         InvalidCriterionException,
         InvalidSortByPropertyException,
         ExistingReservationException,
-        FacadeException;
+        FacadeException,
+        InvalidCriterionValueException;
 }

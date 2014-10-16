@@ -4,12 +4,13 @@
 
 package ca.qc.collegeahuntsic.bibliotheque.facade.implementations;
 
-import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
+import org.hibernate.Session;
+
 import ca.qc.collegeahuntsic.bibliotheque.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionValueException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyException;
-import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyRequestException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidSortByPropertyException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOClassException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOException;
@@ -69,14 +70,13 @@ public class MembreFacade extends Facade implements IMembreFacade {
      * {@inheritDoc}
      */
     @Override
-    public void inscrire(Connexion connexion,
+    public void inscrire(Session session,
         MembreDTO membreDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidDTOClassException,
-        InvalidPrimaryKeyRequestException,
         FacadeException {
         try {
-            getMembreService().inscrire(connexion,
+            getMembreService().inscrire(session,
                 membreDTO);
         } catch(ServiceException serviceException) {
             throw new FacadeException(serviceException);
@@ -85,9 +85,10 @@ public class MembreFacade extends Facade implements IMembreFacade {
 
     /**
      * {@inheritDoc}
+     * @throws InvalidCriterionValueException 
      */
     @Override
-    public void desinscrire(Connexion connexion,
+    public void desinscrire(Session session,
         MembreDTO membreDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidDTOClassException,
@@ -97,9 +98,9 @@ public class MembreFacade extends Facade implements IMembreFacade {
         InvalidCriterionException,
         InvalidSortByPropertyException,
         ExistingReservationException,
-        FacadeException {
+        FacadeException, InvalidCriterionValueException {
         try {
-            getMembreService().desinscrire(connexion,
+            getMembreService().desinscrire(session,
                 membreDTO);
         } catch(ServiceException serviceException) {
             throw new FacadeException(serviceException);

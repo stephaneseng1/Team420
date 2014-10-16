@@ -37,9 +37,8 @@ public interface IPretDAO extends IDAO {
      * @throws DAOException S'il y a une erreur avec la base de données
      * @throws InvalidCriterionValueException 
      */
-    List<PretDTO> findByMembre(Session session,
-        String idMembre,
-        String sortByPropertyName) throws InvalidHibernateSessionException,
+	List<PretDTO> findByMembre(Session session, String idMembre,
+			String sortByPropertyName) throws InvalidHibernateSessionException,
         InvalidCriterionException,
         InvalidSortByPropertyException,
         DAOException, InvalidCriterionValueException;
@@ -106,4 +105,6 @@ public interface IPretDAO extends IDAO {
         InvalidCriterionException,
         InvalidSortByPropertyException,
         DAOException, InvalidCriterionValueException;
+
+
 }

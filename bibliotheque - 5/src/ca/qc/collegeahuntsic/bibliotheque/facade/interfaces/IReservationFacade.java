@@ -4,12 +4,13 @@
 
 package ca.qc.collegeahuntsic.bibliotheque.facade.interfaces;
 
-import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
+import org.hibernate.Session;
+
 import ca.qc.collegeahuntsic.bibliotheque.dto.ReservationDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionValueException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyException;
-import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyRequestException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidSortByPropertyException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOClassException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOException;
@@ -29,7 +30,7 @@ public interface IReservationFacade extends IFacade {
     /**
      * Place une réservation.
      * 
-     * @param connexion La connexion à utiliser
+     * @param session La session à utiliser
      * @param reservationDTO La réservation à placer
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
      * @throws InvalidDTOException Si la réservation est <code>null</code>
@@ -44,8 +45,9 @@ public interface IReservationFacade extends IFacade {
      * @throws InvalidDTOClassException Si la classe de la réservation n'est pas celle que prend en charge le DAO
      * @throws InvalidPrimaryKeyRequestException Si la requête de la clef primaire de la réservation est <code>null</code>
      * @throws FacadeException S'il y a une erreur avec la base de données
+     * @throws InvalidCriterionValueException
      */
-    void placer(Connexion connexion,
+    void placer(Session session,
         ReservationDTO reservationDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidPrimaryKeyException,
@@ -56,13 +58,13 @@ public interface IReservationFacade extends IFacade {
         ExistingLoanException,
         ExistingReservationException,
         InvalidDTOClassException,
-        InvalidPrimaryKeyRequestException,
-        FacadeException;
+        FacadeException,
+        InvalidCriterionValueException;
 
     /**
      * Utilise une réservation.
      * 
-     * @param connexion La connexion à utiliser
+     * @param session La session à utiliser
      * @param reservationDTO La réservation à utiliser
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
      * @throws InvalidDTOException Si la réservation est <code>null</code>
@@ -78,8 +80,9 @@ public interface IReservationFacade extends IFacade {
      *         celle que prend en charge le DAO
      * @throws InvalidPrimaryKeyRequestException Si la requête de la clef primaire du prêt est <code>null</code>
      * @throws FacadeException S'il y a une erreur avec la base de données
+     * @throws InvalidCriterionValueException
      */
-    void utiliser(Connexion connexion,
+    void utiliser(Session session,
         ReservationDTO reservationDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidPrimaryKeyException,
@@ -90,13 +93,13 @@ public interface IReservationFacade extends IFacade {
         ExistingLoanException,
         InvalidLoanLimitException,
         InvalidDTOClassException,
-        InvalidPrimaryKeyRequestException,
-        FacadeException;
+        FacadeException,
+        InvalidCriterionValueException;
 
     /**
      * Annule une réservation.
      * 
-     * @param connexion La connexion à utiliser
+     * @param session La session à utiliser
      * @param reservationDTO Le reservation à annuler
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
      * @throws InvalidDTOException Si la réservation est <code>null</code>
@@ -106,7 +109,7 @@ public interface IReservationFacade extends IFacade {
      * @throws FacadeException Si la connexion est <code>null</code>, si la réservation est <code>null</code>, si la réservation n'existe pas
      *         ou s'il y a une erreur avec la base de données
      */
-    void annuler(Connexion connexion,
+    void annuler(Session session,
         ReservationDTO reservationDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidPrimaryKeyException,

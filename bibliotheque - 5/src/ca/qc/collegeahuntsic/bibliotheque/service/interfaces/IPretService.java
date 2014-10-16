@@ -6,12 +6,15 @@ package ca.qc.collegeahuntsic.bibliotheque.service.interfaces;
 
 import java.sql.Timestamp;
 import java.util.List;
+
+import org.hibernate.Session;
+
 import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
 import ca.qc.collegeahuntsic.bibliotheque.dto.PretDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionValueException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyException;
-import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyRequestException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidSortByPropertyException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOClassException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOException;
@@ -39,13 +42,12 @@ public interface IPretService extends IService {
      * @throws InvalidPrimaryKeyRequestException Si la requête de la clef primaire du prêt est <code>null</code>
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
-    void add(Connexion connexion,
+    void addPret(Session session,
         PretDTO pretDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidDTOClassException,
-        InvalidPrimaryKeyRequestException,
         ServiceException;
-
+    
     /**
      * Lit un prêt à partir de la base de données.
      * 
@@ -56,10 +58,9 @@ public interface IPretService extends IService {
      * @throws InvalidPrimaryKeyException Si la clef primaire du prêt est <code>null</code>
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
-    PretDTO get(Connexion connexion,
+    PretDTO getPret(Session session,
         String idPret) throws InvalidHibernateSessionException,
-        InvalidPrimaryKeyException,
-        ServiceException;
+        ServiceException, InvalidPrimaryKeyException;
 
     /**
      * Met à jour un prêt dans la base de données.
@@ -71,7 +72,7 @@ public interface IPretService extends IService {
      * @throws InvalidDTOClassException Si la classe du prêt n'est pas celle que prend en charge le DAO
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
-    void update(Connexion connexion,
+    void updatePret(Session session,
         PretDTO pretDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidDTOClassException,
@@ -87,7 +88,7 @@ public interface IPretService extends IService {
      * @throws InvalidDTOClassException Si la classe du prêt n'est pas celle que prend en charge le DAO
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
-    void delete(Connexion connexion,
+    void deletePret(Session session,
         PretDTO pretDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidDTOClassException,
@@ -104,7 +105,7 @@ public interface IPretService extends IService {
      * @throws InvalidSortByPropertyException Si la propriété à utiliser pour classer est <code>null</code>
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
-    List<PretDTO> getAll(Connexion connexion,
+    List<PretDTO> getAllPrets(Session session,
         String sortByPropertyName) throws InvalidHibernateSessionException,
         InvalidSortByPropertyException,
         ServiceException;
@@ -121,13 +122,14 @@ public interface IPretService extends IService {
      * @throws InvalidCriterionException Si l'ID du membre est <code>null</code>
      * @throws InvalidSortByPropertyException Si la propriété à utiliser pour classer est <code>null</code>
      * @throws ServiceException S'il y a une erreur avec la base de données
+     * @throws InvalidCriterionValueException
      */
-    List<PretDTO> findByMembre(Connexion connexion,
+    List<PretDTO> findByMembre(Session session,
         String idMembre,
         String sortByPropertyName) throws InvalidHibernateSessionException,
         InvalidCriterionException,
         InvalidSortByPropertyException,
-        ServiceException;
+        ServiceException, InvalidCriterionValueException;
 
     /**
      * Trouve les prêts à partir d'un livre. La liste est classée par ordre croissant sur <code>sortByPropertyName</code>. Si aucun prêt n'est
@@ -141,12 +143,14 @@ public interface IPretService extends IService {
      * @throws InvalidCriterionException Si l'ID du livre est <code>null</code>
      * @throws InvalidSortByPropertyException Si la propriété à utiliser pour classer est <code>null</code>
      * @throws ServiceException S'il y a une erreur avec la base de données
+     * @throws InvalidCriterionValueException 
      */
-    List<PretDTO> findByLivre(Connexion connexion,
+    List<PretDTO> findByLivre(Session session,
         String idLivre,
         String sortByPropertyName) throws InvalidHibernateSessionException,
         InvalidCriterionException,
         InvalidSortByPropertyException,
+        InvalidCriterionValueException,
         ServiceException;
 
     /**
@@ -161,11 +165,13 @@ public interface IPretService extends IService {
      * @throws InvalidCriterionException Si la date de prêt est <code>null</code>
      * @throws InvalidSortByPropertyException Si la propriété à utiliser pour classer est <code>null</code>
      * @throws ServiceException S'il y a une erreur avec la base de données
+     * @throws InvalidCriterionValueException 
      */
-    List<PretDTO> findByDatePret(Connexion connexion,
+    List<PretDTO> findByDatePret(Session session,
         Timestamp datePret,
         String sortByPropertyName) throws InvalidHibernateSessionException,
         InvalidCriterionException,
+        InvalidCriterionValueException,
         InvalidSortByPropertyException,
         ServiceException;
 
@@ -181,13 +187,14 @@ public interface IPretService extends IService {
      * @throws InvalidCriterionException Si la date de retour est <code>null</code>
      * @throws InvalidSortByPropertyException Si la propriété à utiliser pour classer est <code>null</code>
      * @throws ServiceException S'il y a une erreur avec la base de données
+     * @throws InvalidCriterionValueException 
      */
-    List<PretDTO> findByDateRetour(Connexion connexion,
+    List<PretDTO> findByDateRetour(Session session,
         Timestamp dateRetour,
         String sortByPropertyName) throws InvalidHibernateSessionException,
         InvalidCriterionException,
         InvalidSortByPropertyException,
-        ServiceException;
+        ServiceException, InvalidCriterionValueException;
 
     /**
      * Commence un prêt.
@@ -208,7 +215,7 @@ public interface IPretService extends IService {
      * @throws InvalidPrimaryKeyRequestException Si la requête de la clef primaire du membre est <code>null</code>
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
-    void commencer(Connexion connexion,
+    void commencer(Session session,
         PretDTO pretDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidPrimaryKeyException,
@@ -219,9 +226,8 @@ public interface IPretService extends IService {
         InvalidLoanLimitException,
         ExistingReservationException,
         InvalidDTOClassException,
-        InvalidPrimaryKeyRequestException,
         ServiceException;
-
+    
     /**
      * Renouvelle le prêt d'un livre.
      * 
@@ -240,7 +246,7 @@ public interface IPretService extends IService {
      * @throws InvalidDTOClassException Si la classe du prêt n'est pas celle que prend en charge le DAO
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
-    void renouveler(Connexion connexion,
+    void renouveler(Session session,
         PretDTO pretDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidPrimaryKeyException,
@@ -271,7 +277,7 @@ public interface IPretService extends IService {
      *         celle que prend en charge le DAO
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
-    void terminer(Connexion connexion,
+    void terminer(Session session,
         PretDTO pretDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidPrimaryKeyException,
