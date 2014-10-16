@@ -5,11 +5,16 @@
 package ca.qc.collegeahuntsic.bibliotheque.dao.implementations;
 
 import java.util.List;
+
+import org.hibernate.Session;
+
 import ca.qc.collegeahuntsic.bibliotheque.dao.interfaces.IReservationDAO;
-import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
+import ca.qc.collegeahuntsic.bibliotheque.dto.MembreDTO;
+import ca.qc.collegeahuntsic.bibliotheque.dto.PretDTO;
 import ca.qc.collegeahuntsic.bibliotheque.dto.ReservationDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.DAOException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionValueException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidSortByPropertyException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOClassException;
@@ -31,24 +36,29 @@ public class ReservationDAO extends DAO implements IReservationDAO {
     }
 
     @Override
-    public List<ReservationDTO> findByMembre(Connexion connexion,
+    public List<ReservationDTO> findByMembre(Session session,
         String idMembre,
         String sortByPropertyName) throws InvalidHibernateSessionException,
         InvalidCriterionException,
         InvalidSortByPropertyException,
-        DAOException {
-        // TODO Auto-generated method stub
-        return null;
+        DAOException, InvalidCriterionValueException {
+     	return (List<ReservationDTO>) super.find(session, 
+    			ReservationDTO.ID_MEMBRE_COLUMN_NAME, 
+    			idMembre, 
+    			sortByPropertyName);
     }
 
     @Override
-    public List<ReservationDTO> findByLivre(Connexion connexion,
+    public List<ReservationDTO> findByLivre(Session session,
         String idLivre,
         String sortByPropertyName) throws InvalidHibernateSessionException,
         InvalidCriterionException,
         InvalidSortByPropertyException,
-        DAOException {
+        DAOException, InvalidCriterionValueException {
         // TODO Auto-generated method stub
-        return null;
+     	return (List<ReservationDTO>) super.find(session, 
+    			ReservationDTO.ID_LIVRE_COLUMN_NAME, 
+    			idLivre, 
+    			sortByPropertyName);
     }
 }
