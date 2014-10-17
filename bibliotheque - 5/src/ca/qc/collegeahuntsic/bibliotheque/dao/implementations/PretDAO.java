@@ -46,17 +46,6 @@ public class PretDAO extends DAO implements IPretDAO {
     public PretDAO(Class<PretDTO> pretDTOClass) throws InvalidDTOClassException { // TODO: Change to package when switching to Spring
         super(pretDTOClass);
     }
-
-    /**
-     * Crée une nouvelle clef primaire pour la table <code>pret</code>.
-     * 
-     * @param session La session à utiliser
-     * @return La nouvelle clef primaire
-     * @throws InvalidHibernateSessionException Si la session est <code>null</code>
-     * @throws InvalidPrimaryKeyRequestException Si la requête de la clef primaire du livre est <code>null</code>
-     * @throws DAOException S'il y a une erreur avec la base de données
-     */
-
     /**
      * {@inheritDoc}
      */
@@ -73,10 +62,8 @@ public class PretDAO extends DAO implements IPretDAO {
         			idMembre, 
         			sortByPropertyName);
         }
-
     /**
      * {@inheritDoc}
-     * @throws InvalidCriterionValueException 
      */
     @Override
     public List<PretDTO> findByLivre(Session session,
@@ -90,12 +77,9 @@ public class PretDAO extends DAO implements IPretDAO {
     			MembreDTO.NOM_COLUMN_NAME, 
     			idLivre, 
     			sortByPropertyName);
-    	
     }
-
     /**
      * {@inheritDoc}
-     * @throws InvalidCriterionValueException 
      */
     @Override
     public List<PretDTO> findByDatePret(Session session,
@@ -112,8 +96,7 @@ public class PretDAO extends DAO implements IPretDAO {
     }
 
     /**
-     * {@inheritDoc}
-     * @throws InvalidCriterionValueException 
+     * {@inheritDoc} 
      */
     @Override
     public List<PretDTO> findByDateRetour(Session session,

@@ -34,7 +34,9 @@ public class ReservationDAO extends DAO implements IReservationDAO {
     public ReservationDAO(Class<ReservationDTO> reservationDTOClass) throws InvalidDTOClassException { // TODO: Change to package when switching to Spring
         super(reservationDTOClass);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ReservationDTO> findByMembre(Session session,
         String idMembre,
@@ -47,7 +49,9 @@ public class ReservationDAO extends DAO implements IReservationDAO {
     			idMembre, 
     			sortByPropertyName);
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<ReservationDTO> findByLivre(Session session,
         String idLivre,
@@ -55,7 +59,6 @@ public class ReservationDAO extends DAO implements IReservationDAO {
         InvalidCriterionException,
         InvalidSortByPropertyException,
         DAOException, InvalidCriterionValueException {
-        // TODO Auto-generated method stub
      	return (List<ReservationDTO>) super.find(session, 
     			ReservationDTO.ID_LIVRE_COLUMN_NAME, 
     			idLivre, 
