@@ -8,7 +8,10 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.StringTokenizer;
 
-import ca.qc.collegeahuntsic.bibliotheque.db.Connexion;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import ca.qc.collegeahuntsic.bibliotheque.db.Session;
 import ca.qc.collegeahuntsic.bibliotheque.dto.LivreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.dto.PretDTO;
@@ -39,7 +42,7 @@ import ca.qc.collegeahuntsic.bibliotheque.util.FormatteurDate;
  * transactions traitées, voir la méthode afficherAide().
  *
  * Paramètres 0- site du serveur SQL ("local", "distant" ou "postgres") 1- nom
- * de la BD 2- user id pour établir une connexion avec le serveur SQL 3- mot de
+ * de la BD 2- user id pour établir une Session avec le serveur SQL 3- mot de
  * passe pour le user id 4- fichier de transaction [optionnel] si non spécifié,
  * les transactions sont lues au clavier (System.in)
  *
@@ -50,16 +53,16 @@ import ca.qc.collegeahuntsic.bibliotheque.util.FormatteurDate;
  */
 public class Bibliotheque {
 	private static BibliothequeCreateur gestionBiblio;
-
+	
+	private static final Log LOGGER = LogFactory.getLog(Bibliotheque.class);
 	/**
 	 * Ouverture de la BD, traitement des transactions et fermeture de la BD.
 	 */
 	public static void main(String argv[]) throws Exception {
-		// validation du nombre de paramï¿½tres
+		// validation du nombre de parametres
 		if (argv.length < 5) {
-			System.out
-					.println("Usage: java Biblio <serveur> <bd> <user> <password> [<fichier-transactions>]");
-			System.out.println(Connexion.getServeursSupportes());
+			Bibliotheque.LOGGER.info("Usage: java Biblio <serveur> <bd> <user> <password> [<fichier-transactions>]");
+			Bibliotheque.LOGGER.info(Session.getServeursSupportes());
 			return;
 		}
 
@@ -76,7 +79,7 @@ public class Bibliotheque {
 			}
 		} catch (Exception e) {
 			gestionBiblio.rollback();
-			e.printStackTrace(System.out);
+			Bibliotheque.LOGGER.info(e);
 		} finally {
 			gestionBiblio.close();
 		}
@@ -129,13 +132,13 @@ public class Bibliotheque {
 				livreDTO.setAuteur(readString(tokenizer));
 				livreDTO.setDateAcquisition(readDate(tokenizer));
 				gestionBiblio.getLivreFacade().acquerir(
-						gestionBiblio.getConnexion(), livreDTO);
+						gestionBiblio.getSession(), livreDTO);
 				gestionBiblio.commit();
 			} else if ("vendre".startsWith(command)) {
 				LivreDTO livreDTO = new LivreDTO();
 				livreDTO.setIdLivre(readString(tokenizer));
 				gestionBiblio.getLivreFacade().vendre(
-						gestionBiblio.getConnexion(), livreDTO);
+						gestionBiblio.getSession(), livreDTO);
 				gestionBiblio.commit();
 			} else if ("preter".startsWith(command)) {
 				PretDTO pretDTO = new PretDTO();
@@ -146,19 +149,19 @@ public class Bibliotheque {
 				pretDTO.setMembreDTO(membreDTO);
 				pretDTO.setLivreDTO(livreDTO);
 				gestionBiblio.getPretFacade().commencer(
-						gestionBiblio.getConnexion(), pretDTO);
+						gestionBiblio.getSession(), pretDTO);
 				gestionBiblio.commit();
 			} else if ("renouveler".startsWith(command)) {
 				PretDTO pretDTO = new PretDTO();
 				pretDTO.setIdPret(readString(tokenizer));
 				gestionBiblio.getPretFacade().renouveler(
-						gestionBiblio.getConnexion(), pretDTO);
+						gestionBiblio.getSession(), pretDTO);
 				gestionBiblio.commit();
 			} else if ("retourner".startsWith(command)) {
 				PretDTO pretDTO = new PretDTO();
 				pretDTO.setIdPret(readString(tokenizer));
 				gestionBiblio.getPretFacade().terminer(
-						gestionBiblio.getConnexion(), pretDTO);
+						gestionBiblio.getSession(), pretDTO);
 				gestionBiblio.commit();
 			} else if ("inscrire".startsWith(command)) {
 				MembreDTO membreDTO = new MembreDTO();
@@ -166,13 +169,13 @@ public class Bibliotheque {
 				membreDTO.setTelephone(readString(tokenizer));
 				membreDTO.setLimitePret(readString(tokenizer));
 				gestionBiblio.getMembreFacade().inscrire(
-						gestionBiblio.getConnexion(), membreDTO);
+						gestionBiblio.getSession(), membreDTO);
 				gestionBiblio.commit();
 			} else if ("desinscrire".startsWith(command)) {
 				MembreDTO membreDTO = new MembreDTO();
 				membreDTO.setIdMembre(readString(tokenizer));
 				gestionBiblio.getMembreFacade().desinscrire(
-						gestionBiblio.getConnexion(), membreDTO);
+						gestionBiblio.getSession(), membreDTO);
 				gestionBiblio.commit();
 			} else if ("reserver".startsWith(command)) {
 				// Juste pour éviter deux timestamps de réservation strictement
@@ -186,19 +189,19 @@ public class Bibliotheque {
 				reservationDTO.setMembreDTO(membreDTO);
 				reservationDTO.setLivreDTO(livreDTO);
 				gestionBiblio.getReservationFacade().placer(
-						gestionBiblio.getConnexion(), reservationDTO);
+						gestionBiblio.getSession(), reservationDTO);
 				gestionBiblio.commit();
 			} else if ("utiliser".startsWith(command)) {
 				ReservationDTO reservationDTO = new ReservationDTO();
 				reservationDTO.setIdReservation(readString(tokenizer));
 				gestionBiblio.getReservationFacade().utiliser(
-						gestionBiblio.getConnexion(), reservationDTO);
+						gestionBiblio.getSession(), reservationDTO);
 				gestionBiblio.commit();
 			} else if ("annuler".startsWith(command)) {
 				ReservationDTO reservationDTO = new ReservationDTO();
 				reservationDTO.setIdReservation(readString(tokenizer));
 				gestionBiblio.getReservationFacade().annuler(
-						gestionBiblio.getConnexion(), reservationDTO);
+						gestionBiblio.getSession(), reservationDTO);
 				gestionBiblio.commit();
 			} else if ("--".startsWith(command)) {
 				// ne rien faire; c'est un commentaire
@@ -212,7 +215,7 @@ public class Bibliotheque {
 				| InvalidCriterionException | InvalidSortByPropertyException
 				| ExistingLoanException | ExistingReservationException
 				| InvalidLoanLimitException | MissingLoanException exception) {
-			System.out.println("**** " + exception.getMessage());
+			Bibliotheque.LOGGER.error("**** " + exception.getMessage());
 			gestionBiblio.rollback();
 		} catch (InterruptedException interruptedException) {
 			System.out.println("**** " + interruptedException.toString());
