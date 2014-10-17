@@ -151,12 +151,13 @@ public interface IPretService extends IService {
 	 * @throws InvalidHibernateSessionException
 	 *             Si la connexion est <code>null</code>
 	 * @throws InvalidCriterionException
+	 *             Si la propriete a utiliser est <code>null</code>
+	 * @throws InvalidCriterionValueException
 	 *             Si l'ID du membre est <code>null</code>
 	 * @throws InvalidSortByPropertyException
 	 *             Si la propriété à utiliser pour classer est <code>null</code>
 	 * @throws ServiceException
 	 *             S'il y a une erreur avec la base de données
-	 * @throws InvalidCriterionValueException
 	 */
 	List<PretDTO> findByMembre(Session session, String idMembre,
 			String sortByPropertyName) throws InvalidHibernateSessionException,
@@ -178,12 +179,13 @@ public interface IPretService extends IService {
 	 * @throws InvalidHibernateSessionException
 	 *             Si la connexion est <code>null</code>
 	 * @throws InvalidCriterionException
+	 *             Si la propriete a utiliser est <code>null</code>
+	 * @throws InvalidCriterionValueException
 	 *             Si l'ID du livre est <code>null</code>
 	 * @throws InvalidSortByPropertyException
 	 *             Si la propriété à utiliser pour classer est <code>null</code>
 	 * @throws ServiceException
 	 *             S'il y a une erreur avec la base de données
-	 * @throws InvalidCriterionValueException
 	 */
 	List<PretDTO> findByLivre(Session session, String idLivre,
 			String sortByPropertyName) throws InvalidHibernateSessionException,
@@ -205,12 +207,13 @@ public interface IPretService extends IService {
 	 * @throws InvalidHibernateSessionException
 	 *             Si la connexion est <code>null</code>
 	 * @throws InvalidCriterionException
+	 *             Si la propriete a utiliser est <code>null</code>>
+	 * @throws InvalidCriterionValueException
 	 *             Si la date de prêt est <code>null</code>
 	 * @throws InvalidSortByPropertyException
 	 *             Si la propriété à utiliser pour classer est <code>null</code>
 	 * @throws ServiceException
 	 *             S'il y a une erreur avec la base de données
-	 * @throws InvalidCriterionValueException
 	 */
 	List<PretDTO> findByDatePret(Session session, Timestamp datePret,
 			String sortByPropertyName) throws InvalidHibernateSessionException,
@@ -232,12 +235,13 @@ public interface IPretService extends IService {
 	 * @throws InvalidHibernateSessionException
 	 *             Si la connexion est <code>null</code>
 	 * @throws InvalidCriterionException
+	 *             Si la propriete a utiliser est <code>null</code>
+	 * @throws InvalidCriterionValueException
 	 *             Si la date de retour est <code>null</code>
 	 * @throws InvalidSortByPropertyException
 	 *             Si la propriété à utiliser pour classer est <code>null</code>
 	 * @throws ServiceException
 	 *             S'il y a une erreur avec la base de données
-	 * @throws InvalidCriterionValueException
 	 */
 	List<PretDTO> findByDateRetour(Session session, Timestamp dateRetour,
 			String sortByPropertyName) throws InvalidHibernateSessionException,
@@ -261,6 +265,8 @@ public interface IPretService extends IService {
 	 * @throws MissingDTOException
 	 *             Si le membre n'existe pas ou si le livre n'existe pas
 	 * @throws InvalidCriterionException
+	 *             Si la propriete a utiliser est <code>null</code>
+	 * @throws InvalidCriterionValueException
 	 *             Si l'ID du livre est <code>null</code>
 	 * @throws InvalidSortByPropertyException
 	 *             Si la propriété à utiliser pour classer est <code>null</code>
@@ -273,12 +279,8 @@ public interface IPretService extends IService {
 	 * @throws InvalidDTOClassException
 	 *             Si la classe du membre n'est pas celle que prend en charge le
 	 *             DAO
-	 * @throws InvalidPrimaryKeyRequestException
-	 *             Si la requête de la clef primaire du membre est
-	 *             <code>null</code>
 	 * @throws ServiceException
 	 *             S'il y a une erreur avec la base de données
-	 * @throws InvalidCriterionValueException
 	 */
 	void commencer(Session session, PretDTO pretDTO)
 			throws InvalidHibernateSessionException, InvalidDTOException,
@@ -307,6 +309,8 @@ public interface IPretService extends IService {
 	 *             Si le prêt n'existe pas, si le membre n'existe pas ou si le
 	 *             livre n'existe pas
 	 * @throws InvalidCriterionException
+	 *             Si la propriete a utiliser est <code>null</code>
+	 * @throws InvalidCriterionValueException
 	 *             Si l'ID du membre est <code>null</code> ou si l'ID du livre
 	 *             est <code>null</code>
 	 * @throws InvalidSortByPropertyException
@@ -322,7 +326,6 @@ public interface IPretService extends IService {
 	 *             DAO
 	 * @throws ServiceException
 	 *             S'il y a une erreur avec la base de données
-	 * @throws InvalidCriterionValueException
 	 */
 	void renouveler(Session session, PretDTO pretDTO)
 			throws InvalidHibernateSessionException, InvalidDTOException,
@@ -351,6 +354,8 @@ public interface IPretService extends IService {
 	 *             Si le prêt n'existe pas, si le membre n'existe pas ou si le
 	 *             livre n'existe pas
 	 * @throws InvalidCriterionException
+	 *             Si la propriete a utiliser est <code>null</code>
+	 * @throws InvalidCriterionValueException
 	 *             Si l'ID du membre est <code>null</code> ou si l'ID du livre
 	 *             est <code>null</code>
 	 * @throws InvalidSortByPropertyException
@@ -365,7 +370,6 @@ public interface IPretService extends IService {
 	 *             charge le DAO
 	 * @throws ServiceException
 	 *             S'il y a une erreur avec la base de données
-	 * @throws InvalidCriterionValueException
 	 */
 	void terminer(Session session, PretDTO pretDTO)
 			throws InvalidHibernateSessionException, InvalidDTOException,

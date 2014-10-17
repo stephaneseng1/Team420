@@ -115,7 +115,8 @@ public interface ILivreService extends IService {
      * @param sortByPropertyName The nom de la propriété à utiliser pour classer
      * @return La liste des livres correspondants ; une liste vide sinon
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
-     * @throws InvalidCriterionException Si le titre est <code>null</code>
+     * @throws InvalidCriterionException Si la propriete a utiliser est <code>null</code>
+     * @throws InvalidCriterionValueException Si le titre est <code>null</code>
      * @throws InvalidSortByPropertyException Si la propriété à utiliser pour classer est <code>null</code>
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
@@ -135,7 +136,6 @@ public interface ILivreService extends IService {
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
      * @throws InvalidDTOException Si le livre est <code>null</code>
      * @throws InvalidDTOClassException Si la classe du livre n'est pas celle que prend en charge le DAO
-     * @throws InvalidPrimaryKeyRequestException Si la requête de la clef primaire du livre est <code>null</code>
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
     void acquerir(Session session,

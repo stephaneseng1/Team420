@@ -188,7 +188,6 @@ public class PretService extends Service implements IPretService {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @throws InvalidPrimaryKeyException
 	 */
 	@Override
 	public PretDTO getPret(Session session, String idPret)
@@ -247,7 +246,6 @@ public class PretService extends Service implements IPretService {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @throws InvalidCriterionValueException
 	 */
 	@Override
 	public List<PretDTO> findByMembre(Session session, String idMembre,
@@ -265,7 +263,6 @@ public class PretService extends Service implements IPretService {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @throws InvalidCriterionValueException
 	 */
 	@Override
 	public List<PretDTO> findByLivre(Session session, String idLivre,
@@ -283,7 +280,6 @@ public class PretService extends Service implements IPretService {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @throws InvalidCriterionValueException
 	 */
 	@Override
 	public List<PretDTO> findByDatePret(Session session, Timestamp datePret,
@@ -301,7 +297,6 @@ public class PretService extends Service implements IPretService {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @throws InvalidCriterionValueException
 	 */
 	@Override
 	public List<PretDTO> findByDateRetour(Session session,
@@ -320,7 +315,6 @@ public class PretService extends Service implements IPretService {
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @throws InvalidCriterionValueException
 	 */
 	@Override
 	public void commencer(Session session, PretDTO pretDTO)
@@ -397,7 +391,6 @@ public class PretService extends Service implements IPretService {
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @throws InvalidCriterionValueException
 	 */
 	@Override
 	public void renouveler(Session session, PretDTO pretDTO)
@@ -477,7 +470,6 @@ public class PretService extends Service implements IPretService {
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @throws InvalidCriterionValueException
 	 */
 	@Override
 	public void terminer(Session session, PretDTO pretDTO)

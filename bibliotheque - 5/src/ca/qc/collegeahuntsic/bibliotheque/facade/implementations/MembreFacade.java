@@ -85,7 +85,6 @@ public class MembreFacade extends Facade implements IMembreFacade {
 
     /**
      * {@inheritDoc}
-     * @throws InvalidCriterionValueException 
      */
     @Override
     public void desinscrire(Session session,

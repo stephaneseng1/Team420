@@ -44,7 +44,9 @@ public interface IPretFacade extends IFacade {
 	 * @throws MissingDTOException
 	 *             Si le membre n'existe pas ou si le livre n'existe pas
 	 * @throws InvalidCriterionException
-	 *             Si l'ID du livre est <code>null</code>
+	 *             Si la propriete a utiliser est <code>null</code>
+	 * @throws InvalidCriterionValueException
+	 *   	       Si l'ID du livre est <code>null</code>
 	 * @throws InvalidSortByPropertyException
 	 *             Si la propriété à utiliser pour classer est <code>null</code>
 	 * @throws ExistingLoanException
@@ -56,12 +58,8 @@ public interface IPretFacade extends IFacade {
 	 * @throws InvalidDTOClassException
 	 *             Si la classe du membre n'est pas celle que prend en charge le
 	 *             DAO
-	 * @throws InvalidPrimaryKeyRequestException
-	 *             Si la requête de la clef primaire du membre est
-	 *             <code>null</code>
 	 * @throws FacadeException
 	 *             S'il y a une erreur avec la base de données
-	 * @throws InvalidCriterionValueException
 	 */
 	void commencer(Session session, PretDTO pretDTO)
 			throws InvalidHibernateSessionException, InvalidDTOException,
@@ -90,7 +88,9 @@ public interface IPretFacade extends IFacade {
 	 *             Si le prêt n'existe pas, si le membre n'existe pas ou si le
 	 *             livre n'existe pas
 	 * @throws InvalidCriterionException
-	 *             Si l'ID du membre est <code>null</code> ou si l'ID du livre
+	 *             Si la propriete a utiliser est <code>null</code>
+	 * @throws InvalidCriterionValueException
+	 * 			   Si l'ID du membre est <code>null</code> ou si l'ID du livre
 	 *             est <code>null</code>
 	 * @throws InvalidSortByPropertyException
 	 *             Si la propriété à utiliser pour classer est <code>null</code>
@@ -105,7 +105,6 @@ public interface IPretFacade extends IFacade {
 	 *             DAO
 	 * @throws FacadeException
 	 *             S'il y a une erreur avec la base de données
-	 * @throws InvalidCriterionValueException
 	 */
 	void renouveler(Session session, PretDTO pretDTO)
 			throws InvalidHibernateSessionException, InvalidDTOException,
@@ -134,7 +133,9 @@ public interface IPretFacade extends IFacade {
 	 *             Si le prêt n'existe pas, si le membre n'existe pas ou si le
 	 *             livre n'existe pas
 	 * @throws InvalidCriterionException
-	 *             Si l'ID du membre est <code>null</code> ou si l'ID du livre
+	 *             Si la propriete a utiliser est <code>null</code>
+	 * @throws InvalidCriterionValueException
+	 * 			   Si l'ID du membre est <code>null</code> ou si l'ID du livre
 	 *             est <code>null</code>
 	 * @throws InvalidSortByPropertyException
 	 *             Si la propriété à utiliser pour classer est <code>null</code>
@@ -148,7 +149,6 @@ public interface IPretFacade extends IFacade {
 	 *             charge le DAO
 	 * @throws FacadeException
 	 *             S'il y a une erreur avec la base de données
-	 * @throws InvalidCriterionValueException
 	 */
 	void terminer(Session session, PretDTO pretDTO)
 			throws InvalidHibernateSessionException, InvalidDTOException,

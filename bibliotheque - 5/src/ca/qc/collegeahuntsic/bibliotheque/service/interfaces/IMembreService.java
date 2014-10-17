@@ -35,7 +35,6 @@ public interface IMembreService extends IService {
      * @throws InvalidHibernateSessionException Si la session est <code>null</code>
      * @throws InvalidDTOException Si le membre est <code>null</code>
      * @throws InvalidDTOClassException Si la classe du membre n'est pas celle que prend en charge le DAO
-     * @throws InvalidPrimaryKeyRequestException Si la requête de la clef primaire du membre est <code>null</code>
      * @throws ServiceException S'il y a une erreur avec la base de données
      */
     void addMembre(Session session,
@@ -116,7 +115,8 @@ public interface IMembreService extends IService {
      * @param sortByPropertyName The nom de la propriété à utiliser pour classer
      * @return La liste des membres correspondants ; une liste vide sinon
      * @throws InvalidHibernateSessionException Si la session est <code>null</code>
-     * @throws InvalidCriterionException Si le nom est <code>null</code>
+     * @throws InvalidCriterionException Si la propriete a utiliser est <code>null</code>
+     * @throws InvalidCriterionValueException Si le nom est <code>null</code>
      * @throws InvalidSortByPropertyException Si la propriété à utiliser pour classer est <code>null</code>
      * @throws ServiceException S'il y a une erreur avec la base de données
      * @throws InvalidCriterionValueException 
@@ -156,11 +156,11 @@ public interface IMembreService extends IService {
      * @throws InvalidPrimaryKeyException Si la clef primaire du membre est <code>null</code>
      * @throws MissingDTOException Si le membre n'existe pas
      * @throws ExistingLoanException Si le membre a encore des prêts
-     * @throws InvalidCriterionException Si l'ID du membre est <code>null</code>
+     * @throws InvalidCriterionException Si la propriete a utiliser est <code>null</code>
+     * @throws InvalidCriterionValueException Si l'ID du membre est <code>null</code>
      * @throws InvalidSortByPropertyException Si la propriété à utiliser pour classer est <code>null</code>
      * @throws ExistingReservationException Si le membre a des réservations
      * @throws ServiceException S'il y a une erreur avec la base de données
-     * @throws InvalidCriterionValueException 
      */
     void desinscrire(Session session,
         MembreDTO membreDTO) throws InvalidHibernateSessionException,

@@ -83,7 +83,6 @@ public class PretFacade extends Facade implements IPretFacade {
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @throws InvalidCriterionValueException
 	 */
 	@Override
 	public void commencer(Session session, PretDTO pretDTO)
@@ -103,7 +102,6 @@ public class PretFacade extends Facade implements IPretFacade {
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @throws InvalidCriterionValueException
 	 */
 	@Override
 	public void renouveler(Session session, PretDTO pretDTO)
@@ -124,7 +122,6 @@ public class PretFacade extends Facade implements IPretFacade {
 	/**
 	 * {@inheritDoc}
 	 * 
-	 * @throws InvalidCriterionValueException
 	 */
 	@Override
 	public void terminer(Session session, PretDTO pretDTO)

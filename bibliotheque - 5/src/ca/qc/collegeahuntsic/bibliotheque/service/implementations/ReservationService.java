@@ -241,7 +241,6 @@ public class ReservationService extends Service implements IReservationService {
 
     /**
      * {@inheritDoc}
-     * @throws InvalidCriterionValueException 
      */
     @Override
     public List<ReservationDTO> findByMembre(Session session,
@@ -261,7 +260,6 @@ public class ReservationService extends Service implements IReservationService {
 
     /**
      * {@inheritDoc}
-     * @throws InvalidCriterionValueException 
      */
     @Override
     public List<ReservationDTO> findByLivre(Session session,
@@ -281,7 +279,6 @@ public class ReservationService extends Service implements IReservationService {
 
     /**
      * {@inheritDoc}
-     * @throws InvalidCriterionValueException 
      */
     @Override
     public void placer(Session session,
@@ -364,7 +361,6 @@ public class ReservationService extends Service implements IReservationService {
 
     /**
      * {@inheritDoc}
-     * @throws InvalidCriterionValueException 
      */
     @Override
     public void utiliser(Session session,

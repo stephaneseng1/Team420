@@ -70,7 +70,6 @@ public class ReservationFacade extends Facade implements IReservationFacade {
 
     /**
      * {@inheritDoc}
-     * @throws InvalidCriterionValueException 
      */
     @Override
     public void placer(Session session,
@@ -95,7 +94,6 @@ public class ReservationFacade extends Facade implements IReservationFacade {
 
     /**
      * {@inheritDoc}
-     * @throws InvalidCriterionValueException 
      */
     @Override
     public void utiliser(Session session,

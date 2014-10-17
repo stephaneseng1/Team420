@@ -180,7 +180,6 @@ public class MembreService extends Service implements IMembreService {
 
     /**
      * {@inheritDoc}
-     * @throws InvalidCriterionValueException 
      */
     @Override
     public List<MembreDTO> findByNom(Session session,
@@ -213,7 +212,6 @@ public class MembreService extends Service implements IMembreService {
 
     /**
      * {@inheritDoc}
-     * @throws InvalidCriterionValueException 
      */
     @Override
     public void desinscrire(Session session,
