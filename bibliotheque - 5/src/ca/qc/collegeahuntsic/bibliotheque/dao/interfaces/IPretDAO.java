@@ -94,10 +94,10 @@ public interface IPretDAO extends IDAO {
      * @param sortByPropertyName The nom de la propriété à utiliser pour classer
      * @return La liste des prêts correspondants ; une liste vide sinon
      * @throws InvalidHibernateSessionException Si la session est <code>null</code>
-     * @throws InvalidCriterionException Si la date de retour recherché est <code>null</code>
+     * @throws InvalidCriterionException Si la propriete a utiliser est <code>null</code>
+     * @throws InvalidCriterionValueException Si la date de retour est <code>null</code>
      * @throws InvalidSortByPropertyException Si la propriété à utiliser pour classer est <code>null</code>
      * @throws DAOException S'il y a une erreur avec la base de données
-     * @throws InvalidCriterionValueException 
      */
     List<PretDTO> findByDateRetour(Session session,
         Timestamp dateRetour,

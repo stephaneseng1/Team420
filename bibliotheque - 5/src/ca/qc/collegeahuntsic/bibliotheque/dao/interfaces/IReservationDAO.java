@@ -51,10 +51,11 @@ public interface IReservationDAO extends IDAO {
      * @param sortByPropertyName The nom de la propriété à utiliser pour classer
      * @return La liste des réservations correspondantes ; une liste vide sinon
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
-     * @throws InvalidCriterionException Si l'ID du livre est <code>null</code>
+     * @throws InvalidCriterionException Si la propriete a utiliser est <code>null</code>
+     * @throws InvalidCriterionValueException Si l'ID du livre est <code>null</code>
      * @throws InvalidSortByPropertyException Si la propriété à utiliser pour classer est <code>null</code>
      * @throws DAOException S'il y a une erreur avec la base de données
-     * @throws InvalidCriterionValueException 
+
      */
     List<ReservationDTO> findByLivre(Session session,
         String idLivre,
