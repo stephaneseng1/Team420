@@ -8,6 +8,7 @@ import org.hibernate.Session;
 
 import ca.qc.collegeahuntsic.bibliotheque.dto.PretDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
+import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionValueException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidPrimaryKeyException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidSortByPropertyException;
@@ -30,111 +31,113 @@ import ca.qc.collegeahuntsic.bibliotheque.service.interfaces.IPretService;
  * @author Gilles Benichou
  */
 public class PretFacade extends Facade implements IPretFacade {
-    private IPretService pretService;
+	private IPretService pretService;
 
-    /**
-     * Crée la façade de la table <code>pret</code>.
-     * 
-     * @param pretService Le service de la table <code>pret</code>
-     * @throws InvalidServiceException Si le service de prêts est <code>null</code>
-     */
-    public PretFacade(IPretService pretService) throws InvalidServiceException { // TODO: Change to package when switching to Spring
-        super();
-        if(pretService == null) {
-            throw new InvalidServiceException("Le service de prêts ne peut être null");
-        }
-        setPretService(pretService);
-    }
+	/**
+	 * Crée la façade de la table <code>pret</code>.
+	 * 
+	 * @param pretService
+	 *            Le service de la table <code>pret</code>
+	 * @throws InvalidServiceException
+	 *             Si le service de prêts est <code>null</code>
+	 */
+	public PretFacade(IPretService pretService) throws InvalidServiceException { // TODO:
+																					// Change
+																					// to
+																					// package
+																					// when
+																					// switching
+																					// to
+																					// Spring
+		super();
+		if (pretService == null) {
+			throw new InvalidServiceException(
+					"Le service de prêts ne peut être null");
+		}
+		setPretService(pretService);
+	}
 
-    // Region Getters and Setters
-    /**
-     * Getter de la variable d'instance <code>this.pretService</code>.
-     *
-     * @return La variable d'instance <code>this.pretService</code>
-     */
-    private IPretService getPretService() {
-        return this.pretService;
-    }
+	// Region Getters and Setters
+	/**
+	 * Getter de la variable d'instance <code>this.pretService</code>.
+	 *
+	 * @return La variable d'instance <code>this.pretService</code>
+	 */
+	private IPretService getPretService() {
+		return this.pretService;
+	}
 
-    /**
-     * Setter de la variable d'instance <code>this.pretService</code>.
-     *
-     * @param pretService La valeur à utiliser pour la variable d'instance <code>this.pretService</code>
-     */
-    private void setPretService(IPretService pretService) {
-        this.pretService = pretService;
-    }
+	/**
+	 * Setter de la variable d'instance <code>this.pretService</code>.
+	 *
+	 * @param pretService
+	 *            La valeur à utiliser pour la variable d'instance
+	 *            <code>this.pretService</code>
+	 */
+	private void setPretService(IPretService pretService) {
+		this.pretService = pretService;
+	}
 
-    // EndRegion Getters and Setters
+	// EndRegion Getters and Setters
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void commencer(Session session,
-        PretDTO pretDTO) throws InvalidHibernateSessionException,
-        InvalidDTOException,
-        InvalidPrimaryKeyException,
-        MissingDTOException,
-        InvalidCriterionException,
-        InvalidSortByPropertyException,
-        ExistingLoanException,
-        InvalidLoanLimitException,
-        ExistingReservationException,
-        InvalidDTOClassException,
-        FacadeException {
-        try {
-            getPretService().commencer(session,
-                pretDTO);
-        } catch(ServiceException serviceException) {
-            throw new FacadeException(serviceException);
-        }
-    }
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws InvalidCriterionValueException
+	 */
+	@Override
+	public void commencer(Session session, PretDTO pretDTO)
+			throws InvalidHibernateSessionException, InvalidDTOException,
+			InvalidPrimaryKeyException, MissingDTOException,
+			InvalidCriterionException, InvalidSortByPropertyException,
+			ExistingLoanException, InvalidLoanLimitException,
+			ExistingReservationException, InvalidDTOClassException,
+			FacadeException, InvalidCriterionValueException {
+		try {
+			getPretService().commencer(session, pretDTO);
+		} catch (ServiceException serviceException) {
+			throw new FacadeException(serviceException);
+		}
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void renouveler(Session session,
-        PretDTO pretDTO) throws InvalidHibernateSessionException,
-        InvalidDTOException,
-        InvalidPrimaryKeyException,
-        MissingDTOException,
-        InvalidCriterionException,
-        InvalidSortByPropertyException,
-        MissingLoanException,
-        ExistingLoanException,
-        ExistingReservationException,
-        InvalidDTOClassException,
-        FacadeException {
-        try {
-            getPretService().renouveler(session,
-                pretDTO);
-        } catch(ServiceException serviceException) {
-            throw new FacadeException(serviceException);
-        }
-    }
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws InvalidCriterionValueException
+	 */
+	@Override
+	public void renouveler(Session session, PretDTO pretDTO)
+			throws InvalidHibernateSessionException, InvalidDTOException,
+			InvalidPrimaryKeyException, MissingDTOException,
+			InvalidCriterionException, InvalidSortByPropertyException,
+			MissingLoanException, InvalidCriterionValueException,
+			ExistingLoanException, ExistingReservationException,
+			InvalidDTOClassException, FacadeException,
+			InvalidCriterionValueException {
+		try {
+			getPretService().renouveler(session, pretDTO);
+		} catch (ServiceException serviceException) {
+			throw new FacadeException(serviceException);
+		}
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void terminer(Session session,
-        PretDTO pretDTO) throws InvalidHibernateSessionException,
-        InvalidDTOException,
-        InvalidPrimaryKeyException,
-        MissingDTOException,
-        InvalidCriterionException,
-        InvalidSortByPropertyException,
-        MissingLoanException,
-        ExistingLoanException,
-        InvalidDTOClassException,
-        FacadeException {
-        try {
-            getPretService().terminer(session,
-                pretDTO);
-        } catch(ServiceException serviceException) {
-            throw new FacadeException(serviceException);
-        }
-    }
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @throws InvalidCriterionValueException
+	 */
+	@Override
+	public void terminer(Session session, PretDTO pretDTO)
+			throws InvalidHibernateSessionException, InvalidDTOException,
+			InvalidPrimaryKeyException, MissingDTOException,
+			InvalidCriterionException, InvalidSortByPropertyException,
+			MissingLoanException, ExistingLoanException,
+			InvalidDTOClassException, FacadeException,
+			InvalidCriterionValueException {
+		try {
+			getPretService().terminer(session, pretDTO);
+		} catch (ServiceException serviceException) {
+			throw new FacadeException(serviceException);
+		}
+	}
 }

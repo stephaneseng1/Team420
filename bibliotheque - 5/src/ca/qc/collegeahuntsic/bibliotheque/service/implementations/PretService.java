@@ -36,7 +36,7 @@ import ca.qc.collegeahuntsic.bibliotheque.service.interfaces.IPretService;
 
 /**
  * Service de la table <code>pret</code>.
- * 
+ *
  * @author Gilles Benichou
  */
 public class PretService extends Service implements IPretService {
@@ -44,10 +44,11 @@ public class PretService extends Service implements IPretService {
 
 	private IMembreDAO membreDAO;
 	private ILivreDAO livreDAO;
+	private IReservationDAO reservationDAO;
 
 	/**
 	 * Crée le service de la table <code>pret</code>.
-	 * 
+	 *
 	 * @param pretDAO
 	 *            Le DAO de la table <code>pret</code>
 	 * @param membreDAO
@@ -64,7 +65,7 @@ public class PretService extends Service implements IPretService {
 	 */
 	public PretService(
 			IPretDAO pretDAO, // TODO: Change to package when switching to
-								// Spring
+			// Spring
 			IMembreDAO membreDAO, ILivreDAO livreDAO,
 			IReservationDAO reservationDAO) throws InvalidDAOException {
 		super();
@@ -77,9 +78,14 @@ public class PretService extends Service implements IPretService {
 		if (livreDAO == null) {
 			throw new InvalidDAOException("Le DAO de livre ne peut être null");
 		}
+		if (reservationDAO == null) {
+			throw new InvalidDAOException(
+					"Le DAO de reservation ne peut être null");
+		}
 		setPretDAO(pretDAO);
 		setMembreDAO(membreDAO);
 		setLivreDAO(livreDAO);
+		setReservationDAO(reservationDAO);
 	}
 
 	// Region Getters and Setters
@@ -143,6 +149,26 @@ public class PretService extends Service implements IPretService {
 		this.livreDAO = livreDAO;
 	}
 
+	/**
+	 * Getter de la variable d'instance <code>this.reservationDAO</code>.
+	 *
+	 * @return La variable d'instance <code>this.reservationDAO</code>
+	 */
+	private IReservationDAO getReservationDAO() {
+		return this.reservationDAO;
+	}
+
+	/**
+	 * Setter de la variable d'instance <code>this.reservationDAO</code>.
+	 *
+	 * @param reservationDAO
+	 *            La valeur à utiliser pour la variable d'instance
+	 *            <code>this.reservationDAO</code>
+	 */
+	private void setReservationDAO(IReservationDAO reservationDAO) {
+		this.reservationDAO = reservationDAO;
+	}
+
 	// EndRegion Getters and Setters
 
 	/**
@@ -161,7 +187,7 @@ public class PretService extends Service implements IPretService {
 
 	/**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 * @throws InvalidPrimaryKeyException
 	 */
 	@Override
@@ -220,7 +246,7 @@ public class PretService extends Service implements IPretService {
 
 	/**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 * @throws InvalidCriterionValueException
 	 */
 	@Override
@@ -238,7 +264,8 @@ public class PretService extends Service implements IPretService {
 
 	/**
 	 * {@inheritDoc}
-	 * @throws InvalidCriterionValueException 
+	 *
+	 * @throws InvalidCriterionValueException
 	 */
 	@Override
 	public List<PretDTO> findByLivre(Session session, String idLivre,
@@ -255,7 +282,8 @@ public class PretService extends Service implements IPretService {
 
 	/**
 	 * {@inheritDoc}
-	 * @throws InvalidCriterionValueException 
+	 *
+	 * @throws InvalidCriterionValueException
 	 */
 	@Override
 	public List<PretDTO> findByDatePret(Session session, Timestamp datePret,
@@ -272,13 +300,15 @@ public class PretService extends Service implements IPretService {
 
 	/**
 	 * {@inheritDoc}
-	 * @throws InvalidCriterionValueException 
+	 *
+	 * @throws InvalidCriterionValueException
 	 */
 	@Override
 	public List<PretDTO> findByDateRetour(Session session,
 			Timestamp dateRetour, String sortByPropertyName)
 			throws InvalidHibernateSessionException, InvalidCriterionException,
-			InvalidSortByPropertyException, ServiceException, InvalidCriterionValueException {
+			InvalidSortByPropertyException, ServiceException,
+					InvalidCriterionValueException {
 		try {
 			return getPretDAO().findByDateRetour(session, dateRetour,
 					sortByPropertyName);
@@ -289,6 +319,8 @@ public class PretService extends Service implements IPretService {
 
 	/**
 	 * {@inheritDoc}
+	 * 
+	 * @throws InvalidCriterionValueException
 	 */
 	@Override
 	public void commencer(Session session, PretDTO pretDTO)
@@ -297,7 +329,7 @@ public class PretService extends Service implements IPretService {
 			InvalidCriterionException, InvalidSortByPropertyException,
 			ExistingLoanException, InvalidLoanLimitException,
 			ExistingReservationException, InvalidDTOClassException,
-			ServiceException {
+			ServiceException, InvalidCriterionValueException {
 		if (session == null) {
 			throw new InvalidHibernateSessionException(
 					"La session ne peut être null");
@@ -364,6 +396,8 @@ public class PretService extends Service implements IPretService {
 
 	/**
 	 * {@inheritDoc}
+	 * 
+	 * @throws InvalidCriterionValueException
 	 */
 	@Override
 	public void renouveler(Session session, PretDTO pretDTO)
@@ -372,7 +406,7 @@ public class PretService extends Service implements IPretService {
 			InvalidCriterionException, InvalidSortByPropertyException,
 			MissingLoanException, ExistingLoanException,
 			ExistingReservationException, InvalidDTOClassException,
-			ServiceException {
+			ServiceException, InvalidCriterionValueException {
 		if (session == null) {
 			throw new InvalidHibernateSessionException(
 					"La session ne peut être null");
@@ -442,6 +476,8 @@ public class PretService extends Service implements IPretService {
 
 	/**
 	 * {@inheritDoc}
+	 *
+	 * @throws InvalidCriterionValueException
 	 */
 	@Override
 	public void terminer(Session session, PretDTO pretDTO)
@@ -449,7 +485,8 @@ public class PretService extends Service implements IPretService {
 			InvalidPrimaryKeyException, MissingDTOException,
 			InvalidCriterionException, InvalidSortByPropertyException,
 			MissingLoanException, ExistingLoanException,
-			InvalidDTOClassException, ServiceException {
+			InvalidDTOClassException, ServiceException,
+			InvalidCriterionValueException {
 		if (session == null) {
 			throw new InvalidHibernateSessionException(
 					"La session ne peut être null");
@@ -470,7 +507,7 @@ public class PretService extends Service implements IPretService {
 						+ unPretDTO.getMembreDTO().getIdMembre()
 						+ " n'existe pas");
 			}
-			LivreDTO unLivreDTO = (LivreDTO) getLivre().get(session,
+			LivreDTO unLivreDTO = (LivreDTO) getLivreDAO().get(session,
 					unPretDTO.getLivreDTO().getIdLivre());
 			if (unLivreDTO == null) {
 				throw new MissingDTOException("Le livre "
@@ -505,4 +542,5 @@ public class PretService extends Service implements IPretService {
 			throw new ServiceException(daoException);
 		}
 	}
+
 }
