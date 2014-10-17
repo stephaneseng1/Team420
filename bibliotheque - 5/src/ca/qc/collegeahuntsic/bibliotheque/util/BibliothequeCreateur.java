@@ -82,10 +82,7 @@ public class BibliothequeCreateur {
             IReservationDAO reservationDAO = new ReservationDAO(ReservationDTO.class);
             IMembreService membreService = new MembreService(membreDAO,
                 reservationDAO);
-            ILivreService livreService = new LivreService(livreDAO,
-                membreDAO,
-                pretDAO,
-                reservationDAO);
+            ILivreService livreService = new LivreService(livreDAO);
             IPretService pretService = new PretService(pretDAO,
                 membreDAO,
                 livreDAO,
