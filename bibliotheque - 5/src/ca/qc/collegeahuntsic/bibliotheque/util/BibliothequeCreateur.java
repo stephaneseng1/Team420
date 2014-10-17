@@ -209,7 +209,7 @@ public class BibliothequeCreateur {
      */
     public void commit() throws BibliothequeException {
         try {
-            getConnexion().commit();
+            getConnexion().getTransaction().commit();
         } catch(Exception exception) {
             throw new BibliothequeException(exception);
         }
@@ -222,7 +222,7 @@ public class BibliothequeCreateur {
      */
     public void rollback() throws BibliothequeException {
         try {
-            getConnexion().rollback();
+            getConnexion().getTransaction().rollback();
         } catch(Exception exception) {
             throw new BibliothequeException(exception);
         }
