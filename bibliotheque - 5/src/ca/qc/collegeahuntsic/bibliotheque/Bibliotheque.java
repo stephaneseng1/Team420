@@ -10,8 +10,8 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Session;
 
-import ca.qc.collegeahuntsic.bibliotheque.db.Session;
 import ca.qc.collegeahuntsic.bibliotheque.dto.LivreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.dto.PretDTO;
@@ -53,15 +53,17 @@ import ca.qc.collegeahuntsic.bibliotheque.util.FormatteurDate;
  */
 public class Bibliotheque {
 	private static BibliothequeCreateur gestionBiblio;
-	
+
 	private static final Log LOGGER = LogFactory.getLog(Bibliotheque.class);
+
 	/**
 	 * Ouverture de la BD, traitement des transactions et fermeture de la BD.
 	 */
 	public static void main(String argv[]) throws Exception {
 		// validation du nombre de parametres
 		if (argv.length < 5) {
-			Bibliotheque.LOGGER.info("Usage: java Biblio <serveur> <bd> <user> <password> [<fichier-transactions>]");
+			Bibliotheque.LOGGER
+					.info("Usage: java Biblio <serveur> <bd> <user> <password> [<fichier-transactions>]");
 			Bibliotheque.LOGGER.info(Session.getServeursSupportes());
 			return;
 		}
@@ -78,7 +80,7 @@ public class Bibliotheque {
 				traiterTransactions(reader);
 			}
 		} catch (Exception e) {
-			gestionBiblio.rollback();
+			gestionBiblio.rollbackTransaction();
 			Bibliotheque.LOGGER.info(e);
 		} finally {
 			gestionBiblio.close();
@@ -116,7 +118,7 @@ public class Bibliotheque {
 
 	/**
 	 * Décodage et traitement d'une transaction
-	 * 
+	 *
 	 * @throws InvalidCriterionValueException
 	 */
 	static void executerTransaction(StringTokenizer tokenizer)
@@ -133,13 +135,13 @@ public class Bibliotheque {
 				livreDTO.setDateAcquisition(readDate(tokenizer));
 				gestionBiblio.getLivreFacade().acquerir(
 						gestionBiblio.getSession(), livreDTO);
-				gestionBiblio.commit();
+				gestionBiblio.commitTransaction();
 			} else if ("vendre".startsWith(command)) {
 				LivreDTO livreDTO = new LivreDTO();
 				livreDTO.setIdLivre(readString(tokenizer));
 				gestionBiblio.getLivreFacade().vendre(
 						gestionBiblio.getSession(), livreDTO);
-				gestionBiblio.commit();
+				gestionBiblio.commitTransaction();
 			} else if ("preter".startsWith(command)) {
 				PretDTO pretDTO = new PretDTO();
 				MembreDTO membreDTO = new MembreDTO();
@@ -150,19 +152,19 @@ public class Bibliotheque {
 				pretDTO.setLivreDTO(livreDTO);
 				gestionBiblio.getPretFacade().commencer(
 						gestionBiblio.getSession(), pretDTO);
-				gestionBiblio.commit();
+				gestionBiblio.commitTransaction();
 			} else if ("renouveler".startsWith(command)) {
 				PretDTO pretDTO = new PretDTO();
 				pretDTO.setIdPret(readString(tokenizer));
 				gestionBiblio.getPretFacade().renouveler(
 						gestionBiblio.getSession(), pretDTO);
-				gestionBiblio.commit();
+				gestionBiblio.commitTransaction();
 			} else if ("retourner".startsWith(command)) {
 				PretDTO pretDTO = new PretDTO();
 				pretDTO.setIdPret(readString(tokenizer));
 				gestionBiblio.getPretFacade().terminer(
 						gestionBiblio.getSession(), pretDTO);
-				gestionBiblio.commit();
+				gestionBiblio.commitTransaction();
 			} else if ("inscrire".startsWith(command)) {
 				MembreDTO membreDTO = new MembreDTO();
 				membreDTO.setNom(readString(tokenizer));
@@ -170,13 +172,13 @@ public class Bibliotheque {
 				membreDTO.setLimitePret(readString(tokenizer));
 				gestionBiblio.getMembreFacade().inscrire(
 						gestionBiblio.getSession(), membreDTO);
-				gestionBiblio.commit();
+				gestionBiblio.commitTransaction();
 			} else if ("desinscrire".startsWith(command)) {
 				MembreDTO membreDTO = new MembreDTO();
 				membreDTO.setIdMembre(readString(tokenizer));
 				gestionBiblio.getMembreFacade().desinscrire(
 						gestionBiblio.getSession(), membreDTO);
-				gestionBiblio.commit();
+				gestionBiblio.commitTransaction();
 			} else if ("reserver".startsWith(command)) {
 				// Juste pour éviter deux timestamps de réservation strictement
 				// identiques
@@ -190,24 +192,24 @@ public class Bibliotheque {
 				reservationDTO.setLivreDTO(livreDTO);
 				gestionBiblio.getReservationFacade().placer(
 						gestionBiblio.getSession(), reservationDTO);
-				gestionBiblio.commit();
+				gestionBiblio.commitTransaction();
 			} else if ("utiliser".startsWith(command)) {
 				ReservationDTO reservationDTO = new ReservationDTO();
 				reservationDTO.setIdReservation(readString(tokenizer));
 				gestionBiblio.getReservationFacade().utiliser(
 						gestionBiblio.getSession(), reservationDTO);
-				gestionBiblio.commit();
+				gestionBiblio.commitTransaction();
 			} else if ("annuler".startsWith(command)) {
 				ReservationDTO reservationDTO = new ReservationDTO();
 				reservationDTO.setIdReservation(readString(tokenizer));
 				gestionBiblio.getReservationFacade().annuler(
 						gestionBiblio.getSession(), reservationDTO);
-				gestionBiblio.commit();
+				gestionBiblio.commitTransaction();
 			} else if ("--".startsWith(command)) {
 				// ne rien faire; c'est un commentaire
 			} else {
 				System.out
-						.println("  Transactions non reconnue.  Essayer \"aide\"");
+				.println("  Transactions non reconnue.  Essayer \"aide\"");
 			}
 		} catch (InvalidHibernateSessionException | InvalidDTOException
 				| InvalidDTOClassException | FacadeException
@@ -216,10 +218,10 @@ public class Bibliotheque {
 				| ExistingLoanException | ExistingReservationException
 				| InvalidLoanLimitException | MissingLoanException exception) {
 			Bibliotheque.LOGGER.error("**** " + exception.getMessage());
-			gestionBiblio.rollback();
+			gestionBiblio.rollbackTransaction();
 		} catch (InterruptedException interruptedException) {
 			System.out.println("**** " + interruptedException.toString());
-			gestionBiblio.rollback();
+			gestionBiblio.rollbackTransaction();
 		}
 	}
 
@@ -229,7 +231,7 @@ public class Bibliotheque {
 	static void afficherAide() {
 		System.out.println();
 		System.out
-				.println("Chaque transaction comporte un nom et une liste d'arguments");
+		.println("Chaque transaction comporte un nom et une liste d'arguments");
 		System.out.println("separes par des espaces. La liste peut etre vide.");
 		System.out.println(" Les dates sont en format yyyy-mm-dd.");
 		System.out.println("");

@@ -19,35 +19,32 @@ import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOClassException
 
 /**
  * DAO pour effectuer des CRUDs avec la table <code>membre</code>.
- * 
+ *
  * @author Gilles Benichou
  */
 public class MembreDAO extends DAO implements IMembreDAO {
-	
-    /**
-     * Crée le DAO de la table <code>membre</code>.
-     * 
-     * @param membreDTOClass The classe de membre DTO to use
-     * @throws InvalidDTOClassException Si la classe de DTO est <code>null</code>
-     */
-    public MembreDAO(Class<MembreDTO> membreDTOClass) throws InvalidDTOClassException { // TODO: Change to package when switching to Spring
-        super(membreDTOClass);
-    }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<MembreDTO> findByNom(Session session,
-        String nom,
-        String sortByPropertyName) throws InvalidHibernateSessionException,
-        InvalidCriterionException,
-        InvalidCriterionValueException,
-        InvalidSortByPropertyException,
-        DAOException {
-        return (List<MembreDTO>) super.find(session, 
-			MembreDTO.NOM_COLUMN_NAME, 
-			nom, 
-			sortByPropertyName);
-    }
+	/**
+	 * Crée le DAO de la table <code>membre</code>.
+	 * 
+	 * @param membreDTOClass
+	 *            The classe de membre DTO to use
+	 * @throws InvalidDTOClassException
+	 *             Si la classe de DTO est <code>null</code>
+	 */
+	MembreDAO(Class<MembreDTO> membreDTOClass) throws InvalidDTOClassException {
+		super(membreDTOClass);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<MembreDTO> findByNom(Session session, String nom,
+			String sortByPropertyName) throws InvalidHibernateSessionException,
+			InvalidCriterionException, InvalidCriterionValueException,
+			InvalidSortByPropertyException, DAOException {
+		return (List<MembreDTO>) super.find(session, MembreDTO.NOM_COLUMN_NAME,
+				nom, sortByPropertyName);
+	}
 }

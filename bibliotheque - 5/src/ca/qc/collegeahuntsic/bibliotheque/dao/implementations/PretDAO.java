@@ -27,20 +27,13 @@ import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOClassException
 public class PretDAO extends DAO implements IPretDAO {
 	/**
 	 * Crée le DAO de la table <code>pret</code>.
-	 * 
+	 *
 	 * @param pretDTOClass
 	 *            The classe de prêt DTO to use
 	 * @throws InvalidDTOClassException
 	 *             Si la classe de DTO est <code>null</code>
 	 */
-	public PretDAO(Class<PretDTO> pretDTOClass) throws InvalidDTOClassException { // TODO:
-																					// Change
-																					// to
-																					// package
-																					// when
-																					// switching
-																					// to
-																					// Spring
+	PretDAO(Class<PretDTO> pretDTOClass) throws InvalidDTOClassException {
 		super(pretDTOClass);
 	}
 
@@ -89,9 +82,9 @@ public class PretDAO extends DAO implements IPretDAO {
 	@Override
 	public List<PretDTO> findByDateRetour(Session session,
 			Timestamp dateRetour, String sortByPropertyName)
-			throws InvalidHibernateSessionException, InvalidCriterionException,
-			InvalidSortByPropertyException, DAOException,
-			InvalidCriterionValueException {
+					throws InvalidHibernateSessionException, InvalidCriterionException,
+					InvalidSortByPropertyException, DAOException,
+					InvalidCriterionValueException {
 
 		return (List<PretDTO>) super.find(session, MembreDTO.NOM_COLUMN_NAME,
 				dateRetour, sortByPropertyName);

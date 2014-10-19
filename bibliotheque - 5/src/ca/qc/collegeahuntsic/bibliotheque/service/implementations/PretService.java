@@ -63,10 +63,7 @@ public class PretService extends Service implements IPretService {
 	 *             <code>null</code> ou si le DAO de réservation est
 	 *             <code>null</code>
 	 */
-	public PretService(
-			IPretDAO pretDAO, // TODO: Change to package when switching to
-			// Spring
-			IMembreDAO membreDAO, ILivreDAO livreDAO,
+	PretService(IPretDAO pretDAO, IMembreDAO membreDAO, ILivreDAO livreDAO,
 			IReservationDAO reservationDAO) throws InvalidDAOException {
 		super();
 		if (pretDAO == null) {
@@ -301,9 +298,9 @@ public class PretService extends Service implements IPretService {
 	@Override
 	public List<PretDTO> findByDateRetour(Session session,
 			Timestamp dateRetour, String sortByPropertyName)
-			throws InvalidHibernateSessionException, InvalidCriterionException,
-			InvalidSortByPropertyException, ServiceException,
-					InvalidCriterionValueException {
+					throws InvalidHibernateSessionException, InvalidCriterionException,
+					InvalidSortByPropertyException, ServiceException,
+			InvalidCriterionValueException {
 		try {
 			return getPretDAO().findByDateRetour(session, dateRetour,
 					sortByPropertyName);
@@ -314,7 +311,7 @@ public class PretService extends Service implements IPretService {
 
 	/**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 */
 	@Override
 	public void commencer(Session session, PretDTO pretDTO)
@@ -390,7 +387,7 @@ public class PretService extends Service implements IPretService {
 
 	/**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 */
 	@Override
 	public void renouveler(Session session, PretDTO pretDTO)

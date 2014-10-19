@@ -35,20 +35,13 @@ public class PretFacade extends Facade implements IPretFacade {
 
 	/**
 	 * Crée la façade de la table <code>pret</code>.
-	 * 
+	 *
 	 * @param pretService
 	 *            Le service de la table <code>pret</code>
 	 * @throws InvalidServiceException
 	 *             Si le service de prêts est <code>null</code>
 	 */
-	public PretFacade(IPretService pretService) throws InvalidServiceException { // TODO:
-																					// Change
-																					// to
-																					// package
-																					// when
-																					// switching
-																					// to
-																					// Spring
+	PretFacade(IPretService pretService) throws InvalidServiceException {
 		super();
 		if (pretService == null) {
 			throw new InvalidServiceException(
@@ -82,7 +75,7 @@ public class PretFacade extends Facade implements IPretFacade {
 
 	/**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 */
 	@Override
 	public void commencer(Session session, PretDTO pretDTO)
@@ -101,7 +94,7 @@ public class PretFacade extends Facade implements IPretFacade {
 
 	/**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 */
 	@Override
 	public void renouveler(Session session, PretDTO pretDTO)
@@ -121,7 +114,7 @@ public class PretFacade extends Facade implements IPretFacade {
 
 	/**
 	 * {@inheritDoc}
-	 * 
+	 *
 	 */
 	@Override
 	public void terminer(Session session, PretDTO pretDTO)

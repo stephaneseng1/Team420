@@ -28,80 +28,76 @@ import ca.qc.collegeahuntsic.bibliotheque.service.interfaces.ILivreService;
  * @author Gilles Benichou
  */
 public class LivreFacade extends Facade implements ILivreFacade {
-    private ILivreService livreService;
+	private ILivreService livreService;
 
-    /**
-     * Crée la façade de la table <code>livre</code>.
-     * 
-     * @param livreService Le service de la table <code>livre</code>
-     * @throws InvalidServiceException Si le service de livres est <code>null</code>
-     */
-    public LivreFacade(ILivreService livreService) throws InvalidServiceException { // TODO: Change to package when switching to Spring
-        super();
-        if(livreService == null) {
-            throw new InvalidServiceException("Le service de livres ne peut être null");
-        }
-        setLivreService(livreService);
-    }
+	/**
+	 * Crée la façade de la table <code>livre</code>.
+	 * 
+	 * @param livreService
+	 *            Le service de la table <code>livre</code>
+	 * @throws InvalidServiceException
+	 *             Si le service de livres est <code>null</code>
+	 */
+	LivreFacade(ILivreService livreService) throws InvalidServiceException {
+		super();
+		if (livreService == null) {
+			throw new InvalidServiceException(
+					"Le service de livres ne peut être null");
+		}
+		setLivreService(livreService);
+	}
 
-    // Region Getters and Setters
-    /**
-     * Getter de la variable d'instance <code>this.livreService</code>.
-     *
-     * @return La variable d'instance <code>this.livreService</code>
-     */
-    private ILivreService getLivreService() {
-        return this.livreService;
-    }
+	// Region Getters and Setters
+	/**
+	 * Getter de la variable d'instance <code>this.livreService</code>.
+	 *
+	 * @return La variable d'instance <code>this.livreService</code>
+	 */
+	private ILivreService getLivreService() {
+		return this.livreService;
+	}
 
-    /**
-     * Setter de la variable d'instance <code>this.livreService</code>.
-     *
-     * @param livreService La valeur à utiliser pour la variable d'instance <code>this.livreService</code>
-     */
-    private void setLivreService(ILivreService livreService) {
-        this.livreService = livreService;
-    }
+	/**
+	 * Setter de la variable d'instance <code>this.livreService</code>.
+	 *
+	 * @param livreService
+	 *            La valeur à utiliser pour la variable d'instance
+	 *            <code>this.livreService</code>
+	 */
+	private void setLivreService(ILivreService livreService) {
+		this.livreService = livreService;
+	}
 
-    // EndRegion Getters and Setters
+	// EndRegion Getters and Setters
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void acquerir(Session session,
-        LivreDTO livreDTO) throws InvalidHibernateSessionException,
-        InvalidDTOException,
-        InvalidDTOClassException,
-        FacadeException {
-        try {
-            getLivreService().acquerir(session,
-                livreDTO);
-        } catch(ServiceException serviceException) {
-            throw new FacadeException(serviceException);
-        }
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void acquerir(Session session, LivreDTO livreDTO)
+			throws InvalidHibernateSessionException, InvalidDTOException,
+			InvalidDTOClassException, FacadeException {
+		try {
+			getLivreService().acquerir(session, livreDTO);
+		} catch (ServiceException serviceException) {
+			throw new FacadeException(serviceException);
+		}
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void vendre(Session session,
-        LivreDTO livreDTO) throws InvalidHibernateSessionException,
-        InvalidDTOException,
-        InvalidDTOClassException,
-        InvalidPrimaryKeyException,
-        MissingDTOException,
-        InvalidCriterionException,
-        InvalidSortByPropertyException,
-        ExistingLoanException,
-        ExistingReservationException,
-        FacadeException {
-        try {
-            getLivreService().vendre(session,
-                livreDTO);
-        } catch(ServiceException serviceException) {
-            throw new FacadeException(serviceException);
-        }
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void vendre(Session session, LivreDTO livreDTO)
+			throws InvalidHibernateSessionException, InvalidDTOException,
+			InvalidDTOClassException, InvalidPrimaryKeyException,
+			MissingDTOException, InvalidCriterionException,
+			InvalidSortByPropertyException, ExistingLoanException,
+			ExistingReservationException, FacadeException {
+		try {
+			getLivreService().vendre(session, livreDTO);
+		} catch (ServiceException serviceException) {
+			throw new FacadeException(serviceException);
+		}
+	}
 }
