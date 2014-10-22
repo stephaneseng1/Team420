@@ -1,0 +1,6 @@
+ca.qc.collegeahuntsic.bibliotheque.dto
+ca.qc.collegeahuntsic.bibliotheque.exception.dao
+ca.qc.collegeahuntsic.bibliotheque.exception.dto
+ca.qc.collegeahuntsic.bibliotheque.exception.facade
+ca.qc.collegeahuntsic.bibliotheque.exception.service
+ca.qc.collegeahuntsic.bibliotheque.facade.interfaces
