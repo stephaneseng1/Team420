@@ -204,7 +204,7 @@ public class BibliothequeCreateur {
      * @return La session Hibernate
      * @throws BibliothequeException S'il y a une erreur
      */
-    private Session openSession() throws BibliothequeException {
+    public Session openSession() throws BibliothequeException {
         try {
             setSession(getSessionFactory().openSession());
         } catch(HibernateException hibernateException) {
@@ -218,7 +218,7 @@ public class BibliothequeCreateur {
      * 
      * @throws BibliothequeException S'il y a une erreur
      */
-    private void closeSession() throws BibliothequeException {
+    public void closeSession() throws BibliothequeException {
         try {
             getSession().close();
         } catch(HibernateException hibernateException) {
