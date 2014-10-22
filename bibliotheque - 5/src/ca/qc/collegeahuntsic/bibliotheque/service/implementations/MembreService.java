@@ -10,7 +10,6 @@ import java.util.List;
 import org.hibernate.Session;
 
 import ca.qc.collegeahuntsic.bibliotheque.dao.interfaces.IMembreDAO;
-import ca.qc.collegeahuntsic.bibliotheque.dao.interfaces.IReservationDAO;
 import ca.qc.collegeahuntsic.bibliotheque.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.dto.ReservationDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.DAOException;
@@ -136,7 +135,8 @@ public class MembreService extends Service implements IMembreService {
 	/**
 	 * {@inheritDoc}
 	 */
-	@Override
+	@SuppressWarnings("unchecked")
+    @Override
 	public List<MembreDTO> getAllMembres(Session session,
 			String sortByPropertyName) throws InvalidHibernateSessionException,
 			InvalidSortByPropertyException, ServiceException {

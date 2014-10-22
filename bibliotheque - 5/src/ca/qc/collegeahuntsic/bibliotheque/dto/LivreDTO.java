@@ -43,8 +43,8 @@ public final class LivreDTO extends DTO {
      */
     public LivreDTO() {
         super();
-        setPrets(Collections.EMPTY_SET);
-        setReservations(Collections.EMPTY_SET);
+        setPrets(Collections.<PretDTO> emptySet());
+        setReservations(Collections.<ReservationDTO> emptySet());
     }
 
     // Region Getters and Setters

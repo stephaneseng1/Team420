@@ -141,7 +141,7 @@ public final class MembreDTO extends DTO {
     }
     
     public Set<PretDTO> getPrets() {
-		return prets;
+		return this.prets;
 	}
 
     public void setPrets(Set<PretDTO> prets) {
@@ -149,7 +149,7 @@ public final class MembreDTO extends DTO {
 	}
 
 	public List<ReservationDTO> getReservations() {
-		return reservations;
+		return this.reservations;
 	}
 
 	public void setReservations(List<ReservationDTO> reservations) {
