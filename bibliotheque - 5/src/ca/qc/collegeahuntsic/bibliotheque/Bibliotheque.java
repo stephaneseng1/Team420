@@ -73,8 +73,6 @@ public class Bibliotheque {
             e.printStackTrace();
             gestionBiblio.rollbackTransaction();
             Bibliotheque.LOGGER.info(e);
-        } finally {
-            gestionBiblio.closeSession();
         }
         Bibliotheque.LOGGER.info("Usage: java Biblio <serveur> <bd> <user> <password> [<fichier-transactions>]");
     }
@@ -121,6 +119,7 @@ public class Bibliotheque {
             if("aide".startsWith(command)) {
                 afficherAide();
             } else if("acquerir".startsWith(command)) {
+            	gestionBiblio.beginTransaction();
                 LivreDTO livreDTO = new LivreDTO();
                 livreDTO.setTitre(readString(tokenizer));
                 livreDTO.setAuteur(readString(tokenizer));
@@ -129,12 +128,14 @@ public class Bibliotheque {
                     livreDTO);
                 gestionBiblio.commitTransaction();
             } else if("vendre".startsWith(command)) {
+            	gestionBiblio.beginTransaction();
                 LivreDTO livreDTO = new LivreDTO();
                 livreDTO.setIdLivre(readString(tokenizer));
                 gestionBiblio.getLivreFacade().vendre(gestionBiblio.getSession(),
                     livreDTO);
                 gestionBiblio.commitTransaction();
             } else if("preter".startsWith(command)) {
+            	gestionBiblio.beginTransaction();
                 PretDTO pretDTO = new PretDTO();
                 MembreDTO membreDTO = new MembreDTO();
                 membreDTO.setIdMembre(readString(tokenizer));
@@ -146,18 +147,21 @@ public class Bibliotheque {
                     pretDTO);
                 gestionBiblio.commitTransaction();
             } else if("renouveler".startsWith(command)) {
+            	gestionBiblio.beginTransaction();
                 PretDTO pretDTO = new PretDTO();
                 pretDTO.setIdPret(readString(tokenizer));
                 gestionBiblio.getPretFacade().renouveler(gestionBiblio.getSession(),
                     pretDTO);
                 gestionBiblio.commitTransaction();
             } else if("retourner".startsWith(command)) {
+            	gestionBiblio.beginTransaction();
                 PretDTO pretDTO = new PretDTO();
                 pretDTO.setIdPret(readString(tokenizer));
                 gestionBiblio.getPretFacade().terminer(gestionBiblio.getSession(),
                     pretDTO);
                 gestionBiblio.commitTransaction();
             } else if("inscrire".startsWith(command)) {
+            	gestionBiblio.beginTransaction();
                 MembreDTO membreDTO = new MembreDTO();
                 membreDTO.setNom(readString(tokenizer));
                 membreDTO.setTelephone(readString(tokenizer));
@@ -166,6 +170,7 @@ public class Bibliotheque {
                     membreDTO);
                 gestionBiblio.commitTransaction();
             } else if("desinscrire".startsWith(command)) {
+            	gestionBiblio.beginTransaction();
                 MembreDTO membreDTO = new MembreDTO();
                 membreDTO.setIdMembre(readString(tokenizer));
                 gestionBiblio.getMembreFacade().desinscrire(gestionBiblio.getSession(),
@@ -175,6 +180,7 @@ public class Bibliotheque {
                 // Juste pour éviter deux timestamps de réservation strictement
                 // identiques
                 Thread.sleep(1);
+                gestionBiblio.beginTransaction();
                 ReservationDTO reservationDTO = new ReservationDTO();
                 MembreDTO membreDTO = new MembreDTO();
                 membreDTO.setIdMembre(readString(tokenizer));
@@ -186,12 +192,14 @@ public class Bibliotheque {
                     reservationDTO);
                 gestionBiblio.commitTransaction();
             } else if("utiliser".startsWith(command)) {
+            	gestionBiblio.beginTransaction();
                 ReservationDTO reservationDTO = new ReservationDTO();
                 reservationDTO.setIdReservation(readString(tokenizer));
                 gestionBiblio.getReservationFacade().utiliser(gestionBiblio.getSession(),
                     reservationDTO);
                 gestionBiblio.commitTransaction();
             } else if("annuler".startsWith(command)) {
+            	gestionBiblio.beginTransaction();
                 ReservationDTO reservationDTO = new ReservationDTO();
                 reservationDTO.setIdReservation(readString(tokenizer));
                 gestionBiblio.getReservationFacade().annuler(gestionBiblio.getSession(),

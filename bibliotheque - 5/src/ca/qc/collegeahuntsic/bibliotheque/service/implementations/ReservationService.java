@@ -5,7 +5,9 @@
 package ca.qc.collegeahuntsic.bibliotheque.service.implementations;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 
@@ -306,12 +308,15 @@ public class ReservationService extends Service implements IReservationService {
 						+ reservationDTO.getLivreDTO().getIdLivre()
 						+ " n'existe pas");
 			}
-			List<PretDTO> prets = getPretDAO().findByLivre(session,
-					unLivreDTO.getIdLivre(), PretDTO.DATE_PRET_COLUMN_NAME);
+			Set<PretDTO> prets = unLivreDTO.getPrets();
 			if (prets.isEmpty()) {
-				throw new MissingLoanException("Le livre "
-						+ unLivreDTO.getTitre() + " (ID de livre : "
-						+ unLivreDTO.getIdLivre() + ") n'est pas encore prêté");
+				for (PretDTO pretDTO : prets) {
+					if (pretDTO.getDateRetour() == null) {
+						throw new MissingLoanException("Le livre "
+								+ unLivreDTO.getTitre() + " (ID de livre : "
+								+ unLivreDTO.getIdLivre() + ") n'est pas encore prêté");
+					}
+				}
 			}
 			boolean aEteEmprunteParMembre = false;
 			for (PretDTO pretDTO : prets) {
@@ -325,14 +330,16 @@ public class ReservationService extends Service implements IReservationService {
 						+ unMembreDTO.getNom() + " (ID de membre : "
 						+ unMembreDTO.getIdMembre() + ")");
 			}
-			List<ReservationDTO> reservations = findByMembre(session,
-					unMembreDTO.getIdMembre(), MembreDTO.ID_MEMBRE_COLUMN_NAME);
-			for (ReservationDTO uneAutreReservationDTO : reservations) {
-				if (unLivreDTO.equals(uneAutreReservationDTO.getLivreDTO())) {
-					throw new ExistingReservationException("Le livre "
-							+ unLivreDTO.getTitre() + " (ID de livre : "
-							+ unLivreDTO.getIdLivre()
-							+ ") est déjà réservé pour quelqu'un d'autre");
+			List<ReservationDTO> reservations = new ArrayList<>(
+					unLivreDTO.getReservations());
+			if (!reservations.isEmpty()) {
+				for (ReservationDTO uneAutreReservationDTO : reservations) {
+					if (unLivreDTO.equals(uneAutreReservationDTO.getLivreDTO())) {
+						throw new ExistingReservationException("Le livre "
+								+ unLivreDTO.getTitre() + " (ID de livre : "
+								+ unLivreDTO.getIdLivre()
+								+ ") est déjà réservé pour quelqu'un d'autre");
+					}
 				}
 			}
 			reservationDTO.setDateReservation(new Timestamp(System

@@ -4,6 +4,7 @@
 
 package ca.qc.collegeahuntsic.bibliotheque.service.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -11,6 +12,7 @@ import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliotheque.dao.interfaces.IMembreDAO;
 import ca.qc.collegeahuntsic.bibliotheque.dao.interfaces.IReservationDAO;
 import ca.qc.collegeahuntsic.bibliotheque.dto.MembreDTO;
+import ca.qc.collegeahuntsic.bibliotheque.dto.ReservationDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.DAOException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionValueException;
@@ -34,8 +36,6 @@ import ca.qc.collegeahuntsic.bibliotheque.service.interfaces.IMembreService;
 public class MembreService extends Service implements IMembreService {
 	private IMembreDAO membreDAO;
 
-	private IReservationDAO reservationDAO;
-
 	/**
 	 * Crée le service de la table <code>membre</code>.
 	 * 
@@ -53,12 +53,7 @@ public class MembreService extends Service implements IMembreService {
 		if (membreDAO == null) {
 			throw new InvalidDAOException("Le DAO de membre ne peut être null");
 		}
-		if (reservationDAO == null) {
-			throw new InvalidDAOException(
-					"Le DAO de réservation ne peut être null");
-		}
 		setMembreDAO(membreDAO);
-		setReservationDAO(reservationDAO);
 	}
 
 	// Region Getters and Setters
@@ -80,26 +75,6 @@ public class MembreService extends Service implements IMembreService {
 	 */
 	private void setMembreDAO(IMembreDAO membreDAO) {
 		this.membreDAO = membreDAO;
-	}
-
-	/**
-	 * Getter de la variable d'instance <code>this.reservationDAO</code>.
-	 *
-	 * @return La variable d'instance <code>this.reservationDAO</code>
-	 */
-	private IReservationDAO getReservationDAO() {
-		return this.reservationDAO;
-	}
-
-	/**
-	 * Setter de la variable d'instance <code>this.reservationDAO</code>.
-	 *
-	 * @param reservationDAO
-	 *            La valeur à utiliser pour la variable d'instance
-	 *            <code>this.reservationDAO</code>
-	 */
-	private void setReservationDAO(IReservationDAO reservationDAO) {
-		this.reservationDAO = reservationDAO;
 	}
 
 	// EndRegion Getters and Setters
@@ -229,18 +204,18 @@ public class MembreService extends Service implements IMembreService {
 						+ unMembreDTO.getNom() + " (ID de membre : "
 						+ unMembreDTO.getIdMembre() + ") a encore des prêts");
 			}
-			if (!getReservationDAO().findByMembre(session,
-					unMembreDTO.getIdMembre(), MembreDTO.ID_MEMBRE_COLUMN_NAME)
-					.isEmpty()) {
+			List<ReservationDTO> reservations = new ArrayList<>(
+					unMembreDTO.getReservations());
+			if (!reservations.isEmpty()) {
+				ReservationDTO reservationDTO = reservations.get(0);
+				MembreDTO booker = reservationDTO.getMembreDTO();
 				throw new ExistingReservationException("Le membre "
-						+ unMembreDTO.getNom() + " (ID de membre : "
-						+ unMembreDTO.getIdMembre() + ") a des réservations");
+						+ booker.getNom() + " (ID de membre : "
+						+ booker.getIdMembre() + ") a des réservations");
 			}
 			deleteMembre(session, unMembreDTO);
 		} catch (NumberFormatException numberFormatException) {
 			throw new ServiceException(numberFormatException);
-		} catch (DAOException daoException) {
-			throw new ServiceException(daoException);
 		}
 	}
 }
