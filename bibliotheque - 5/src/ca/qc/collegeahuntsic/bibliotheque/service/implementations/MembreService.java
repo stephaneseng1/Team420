@@ -41,13 +41,11 @@ public class MembreService extends Service implements IMembreService {
 	 * 
 	 * @param membreDAO
 	 *            Le DAO de la table <code>membre</code>
-	 * @param reservationDAO
-	 *            Le DAO de la table <code>reservation</code>
 	 * @throws InvalidDAOException
 	 *             Si le DAO de membre est <code>null</code> ou si le DAO de
 	 *             réservation est <code>null</code>
 	 */
-	MembreService(IMembreDAO membreDAO, IReservationDAO reservationDAO)
+	MembreService(IMembreDAO membreDAO)
 			throws InvalidDAOException {
 		super();
 		if (membreDAO == null) {
