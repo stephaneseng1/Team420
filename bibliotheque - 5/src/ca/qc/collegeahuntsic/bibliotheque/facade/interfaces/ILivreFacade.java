@@ -5,7 +5,6 @@
 package ca.qc.collegeahuntsic.bibliotheque.facade.interfaces;
 
 import org.hibernate.Session;
-
 import ca.qc.collegeahuntsic.bibliotheque.dto.LivreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;

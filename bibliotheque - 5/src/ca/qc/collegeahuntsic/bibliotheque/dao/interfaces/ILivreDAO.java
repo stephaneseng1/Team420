@@ -5,9 +5,7 @@
 package ca.qc.collegeahuntsic.bibliotheque.dao.interfaces;
 
 import java.util.List;
-
 import org.hibernate.Session;
-
 import ca.qc.collegeahuntsic.bibliotheque.dto.LivreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.DAOException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;

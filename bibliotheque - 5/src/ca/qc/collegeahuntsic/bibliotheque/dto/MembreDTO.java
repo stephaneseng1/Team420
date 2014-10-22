@@ -6,7 +6,6 @@ package ca.qc.collegeahuntsic.bibliotheque.dto;
 
 import java.util.List;
 import java.util.Set;
-
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -37,10 +36,10 @@ public final class MembreDTO extends DTO {
     private String limitePret;
 
     private String nbPret;
-    
+
     private Set<PretDTO> prets;
 
-	private List<ReservationDTO> reservations;
+    private List<ReservationDTO> reservations;
 
     /**
      * Crée un DTO de la table <code>membre</code>.
@@ -139,22 +138,22 @@ public final class MembreDTO extends DTO {
     public void setNbPret(String nbPret) {
         this.nbPret = nbPret;
     }
-    
+
     public Set<PretDTO> getPrets() {
-		return this.prets;
-	}
+        return this.prets;
+    }
 
     public void setPrets(Set<PretDTO> prets) {
-		this.prets = prets;
-	}
+        this.prets = prets;
+    }
 
-	public List<ReservationDTO> getReservations() {
-		return this.reservations;
-	}
+    public List<ReservationDTO> getReservations() {
+        return this.reservations;
+    }
 
-	public void setReservations(List<ReservationDTO> reservations) {
-		this.reservations = reservations;
-	}
+    public void setReservations(List<ReservationDTO> reservations) {
+        this.reservations = reservations;
+    }
 
     // EndRegion Getters and Setters
 

@@ -5,9 +5,7 @@
 package ca.qc.collegeahuntsic.bibliotheque.dao.implementations;
 
 import java.util.List;
-
 import org.hibernate.Session;
-
 import ca.qc.collegeahuntsic.bibliotheque.dao.interfaces.IMembreDAO;
 import ca.qc.collegeahuntsic.bibliotheque.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.DAOException;
@@ -24,27 +22,32 @@ import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOClassException
  */
 public class MembreDAO extends DAO implements IMembreDAO {
 
-	/**
-	 * Crée le DAO de la table <code>membre</code>.
-	 * 
-	 * @param membreDTOClass
-	 *            The classe de membre DTO to use
-	 * @throws InvalidDTOClassException
-	 *             Si la classe de DTO est <code>null</code>
-	 */
-	MembreDAO(Class<MembreDTO> membreDTOClass) throws InvalidDTOClassException {
-		super(membreDTOClass);
-	}
+    /**
+     * Crée le DAO de la table <code>membre</code>.
+     * 
+     * @param membreDTOClass
+     *            The classe de membre DTO to use
+     * @throws InvalidDTOClassException
+     *             Si la classe de DTO est <code>null</code>
+     */
+    MembreDAO(Class<MembreDTO> membreDTOClass) throws InvalidDTOClassException {
+        super(membreDTOClass);
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<MembreDTO> findByNom(Session session, String nom,
-			String sortByPropertyName) throws InvalidHibernateSessionException,
-			InvalidCriterionException, InvalidCriterionValueException,
-			InvalidSortByPropertyException, DAOException {
-		return (List<MembreDTO>) super.find(session, MembreDTO.NOM_COLUMN_NAME,
-				nom, sortByPropertyName);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<MembreDTO> findByNom(Session session,
+        String nom,
+        String sortByPropertyName) throws InvalidHibernateSessionException,
+        InvalidCriterionException,
+        InvalidCriterionValueException,
+        InvalidSortByPropertyException,
+        DAOException {
+        return (List<MembreDTO>) super.find(session,
+            MembreDTO.NOM_COLUMN_NAME,
+            nom,
+            sortByPropertyName);
+    }
 }

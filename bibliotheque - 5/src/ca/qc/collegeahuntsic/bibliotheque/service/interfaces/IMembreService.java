@@ -5,9 +5,7 @@
 package ca.qc.collegeahuntsic.bibliotheque.service.interfaces;
 
 import java.util.List;
-
 import org.hibernate.Session;
-
 import ca.qc.collegeahuntsic.bibliotheque.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionValueException;
@@ -126,7 +124,8 @@ public interface IMembreService extends IService {
         String sortByPropertyName) throws InvalidHibernateSessionException,
         InvalidCriterionException,
         InvalidSortByPropertyException,
-        ServiceException, InvalidCriterionValueException;
+        ServiceException,
+        InvalidCriterionValueException;
 
     /**
      * Inscrit un membre.
@@ -172,5 +171,6 @@ public interface IMembreService extends IService {
         InvalidCriterionException,
         InvalidSortByPropertyException,
         ExistingReservationException,
-        ServiceException, InvalidCriterionValueException;
+        ServiceException,
+        InvalidCriterionValueException;
 }

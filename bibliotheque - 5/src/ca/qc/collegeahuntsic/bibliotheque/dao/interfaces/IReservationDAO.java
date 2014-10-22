@@ -5,9 +5,7 @@
 package ca.qc.collegeahuntsic.bibliotheque.dao.interfaces;
 
 import java.util.List;
-
 import org.hibernate.Session;
-
 import ca.qc.collegeahuntsic.bibliotheque.dto.ReservationDTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.DAOException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
@@ -40,7 +38,8 @@ public interface IReservationDAO extends IDAO {
         String sortByPropertyName) throws InvalidHibernateSessionException,
         InvalidCriterionException,
         InvalidSortByPropertyException,
-        DAOException, InvalidCriterionValueException;
+        DAOException,
+        InvalidCriterionValueException;
 
     /**
      * Trouve les réservations d'un livre. La liste est classée par ordre croissant sur <code>sortByPropertyName</code>. Si aucune réservation
@@ -62,5 +61,6 @@ public interface IReservationDAO extends IDAO {
         String sortByPropertyName) throws InvalidHibernateSessionException,
         InvalidCriterionException,
         InvalidSortByPropertyException,
-        DAOException, InvalidCriterionValueException;
+        DAOException,
+        InvalidCriterionValueException;
 }
