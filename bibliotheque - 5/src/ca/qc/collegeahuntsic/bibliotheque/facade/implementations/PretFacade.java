@@ -7,6 +7,7 @@ package ca.qc.collegeahuntsic.bibliotheque.facade.implementations;
 import org.hibernate.Session;
 
 import ca.qc.collegeahuntsic.bibliotheque.dto.PretDTO;
+import ca.qc.collegeahuntsic.bibliotheque.exception.dao.DAOException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionValueException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
@@ -27,7 +28,7 @@ import ca.qc.collegeahuntsic.bibliotheque.service.interfaces.IPretService;
 
 /**
  * Facade pour interagir avec le service de prêts.
- *
+ * 
  * @author Gilles Benichou
  */
 public class PretFacade extends Facade implements IPretFacade {
@@ -35,7 +36,7 @@ public class PretFacade extends Facade implements IPretFacade {
 
 	/**
 	 * Crée la façade de la table <code>pret</code>.
-	 *
+	 * 
 	 * @param pretService
 	 *            Le service de la table <code>pret</code>
 	 * @throws InvalidServiceException
@@ -53,7 +54,7 @@ public class PretFacade extends Facade implements IPretFacade {
 	// Region Getters and Setters
 	/**
 	 * Getter de la variable d'instance <code>this.pretService</code>.
-	 *
+	 * 
 	 * @return La variable d'instance <code>this.pretService</code>
 	 */
 	private IPretService getPretService() {
@@ -62,7 +63,7 @@ public class PretFacade extends Facade implements IPretFacade {
 
 	/**
 	 * Setter de la variable d'instance <code>this.pretService</code>.
-	 *
+	 * 
 	 * @param pretService
 	 *            La valeur à utiliser pour la variable d'instance
 	 *            <code>this.pretService</code>
@@ -75,7 +76,9 @@ public class PretFacade extends Facade implements IPretFacade {
 
 	/**
 	 * {@inheritDoc}
-	 *
+	 * 
+	 * @throws DAOException
+	 * 
 	 */
 	@Override
 	public void commencer(Session session, PretDTO pretDTO)
@@ -84,7 +87,7 @@ public class PretFacade extends Facade implements IPretFacade {
 			InvalidCriterionException, InvalidSortByPropertyException,
 			ExistingLoanException, InvalidLoanLimitException,
 			ExistingReservationException, InvalidDTOClassException,
-			FacadeException, InvalidCriterionValueException {
+			FacadeException, InvalidCriterionValueException, DAOException {
 		try {
 			getPretService().commencer(session, pretDTO);
 		} catch (ServiceException serviceException) {
@@ -94,7 +97,7 @@ public class PretFacade extends Facade implements IPretFacade {
 
 	/**
 	 * {@inheritDoc}
-	 *
+	 * 
 	 */
 	@Override
 	public void renouveler(Session session, PretDTO pretDTO)
@@ -114,7 +117,7 @@ public class PretFacade extends Facade implements IPretFacade {
 
 	/**
 	 * {@inheritDoc}
-	 *
+	 * 
 	 */
 	@Override
 	public void terminer(Session session, PretDTO pretDTO)

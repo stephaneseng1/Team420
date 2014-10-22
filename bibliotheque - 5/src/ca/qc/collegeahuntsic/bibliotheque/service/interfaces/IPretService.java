@@ -10,6 +10,7 @@ import java.util.List;
 import org.hibernate.Session;
 
 import ca.qc.collegeahuntsic.bibliotheque.dto.PretDTO;
+import ca.qc.collegeahuntsic.bibliotheque.exception.dao.DAOException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionValueException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
@@ -26,13 +27,13 @@ import ca.qc.collegeahuntsic.bibliotheque.exception.service.ServiceException;
 
 /**
  * Interface de service pour manipuler les prêts dans la base de données.
- *
+ * 
  * @author Gilles Benichou
  */
 public interface IPretService extends IService {
 	/**
 	 * Ajoute un nouveau prêt dans la base de données.
-	 *
+	 * 
 	 * @param connexion
 	 *            La connexion à utiliser
 	 * @param pretDTO
@@ -56,7 +57,7 @@ public interface IPretService extends IService {
 
 	/**
 	 * Lit un prêt à partir de la base de données.
-	 *
+	 * 
 	 * @param connexion
 	 *            La connexion à utiliser
 	 * @param idPret
@@ -75,7 +76,7 @@ public interface IPretService extends IService {
 
 	/**
 	 * Met à jour un prêt dans la base de données.
-	 *
+	 * 
 	 * @param connexion
 	 *            La connexion à utiliser
 	 * @param pretDTO
@@ -96,7 +97,7 @@ public interface IPretService extends IService {
 
 	/**
 	 * Supprime un prêt de la base de données.
-	 *
+	 * 
 	 * @param connexion
 	 *            La connexion à utiliser
 	 * @param pretDTO
@@ -119,7 +120,7 @@ public interface IPretService extends IService {
 	 * Trouve tous les prêts de la base de données. La liste est classée par
 	 * ordre croissant sur <code>sortByPropertyName</code>. Si aucun prêt n'est
 	 * trouvé, une {@link List} vide est retournée.
-	 *
+	 * 
 	 * @param connexion
 	 *            La connexion à utiliser
 	 * @param sortByPropertyName
@@ -140,7 +141,7 @@ public interface IPretService extends IService {
 	 * Trouve les prêts à partir d'un membre. La liste est classée par ordre
 	 * croissant sur <code>sortByPropertyName</code>. Si aucun prêt n'est
 	 * trouvé, une {@link List} vide est retournée.
-	 *
+	 * 
 	 * @param connexion
 	 *            La connexion à utiliser
 	 * @param idMembre
@@ -168,7 +169,7 @@ public interface IPretService extends IService {
 	 * Trouve les prêts à partir d'un livre. La liste est classée par ordre
 	 * croissant sur <code>sortByPropertyName</code>. Si aucun prêt n'est
 	 * trouvé, une {@link List} vide est retournée.
-	 *
+	 * 
 	 * @param connexion
 	 *            La connexion à utiliser
 	 * @param idLivre
@@ -196,7 +197,7 @@ public interface IPretService extends IService {
 	 * Trouve les prêts à partir d'une date de prêt. La liste est classée par
 	 * ordre croissant sur <code>sortByPropertyName</code>. Si aucun prêt n'est
 	 * trouvé, une {@link List} vide est retournée.
-	 *
+	 * 
 	 * @param connexion
 	 *            La connexion à utiliser
 	 * @param datePret
@@ -224,7 +225,7 @@ public interface IPretService extends IService {
 	 * Trouve les prêts à partir d'une date de retour. La liste est classée par
 	 * ordre croissant sur <code>sortByPropertyName</code>. Si aucun prêt n'est
 	 * trouvé, une {@link List} vide est retournée.
-	 *
+	 * 
 	 * @param connexion
 	 *            La connexion à utiliser
 	 * @param dateRetour
@@ -250,7 +251,7 @@ public interface IPretService extends IService {
 
 	/**
 	 * Commence un prêt.
-	 *
+	 * 
 	 * @param connexion
 	 *            La connexion à utiliser
 	 * @param pretDTO
@@ -281,6 +282,7 @@ public interface IPretService extends IService {
 	 *             DAO
 	 * @throws ServiceException
 	 *             S'il y a une erreur avec la base de données
+	 * @throws DAOException
 	 */
 	void commencer(Session session, PretDTO pretDTO)
 			throws InvalidHibernateSessionException, InvalidDTOException,
@@ -288,11 +290,11 @@ public interface IPretService extends IService {
 			InvalidCriterionException, InvalidSortByPropertyException,
 			ExistingLoanException, InvalidLoanLimitException,
 			ExistingReservationException, InvalidDTOClassException,
-			ServiceException, InvalidCriterionValueException;
+			ServiceException, InvalidCriterionValueException, DAOException;
 
 	/**
 	 * Renouvelle le prêt d'un livre.
-	 *
+	 * 
 	 * @param connexion
 	 *            La connexion à utiliser
 	 * @param pretDTO
@@ -337,7 +339,7 @@ public interface IPretService extends IService {
 
 	/**
 	 * Termine un prêt.
-	 *
+	 * 
 	 * @param connexion
 	 *            La connexion à utiliser
 	 * @param pretDTO

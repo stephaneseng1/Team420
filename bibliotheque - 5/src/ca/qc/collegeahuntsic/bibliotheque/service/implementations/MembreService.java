@@ -29,7 +29,7 @@ import ca.qc.collegeahuntsic.bibliotheque.service.interfaces.IMembreService;
 
 /**
  * Service de la table <code>membre</code>.
- *
+ * 
  * @author Gilles Benichou
  */
 public class MembreService extends Service implements IMembreService {
@@ -44,8 +44,7 @@ public class MembreService extends Service implements IMembreService {
 	 *             Si le DAO de membre est <code>null</code> ou si le DAO de
 	 *             réservation est <code>null</code>
 	 */
-	MembreService(IMembreDAO membreDAO)
-			throws InvalidDAOException {
+	MembreService(IMembreDAO membreDAO) throws InvalidDAOException {
 		super();
 		if (membreDAO == null) {
 			throw new InvalidDAOException("Le DAO de membre ne peut être null");
@@ -56,7 +55,7 @@ public class MembreService extends Service implements IMembreService {
 	// Region Getters and Setters
 	/**
 	 * Getter de la variable d'instance <code>this.membreDAO</code>.
-	 *
+	 * 
 	 * @return La variable d'instance <code>this.membreDAO</code>
 	 */
 	private IMembreDAO getMembreDAO() {
@@ -65,7 +64,7 @@ public class MembreService extends Service implements IMembreService {
 
 	/**
 	 * Setter de la variable d'instance <code>this.membreDAO</code>.
-	 *
+	 * 
 	 * @param membreDAO
 	 *            La valeur à utiliser pour la variable d'instance
 	 *            <code>this.membreDAO</code>
@@ -135,8 +134,7 @@ public class MembreService extends Service implements IMembreService {
 	/**
 	 * {@inheritDoc}
 	 */
-	@SuppressWarnings("unchecked")
-    @Override
+	@Override
 	public List<MembreDTO> getAllMembres(Session session,
 			String sortByPropertyName) throws InvalidHibernateSessionException,
 			InvalidSortByPropertyException, ServiceException {

@@ -7,6 +7,7 @@ package ca.qc.collegeahuntsic.bibliotheque.facade.interfaces;
 import org.hibernate.Session;
 
 import ca.qc.collegeahuntsic.bibliotheque.dto.PretDTO;
+import ca.qc.collegeahuntsic.bibliotheque.exception.dao.DAOException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionValueException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
@@ -23,13 +24,13 @@ import ca.qc.collegeahuntsic.bibliotheque.exception.service.MissingLoanException
 
 /**
  * Interface de façade pour manipuler les prêts dans la base de données.
- *
+ * 
  * @author Gilles Benichou
  */
 public interface IPretFacade extends IFacade {
 	/**
 	 * Commence un prêt.
-	 *
+	 * 
 	 * @param session
 	 *            La session à utiliser
 	 * @param pretDTO
@@ -46,7 +47,7 @@ public interface IPretFacade extends IFacade {
 	 * @throws InvalidCriterionException
 	 *             Si la propriete a utiliser est <code>null</code>
 	 * @throws InvalidCriterionValueException
-	 *   	       Si l'ID du livre est <code>null</code>
+	 *             Si l'ID du livre est <code>null</code>
 	 * @throws InvalidSortByPropertyException
 	 *             Si la propriété à utiliser pour classer est <code>null</code>
 	 * @throws ExistingLoanException
@@ -60,6 +61,7 @@ public interface IPretFacade extends IFacade {
 	 *             DAO
 	 * @throws FacadeException
 	 *             S'il y a une erreur avec la base de données
+	 * @throws DAOException
 	 */
 	void commencer(Session session, PretDTO pretDTO)
 			throws InvalidHibernateSessionException, InvalidDTOException,
@@ -67,11 +69,11 @@ public interface IPretFacade extends IFacade {
 			InvalidCriterionException, InvalidSortByPropertyException,
 			ExistingLoanException, InvalidLoanLimitException,
 			ExistingReservationException, InvalidDTOClassException,
-			FacadeException, InvalidCriterionValueException;
+			FacadeException, InvalidCriterionValueException, DAOException;
 
 	/**
 	 * Renouvelle le prêt d'un livre.
-	 *
+	 * 
 	 * @param session
 	 *            La session à utiliser
 	 * @param pretDTO
@@ -90,7 +92,7 @@ public interface IPretFacade extends IFacade {
 	 * @throws InvalidCriterionException
 	 *             Si la propriete a utiliser est <code>null</code>
 	 * @throws InvalidCriterionValueException
-	 * 			   Si l'ID du membre est <code>null</code> ou si l'ID du livre
+	 *             Si l'ID du membre est <code>null</code> ou si l'ID du livre
 	 *             est <code>null</code>
 	 * @throws InvalidSortByPropertyException
 	 *             Si la propriété à utiliser pour classer est <code>null</code>
@@ -116,7 +118,7 @@ public interface IPretFacade extends IFacade {
 
 	/**
 	 * Termine un prêt.
-	 *
+	 * 
 	 * @param session
 	 *            La session à utiliser
 	 * @param pretDTO
@@ -135,7 +137,7 @@ public interface IPretFacade extends IFacade {
 	 * @throws InvalidCriterionException
 	 *             Si la propriete a utiliser est <code>null</code>
 	 * @throws InvalidCriterionValueException
-	 * 			   Si l'ID du membre est <code>null</code> ou si l'ID du livre
+	 *             Si l'ID du membre est <code>null</code> ou si l'ID du livre
 	 *             est <code>null</code>
 	 * @throws InvalidSortByPropertyException
 	 *             Si la propriété à utiliser pour classer est <code>null</code>

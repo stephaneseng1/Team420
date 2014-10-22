@@ -7,6 +7,7 @@ package ca.qc.collegeahuntsic.bibliotheque.facade.implementations;
 import org.hibernate.Session;
 
 import ca.qc.collegeahuntsic.bibliotheque.dto.ReservationDTO;
+import ca.qc.collegeahuntsic.bibliotheque.exception.dao.DAOException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidCriterionValueException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidHibernateSessionException;
@@ -27,7 +28,7 @@ import ca.qc.collegeahuntsic.bibliotheque.service.interfaces.IReservationService
 
 /**
  * Facade pour interagir avec le service de réservations.
- *
+ * 
  * @author Gilles Benichou
  */
 public class ReservationFacade extends Facade implements IReservationFacade {
@@ -54,7 +55,7 @@ public class ReservationFacade extends Facade implements IReservationFacade {
 	// Region Getters and Setters
 	/**
 	 * Getter de la variable d'instance <code>this.reservationService</code>.
-	 *
+	 * 
 	 * @return La variable d'instance <code>this.reservationService</code>
 	 */
 	private IReservationService getReservationService() {
@@ -63,7 +64,7 @@ public class ReservationFacade extends Facade implements IReservationFacade {
 
 	/**
 	 * Setter de la variable d'instance <code>this.reservationService</code>.
-	 *
+	 * 
 	 * @param reservationService
 	 *            La valeur à utiliser pour la variable d'instance
 	 *            <code>this.reservationService</code>
@@ -94,6 +95,8 @@ public class ReservationFacade extends Facade implements IReservationFacade {
 
 	/**
 	 * {@inheritDoc}
+	 * 
+	 * @throws DAOException
 	 */
 	@Override
 	public void utiliser(Session session, ReservationDTO reservationDTO)
@@ -102,7 +105,7 @@ public class ReservationFacade extends Facade implements IReservationFacade {
 			InvalidCriterionException, InvalidSortByPropertyException,
 			ExistingReservationException, ExistingLoanException,
 			InvalidLoanLimitException, InvalidDTOClassException,
-			FacadeException, InvalidCriterionValueException {
+			FacadeException, InvalidCriterionValueException, DAOException {
 		try {
 			getReservationService().utiliser(session, reservationDTO);
 		} catch (ServiceException serviceException) {
