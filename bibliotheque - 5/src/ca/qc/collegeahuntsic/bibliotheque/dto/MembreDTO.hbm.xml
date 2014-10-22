@@ -36,12 +36,14 @@
                    </column>
          </property>
          <property name="limitePret"
-                   type="timestamp">
+                   type="string"
+                   length="100">
                    <column name="LIMITEPRET">
                    </column>
          </property>
           <property name="nbPret"
-                   type="timestamp">
+                   type="string"
+                   length="100">
                    <column name="NBPRET">
                    </column>
          </property>
