@@ -24,13 +24,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class BibliothequeCreateur {
     private static final String SPRING_CONFIGURATION_JDBC_FILENAME = "applicationContext-jdbc.xml";
-    
+
     private static final String SPRING_CONFIGURATION_DAO_FILENAME = "applicationContext-dao.xml";
-    
+
     private static final String SPRING_CONFIGURATION_DTO_FILENAME = "applicationContext-dto.xml";
-    
+
     private static final String SPRING_CONFIGURATION_FACADE_FILENAME = "applicationContext-facade.xml";
-    
+
     private static final String SPRING_CONFIGURATION_SERVICE_FILENAME = "applicationContext-service.xml";
 
     private static final String SESSION_FACTORY_NAME = "sessionFactory";
@@ -42,14 +42,12 @@ public class BibliothequeCreateur {
     private static final String PRET_FACADE_NAME = "pretFacade";
 
     private static final String RESERVATION_FACADE_NAME = "reservationFacade";
-    
-    private static final String[] APPLICATION_CONTEXT_FILENAMES = new String[]{
-        BibliothequeCreateur.SPRING_CONFIGURATION_JDBC_FILENAME,
+
+    private static final String[] APPLICATION_CONTEXT_FILENAMES = new String[] {BibliothequeCreateur.SPRING_CONFIGURATION_JDBC_FILENAME,
         BibliothequeCreateur.SPRING_CONFIGURATION_DAO_FILENAME,
         BibliothequeCreateur.SPRING_CONFIGURATION_DTO_FILENAME,
         BibliothequeCreateur.SPRING_CONFIGURATION_FACADE_FILENAME,
-        BibliothequeCreateur.SPRING_CONFIGURATION_SERVICE_FILENAME
-    };
+        BibliothequeCreateur.SPRING_CONFIGURATION_SERVICE_FILENAME};
 
     private static final ApplicationContext APPLICATION_CONTEXT = new ClassPathXmlApplicationContext(APPLICATION_CONTEXT_FILENAMES);
 
