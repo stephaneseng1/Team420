@@ -34,7 +34,6 @@
                    </column>
          </property>
          
-		
          <many-to-one name="membreDTO"
                       class="ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.MembreDTO"
                       not-null="true">
