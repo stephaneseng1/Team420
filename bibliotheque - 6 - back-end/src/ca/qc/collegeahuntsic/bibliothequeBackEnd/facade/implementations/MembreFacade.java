@@ -32,7 +32,7 @@ public class MembreFacade extends Facade implements IMembreFacade {
 
     /**
      * Crée la façade de la table <code>membre</code>.
-     * 
+     *
      * @param membreService
      *            Le service de la table <code>membre</code>
      * @throws InvalidServiceException
@@ -53,7 +53,7 @@ public class MembreFacade extends Facade implements IMembreFacade {
      * @return La variable d'instance <code>this.membreService</code>
      */
     private IMembreService getMembreService() {
-        return this.membreService;
+        return membreService;
     }
 
     /**
@@ -107,6 +107,19 @@ public class MembreFacade extends Facade implements IMembreFacade {
                 membreDTO);
         } catch(ServiceException serviceException) {
             throw new FacadeException(serviceException);
+        }
+    }
+
+    @Override
+    public MembreDTO getMembre(Session session,
+        String idMembre) throws InvalidHibernateSessionException,
+        InvalidPrimaryKeyException,
+        FacadeException {
+        try {
+            return getMembreService().getMembre(session,
+                idMembre);
+        } catch(ServiceException e) {
+            throw new FacadeException(e);
         }
     }
 }

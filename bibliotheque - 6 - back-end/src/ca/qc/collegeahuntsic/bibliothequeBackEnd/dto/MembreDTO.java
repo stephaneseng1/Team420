@@ -4,14 +4,13 @@
 
 package ca.qc.collegeahuntsic.bibliothequeBackEnd.dto;
 
-import java.util.List;
 import java.util.Set;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * DTO de la table <code>membre</code>.
- * 
+ *
  * @author Gilles Benichou
  */
 public final class MembreDTO extends DTO {
@@ -39,7 +38,7 @@ public final class MembreDTO extends DTO {
 
     private Set<PretDTO> prets;
 
-    private List<ReservationDTO> reservations;
+    private Set<ReservationDTO> reservations;
 
     /**
      * Crée un DTO de la table <code>membre</code>.
@@ -55,7 +54,7 @@ public final class MembreDTO extends DTO {
      * @return La variable d'instance <code>this.idMembre</code>
      */
     public String getIdMembre() {
-        return this.idMembre;
+        return idMembre;
     }
 
     /**
@@ -73,7 +72,7 @@ public final class MembreDTO extends DTO {
      * @return La variable d'instance <code>this.nom</code>
      */
     public String getNom() {
-        return this.nom;
+        return nom;
     }
 
     /**
@@ -91,7 +90,7 @@ public final class MembreDTO extends DTO {
      * @return La variable d'instance <code>this.telephone</code>
      */
     public String getTelephone() {
-        return this.telephone;
+        return telephone;
     }
 
     /**
@@ -109,7 +108,7 @@ public final class MembreDTO extends DTO {
      * @return La variable d'instance <code>this.limitePret</code>
      */
     public String getLimitePret() {
-        return this.limitePret;
+        return limitePret;
     }
 
     /**
@@ -127,7 +126,7 @@ public final class MembreDTO extends DTO {
      * @return La variable d'instance <code>this.nbPret</code>
      */
     public String getNbPret() {
-        return this.nbPret;
+        return nbPret;
     }
 
     /**
@@ -140,18 +139,18 @@ public final class MembreDTO extends DTO {
     }
 
     public Set<PretDTO> getPrets() {
-        return this.prets;
+        return prets;
     }
 
     public void setPrets(Set<PretDTO> prets) {
         this.prets = prets;
     }
 
-    public List<ReservationDTO> getReservations() {
-        return this.reservations;
+    public Set<ReservationDTO> getReservations() {
+        return reservations;
     }
 
-    public void setReservations(List<ReservationDTO> reservations) {
+    public void setReservations(Set<ReservationDTO> reservations) {
         this.reservations = reservations;
     }
 

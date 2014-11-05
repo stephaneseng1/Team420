@@ -19,13 +19,13 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingReser
 
 /**
  * Interface de façade pour manipuler les livres dans la base de données.
- * 
+ *
  * @author Gilles Benichou
  */
 public interface ILivreFacade extends IFacade {
     /**
      * Acquiert un livre.
-     * 
+     *
      * @param connexion La connexion à utiliser
      * @param livreDTO Le livre à acquérir
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
@@ -42,7 +42,7 @@ public interface ILivreFacade extends IFacade {
 
     /**
      * Vend un livre
-     * 
+     *
      * @param connexion La connexion à utiliser
      * @param livreDTO Le livre à vendre
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
@@ -66,5 +66,10 @@ public interface ILivreFacade extends IFacade {
         InvalidSortByPropertyException,
         ExistingLoanException,
         ExistingReservationException,
+        FacadeException;
+
+    LivreDTO getLivre(Session session,
+        String idLivre) throws InvalidHibernateSessionException,
+        InvalidPrimaryKeyException,
         FacadeException;
 }

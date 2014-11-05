@@ -26,7 +26,7 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingReser
 public interface IMembreFacade extends IFacade {
     /**
      * Inscrit un membre.
-     * 
+     *
      * @param connexion
      *            La connexion à utiliser
      * @param membreDTO
@@ -52,7 +52,7 @@ public interface IMembreFacade extends IFacade {
 
     /**
      * Désincrit un membre.
-     * 
+     *
      * @param connexion
      *            La connexion à utiliser
      * @param membreDTO
@@ -93,4 +93,9 @@ public interface IMembreFacade extends IFacade {
         ExistingReservationException,
         FacadeException,
         InvalidCriterionValueException;
+
+    MembreDTO getMembre(Session session,
+        String idMembre) throws InvalidHibernateSessionException,
+        InvalidPrimaryKeyException,
+        FacadeException;
 }

@@ -33,7 +33,7 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.service.interfaces.IPretService
 
 /**
  * Service de la table <code>pret</code>.
- * 
+ *
  * @author Gilles Benichou
  */
 public class PretService extends Service implements IPretService {
@@ -41,7 +41,7 @@ public class PretService extends Service implements IPretService {
 
     /**
      * Crée le service de la table <code>pret</code>.
-     * 
+     *
      * @param pretDAO
      *            Le DAO de la table <code>pret</code>
      * @param membreDAO
@@ -67,16 +67,16 @@ public class PretService extends Service implements IPretService {
     // Region Getters and Setters
     /**
      * Getter de la variable d'instance <code>this.pretDAO</code>.
-     * 
+     *
      * @return La variable d'instance <code>this.pretDAO</code>
      */
     private IPretDAO getPretDAO() {
-        return this.pretDAO;
+        return pretDAO;
     }
 
     /**
      * Setter de la variable d'instance <code>this.pretDAO</code>.
-     * 
+     *
      * @param pretDAO
      *            La valeur à utiliser pour la variable d'instance
      *            <code>this.pretDAO</code>
@@ -106,7 +106,7 @@ public class PretService extends Service implements IPretService {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      */
     @Override
     public PretDTO getPret(Session session,
@@ -173,7 +173,7 @@ public class PretService extends Service implements IPretService {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      */
     @Override
     public List<PretDTO> findByMembre(Session session,
@@ -194,7 +194,7 @@ public class PretService extends Service implements IPretService {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      */
     @Override
     public List<PretDTO> findByLivre(Session session,
@@ -215,7 +215,7 @@ public class PretService extends Service implements IPretService {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      */
     @Override
     public List<PretDTO> findByDatePret(Session session,
@@ -236,7 +236,7 @@ public class PretService extends Service implements IPretService {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      */
     @Override
     public List<PretDTO> findByDateRetour(Session session,
@@ -257,9 +257,9 @@ public class PretService extends Service implements IPretService {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @throws DAOException
-     * 
+     *
      */
     @Override
     public void commencer(Session session,
@@ -282,22 +282,9 @@ public class PretService extends Service implements IPretService {
         if(pretDTO == null) {
             throw new InvalidDTOException("Le prêt ne peut être null");
         }
-        PretDTO unPretDTO = getPret(session,
-            pretDTO.getIdPret());
 
-        MembreDTO unMembreDTO = unPretDTO.getMembreDTO();
-        if(unMembreDTO == null) {
-            throw new MissingDTOException("Le membre "
-                + pretDTO.getMembreDTO().getIdMembre()
-                + " n'existe pas");
-        }
-
-        LivreDTO unLivreDTO = unPretDTO.getLivreDTO();
-        if(unLivreDTO == null) {
-            throw new MissingDTOException("Le livre "
-                + pretDTO.getLivreDTO().getIdLivre()
-                + " n'existe pas");
-        }
+        MembreDTO unMembreDTO = pretDTO.getMembreDTO();
+        LivreDTO unLivreDTO = pretDTO.getLivreDTO();
 
         Set<PretDTO> prets = unLivreDTO.getPrets();
         if(!prets.isEmpty()) {
@@ -317,6 +304,7 @@ public class PretService extends Service implements IPretService {
                 }
             }
         }
+
         if(unMembreDTO.getNbPret().equals(unMembreDTO.getLimitePret())) {
             throw new InvalidLoanLimitException("Le membre "
                 + unMembreDTO.getNom()
@@ -349,7 +337,7 @@ public class PretService extends Service implements IPretService {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      */
     @Override
     public void renouveler(Session session,
@@ -379,18 +367,7 @@ public class PretService extends Service implements IPretService {
                 + " n'existe pas");
         }
         MembreDTO unMembreDTO = unPretDTO.getMembreDTO();
-        if(unMembreDTO == null) {
-            throw new MissingDTOException("Le membre "
-                + unPretDTO.getMembreDTO().getIdMembre()
-                + " n'existe pas");
-        }
         LivreDTO unLivreDTO = unPretDTO.getLivreDTO();
-        if(unLivreDTO == null) {
-            throw new MissingDTOException("Le livre "
-                + unPretDTO.getLivreDTO().getIdLivre()
-                + " n'existe pas");
-        }
-
         Set<PretDTO> prets = unLivreDTO.getPrets();
         if(prets.isEmpty()) {
             throw new MissingLoanException("Le livre "
@@ -436,7 +413,7 @@ public class PretService extends Service implements IPretService {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      */
     @Override
     public void terminer(Session session,
@@ -457,60 +434,42 @@ public class PretService extends Service implements IPretService {
         if(pretDTO == null) {
             throw new InvalidDTOException("Le prêt ne peut être null");
         }
-        try {
-            PretDTO unPretDTO = getPret(session,
-                pretDTO.getIdPret());
-            if(unPretDTO == null) {
-                throw new MissingDTOException("Le prêt "
-                    + pretDTO.getIdPret()
-                    + " n'existe pas");
-            }
-            MembreDTO unMembreDTO = unPretDTO.getMembreDTO();
-            if(unMembreDTO == null) {
-                throw new MissingDTOException("Le membre "
-                    + unPretDTO.getMembreDTO().getIdMembre()
-                    + " n'existe pas");
-            }
-            LivreDTO unLivreDTO = unPretDTO.getLivreDTO();
-            if(unLivreDTO == null) {
-                throw new MissingDTOException("Le livre "
-                    + unPretDTO.getLivreDTO().getIdLivre()
-                    + " n'existe pas");
-            }
-            List<PretDTO> prets = findByMembre(session,
-                unMembreDTO.getIdMembre(),
-                PretDTO.DATE_PRET_COLUMN_NAME);
-            if(prets.isEmpty()) {
-                throw new MissingLoanException("Le livre "
-                    + unLivreDTO.getTitre()
-                    + " (ID de livre : "
-                    + unLivreDTO.getIdLivre()
-                    + ") n'est pas encore prêté");
-            }
-            boolean aEteEmprunteParMembre = false;
-            for(PretDTO unAutrePretDTO : prets) {
-                aEteEmprunteParMembre = unMembreDTO.equals(unAutrePretDTO.getMembreDTO());
-            }
-            if(!aEteEmprunteParMembre) {
-                throw new ExistingLoanException("Le livre "
-                    + unLivreDTO.getTitre()
-                    + " (ID de livre : "
-                    + unLivreDTO.getIdLivre()
-                    + ") n'a pas été prêté à "
-                    + unMembreDTO.getNom()
-                    + " (ID de membre : "
-                    + unMembreDTO.getIdMembre()
-                    + ")");
-            }
-            unMembreDTO.setNbPret(Integer.toString(Integer.parseInt(unMembreDTO.getNbPret()) - 1));
-            getPretDAO().update(session,
-                unMembreDTO);
-            unPretDTO.setDateRetour(new Timestamp(System.currentTimeMillis()));
-            updatePret(session,
-                unPretDTO);
-        } catch(DAOException daoException) {
-            throw new ServiceException(daoException);
+        PretDTO unPretDTO = getPret(session,
+            pretDTO.getIdPret());
+        if(unPretDTO == null) {
+            throw new MissingDTOException("Le prêt "
+                + pretDTO.getIdPret()
+                + " n'existe pas");
         }
+        MembreDTO unMembreDTO = unPretDTO.getMembreDTO();
+        LivreDTO unLivreDTO = unPretDTO.getLivreDTO();
+        Set<PretDTO> prets = unLivreDTO.getPrets();
+        if(prets.isEmpty()) {
+            throw new MissingLoanException("Le livre "
+                + unLivreDTO.getTitre()
+                + " (ID de livre : "
+                + unLivreDTO.getIdLivre()
+                + ") n'est pas encore prêté");
+        }
+        boolean aEteEmprunteParMembre = false;
+        for(PretDTO unAutrePretDTO : prets) {
+            aEteEmprunteParMembre = unMembreDTO.equals(unAutrePretDTO.getMembreDTO());
+        }
+        if(!aEteEmprunteParMembre) {
+            throw new ExistingLoanException("Le livre "
+                + unLivreDTO.getTitre()
+                + " (ID de livre : "
+                + unLivreDTO.getIdLivre()
+                + ") n'a pas été prêté à "
+                + unMembreDTO.getNom()
+                + " (ID de membre : "
+                + unMembreDTO.getIdMembre()
+                + ")");
+        }
+        unMembreDTO.setNbPret(Integer.toString(Integer.parseInt(unMembreDTO.getNbPret()) - 1));
+        unPretDTO.setDateRetour(new Timestamp(System.currentTimeMillis()));
+        updatePret(session,
+            unPretDTO);
     }
 
 }

@@ -6,6 +6,7 @@ package ca.qc.collegeahuntsic.bibliothequeBackEnd.service.implementations;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.hibernate.Session;
@@ -34,7 +35,7 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.service.interfaces.IReservation
 
 /**
  * Service de la table <code>reservation</code>.
- * 
+ *
  * @author Gilles Benichou
  */
 public class ReservationService extends Service implements IReservationService {
@@ -44,7 +45,7 @@ public class ReservationService extends Service implements IReservationService {
 
     /**
      * Crée le service de la table <code>reservation</code>.
-     * 
+     *
      * @param reservationDAO
      *            Le DAO de la table <code>reservation</code>
      * @param pretDAO
@@ -70,16 +71,16 @@ public class ReservationService extends Service implements IReservationService {
     // Region Getters and Setters
     /**
      * Getter de la variable d'instance <code>this.reservationDAO</code>.
-     * 
+     *
      * @return La variable d'instance <code>this.reservationDAO</code>
      */
     private IReservationDAO getReservationDAO() {
-        return this.reservationDAO;
+        return reservationDAO;
     }
 
     /**
      * Setter de la variable d'instance <code>this.reservationDAO</code>.
-     * 
+     *
      * @param reservationDAO
      *            La valeur à utiliser pour la variable d'instance
      *            <code>this.reservationDAO</code>
@@ -90,16 +91,16 @@ public class ReservationService extends Service implements IReservationService {
 
     /**
      * Getter de la variable d'instance <code>this.pretDAO</code>.
-     * 
+     *
      * @return La variable d'instance <code>this.pretDAO</code>
      */
     private IPretDAO getPretDAO() {
-        return this.pretDAO;
+        return pretDAO;
     }
 
     /**
      * Setter de la variable d'instance <code>this.pretDAO</code>.
-     * 
+     *
      * @param pretDAO
      *            La valeur à utiliser pour la variable d'instance
      *            <code>this.pretDAO</code>
@@ -256,25 +257,9 @@ public class ReservationService extends Service implements IReservationService {
         if(reservationDTO == null) {
             throw new InvalidDTOException("La réservation ne peut être null");
         }
-        ReservationDTO uneReservationDTO = getReservation(session,
-            reservationDTO.getIdReservation());
-        if(uneReservationDTO == null) {
-            throw new MissingDTOException("La reservation "
-                + reservationDTO.getIdReservation()
-                + " n'existe pas");
-        }
-        MembreDTO unMembreDTO = uneReservationDTO.getMembreDTO();
-        if(unMembreDTO == null) {
-            throw new MissingDTOException("Le membre "
-                + reservationDTO.getMembreDTO().getIdMembre()
-                + " n'existe pas");
-        }
-        LivreDTO unLivreDTO = uneReservationDTO.getLivreDTO();
-        if(unLivreDTO == null) {
-            throw new MissingDTOException("Le livre "
-                + reservationDTO.getLivreDTO().getIdLivre()
-                + " n'existe pas");
-        }
+        MembreDTO unMembreDTO = reservationDTO.getMembreDTO();
+        LivreDTO unLivreDTO = reservationDTO.getLivreDTO();
+
         Set<PretDTO> prets = unLivreDTO.getPrets();
         if(prets.isEmpty()) {
             for(PretDTO pretDTO : prets) {
@@ -302,7 +287,7 @@ public class ReservationService extends Service implements IReservationService {
                 + unMembreDTO.getIdMembre()
                 + ")");
         }
-        List<ReservationDTO> reservations = new ArrayList<>(unLivreDTO.getReservations());
+        Set<ReservationDTO> reservations = new HashSet<>(unLivreDTO.getReservations());
         if(!reservations.isEmpty()) {
             for(ReservationDTO uneAutreReservationDTO : reservations) {
                 if(unLivreDTO.equals(uneAutreReservationDTO.getLivreDTO())) {
@@ -321,7 +306,7 @@ public class ReservationService extends Service implements IReservationService {
 
     /**
      * {@inheritDoc}
-     * 
+     *
      * @throws DAOException
      */
     @Override
@@ -353,17 +338,7 @@ public class ReservationService extends Service implements IReservationService {
                 + " n'existe pas");
         }
         MembreDTO unMembreDTO = uneReservationDTO.getMembreDTO();
-        if(unMembreDTO == null) {
-            throw new MissingDTOException("Le membre "
-                + uneReservationDTO.getMembreDTO().getIdMembre()
-                + " n'existe pas");
-        }
         LivreDTO unLivreDTO = uneReservationDTO.getLivreDTO();
-        if(unLivreDTO == null) {
-            throw new MissingDTOException("Le livre "
-                + uneReservationDTO.getLivreDTO().getIdLivre()
-                + " n'existe pas");
-        }
         List<ReservationDTO> reservations = new ArrayList<>(unLivreDTO.getReservations());
         if(!reservations.isEmpty()) {
             uneReservationDTO = reservations.get(0);
@@ -407,8 +382,8 @@ public class ReservationService extends Service implements IReservationService {
         annuler(session,
             uneReservationDTO);
         unMembreDTO.setNbPret(Integer.toString(Integer.parseInt(unMembreDTO.getNbPret()) + 1));
-        getPretDAO().update(session,
-            unMembreDTO);
+        /*        getPretDAO().update(session,
+                    unMembreDTO);*/
         PretDTO unPretDTO = new PretDTO();
         unPretDTO.setMembreDTO(unMembreDTO);
         unPretDTO.setLivreDTO(unLivreDTO);

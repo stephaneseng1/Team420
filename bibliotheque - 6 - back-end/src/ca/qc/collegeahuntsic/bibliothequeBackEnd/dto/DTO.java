@@ -15,8 +15,8 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.Constants;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import ca.qc.collegeahuntsic.bibliothequeBackEnd.Constants;
 
 /**
  * Classe de base pour tous les DTOs.

@@ -169,12 +169,12 @@ public final class LivreDTO extends DTO {
                 && obj instanceof LivreDTO;
             if(equals) {
                 final LivreDTO livreDTO = (LivreDTO) obj;
-                if(livreDTO!= null){
-                final EqualsBuilder equalsBuilder = new EqualsBuilder();
-                equalsBuilder.appendSuper(super.equals(livreDTO));
-                equalsBuilder.append(getIdLivre(),
-                    livreDTO.getIdLivre());
-                equals = equalsBuilder.isEquals();
+                if(livreDTO != null) {
+                    final EqualsBuilder equalsBuilder = new EqualsBuilder();
+                    equalsBuilder.appendSuper(super.equals(livreDTO));
+                    equalsBuilder.append(getIdLivre(),
+                        livreDTO.getIdLivre());
+                    equals = equalsBuilder.isEquals();
                 }
             }
         }

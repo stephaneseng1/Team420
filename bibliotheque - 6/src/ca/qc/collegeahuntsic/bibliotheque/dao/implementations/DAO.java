@@ -8,6 +8,11 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import ca.qc.collegeahuntsic.bibliotheque.dao.interfaces.IDAO;
 import ca.qc.collegeahuntsic.bibliotheque.dto.DTO;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dao.DAOException;
@@ -19,11 +24,6 @@ import ca.qc.collegeahuntsic.bibliotheque.exception.dao.InvalidSortByPropertyExc
 import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOClassException;
 import ca.qc.collegeahuntsic.bibliotheque.exception.dto.InvalidDTOException;
 import ca.qc.collegeahuntsic.bibliotheque.util.BibliothequeDate;
-import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 
 /**
  * Classe de base pour tous les DAOs.<br />

@@ -34,19 +34,19 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.util.FormatteurDate;
 
 /**
  * Interface du système de gestion d'une bibliothèque
- * 
+ *
  * Ce programme permet d'appeler les transactions de base d'une bibliothèque. Il
  * gère des livres, des membres et des réservations. Les données sont conservées
  * dans une base de données relationnelles accédée avec JDBC. Pour une liste des
  * transactions traitées, voir la méthode afficherAide().
- * 
+ *
  * Paramètres 0- site du serveur SQL ("local", "distant" ou "postgres") 1- nom
  * de la BD 2- user id pour établir une Session avec le serveur SQL 3- mot de
  * passe pour le user id 4- fichier de transaction [optionnel] si non spécifié,
  * les transactions sont lues au clavier (System.in)
- * 
+ *
  * Pré-condition la base de données de la bibliothèque doit exister
- * 
+ *
  * Post-condition le programme effectue les maj associées à chaque transaction
  * </pre>
  */
@@ -108,7 +108,7 @@ public class Bibliotheque {
 
     /**
      * Décodage et traitement d'une transaction
-     * 
+     *
      * @throws InvalidCriterionValueException
      * @throws DAOException
      */
@@ -139,11 +139,23 @@ public class Bibliotheque {
             } else if("preter".startsWith(command)) {
                 gestionBiblio.beginTransaction();
                 PretDTO pretDTO = new PretDTO();
-                MembreDTO membreDTO = new MembreDTO();
-                membreDTO.setIdMembre(readString(tokenizer));
-                LivreDTO livreDTO = new LivreDTO();
-                livreDTO.setIdLivre(readString(tokenizer));
+                String membreId = readString(tokenizer);
+                String livreId = readString(tokenizer);
+                MembreDTO membreDTO = gestionBiblio.getMembreFacade().getMembre(gestionBiblio.getSession(),
+                    membreId);
+                if(membreDTO == null) {
+                    throw new MissingDTOException("Le membreId "
+                        + membreId
+                        + " est null.");
+                }
+                LivreDTO livreDTO = gestionBiblio.getLivreFacade().getLivre(gestionBiblio.getSession(),
+                    livreId);
                 pretDTO.setMembreDTO(membreDTO);
+                if(livreDTO == null) {
+                    throw new MissingDTOException("Le livreId "
+                        + livreId
+                        + " est null.");
+                }
                 pretDTO.setLivreDTO(livreDTO);
                 gestionBiblio.getPretFacade().commencer(gestionBiblio.getSession(),
                     pretDTO);
@@ -168,6 +180,7 @@ public class Bibliotheque {
                 membreDTO.setNom(readString(tokenizer));
                 membreDTO.setTelephone(readString(tokenizer));
                 membreDTO.setLimitePret(readString(tokenizer));
+                membreDTO.setNbPret("0");
                 gestionBiblio.getMembreFacade().inscrire(gestionBiblio.getSession(),
                     membreDTO);
                 gestionBiblio.commitTransaction();
@@ -184,11 +197,23 @@ public class Bibliotheque {
                 Thread.sleep(1);
                 gestionBiblio.beginTransaction();
                 ReservationDTO reservationDTO = new ReservationDTO();
-                MembreDTO membreDTO = new MembreDTO();
-                membreDTO.setIdMembre(readString(tokenizer));
-                LivreDTO livreDTO = new LivreDTO();
-                livreDTO.setIdLivre(readString(tokenizer));
+                String membreId = readString(tokenizer);
+                String livreId = readString(tokenizer);
+                MembreDTO membreDTO = gestionBiblio.getMembreFacade().getMembre(gestionBiblio.getSession(),
+                    membreId);
+                if(membreDTO == null) {
+                    throw new MissingDTOException("Le membreId "
+                        + membreId
+                        + " est null.");
+                }
                 reservationDTO.setMembreDTO(membreDTO);
+                LivreDTO livreDTO = gestionBiblio.getLivreFacade().getLivre(gestionBiblio.getSession(),
+                    livreId);
+                if(livreDTO == null) {
+                    throw new MissingDTOException("Le livreId "
+                        + livreId
+                        + " est null.");
+                }
                 reservationDTO.setLivreDTO(livreDTO);
                 gestionBiblio.getReservationFacade().placer(gestionBiblio.getSession(),
                     reservationDTO);

@@ -31,7 +31,7 @@ public class LivreFacade extends Facade implements ILivreFacade {
 
     /**
      * Crée la façade de la table <code>livre</code>.
-     * 
+     *
      * @param livreService
      *            Le service de la table <code>livre</code>
      * @throws InvalidServiceException
@@ -52,7 +52,7 @@ public class LivreFacade extends Facade implements ILivreFacade {
      * @return La variable d'instance <code>this.livreService</code>
      */
     private ILivreService getLivreService() {
-        return this.livreService;
+        return livreService;
     }
 
     /**
@@ -105,6 +105,19 @@ public class LivreFacade extends Facade implements ILivreFacade {
                 livreDTO);
         } catch(ServiceException serviceException) {
             throw new FacadeException(serviceException);
+        }
+    }
+
+    @Override
+    public LivreDTO getLivre(Session session,
+        String idLivre) throws InvalidHibernateSessionException,
+        InvalidPrimaryKeyException,
+        FacadeException {
+        try {
+            return getLivreService().getLivre(session,
+                idLivre);
+        } catch(ServiceException e) {
+            throw new FacadeException(e);
         }
     }
 }
