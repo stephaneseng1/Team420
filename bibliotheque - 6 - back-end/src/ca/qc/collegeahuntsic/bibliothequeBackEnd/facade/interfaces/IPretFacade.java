@@ -4,7 +4,6 @@
 
 package ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces;
 
-import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.PretDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.DAOException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidCriterionException;
@@ -20,6 +19,7 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingLoanE
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingReservationException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.InvalidLoanLimitException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.MissingLoanException;
+import org.hibernate.Session;
 
 /**
  * Interface de façade pour manipuler les prêts dans la base de données.
@@ -61,6 +61,7 @@ public interface IPretFacade extends IFacade {
      * @throws FacadeException
      *             S'il y a une erreur avec la base de données
      * @throws DAOException
+     *             S'il y a une erreur avec le dao
      */
     void commencer(Session session,
         PretDTO pretDTO) throws InvalidHibernateSessionException,

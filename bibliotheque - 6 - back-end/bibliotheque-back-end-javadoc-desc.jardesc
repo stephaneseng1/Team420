@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="bibliotheque - 6 - back-end/bibliotheque-back-end-javadoc.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/bibliotheque - 6 - back-end/bibliotheque-back-end-javadoc-desc.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <file path="/bibliotheque - 6 - back-end/.project"/>
+        <folder path="/bibliotheque - 6 - back-end/javadoc"/>
+        <folder path="/bibliotheque - 6 - back-end/logs"/>
+        <file path="/bibliotheque - 6 - back-end/javadoc.xml"/>
+        <file path="/bibliotheque - 6 - back-end/.gitignore"/>
+        <folder path="/bibliotheque - 6 - back-end/conf"/>
+        <javaElement handleIdentifier="=bibliotheque - 6 - back-end/conf\/spring"/>
+        <file path="/bibliotheque - 6 - back-end/bibliotheque-back-end-desc.jardesc"/>
+        <file path="/bibliotheque - 6 - back-end/.classpath"/>
+        <file path="/bibliotheque - 6 - back-end/bibliotheque-back-end.jar"/>
+        <file path="/bibliotheque - 6 - back-end/.checkstyle"/>
+        <javaElement handleIdentifier="=bibliotheque - 6 - back-end/src"/>
+        <javaElement handleIdentifier="=bibliotheque - 6 - back-end/resources"/>
+        <javaElement handleIdentifier="=bibliotheque - 6 - back-end/conf\/log4j"/>
+        <file path="/bibliotheque - 6 - back-end/Thumbs.db"/>
+        <file path="/bibliotheque - 6 - back-end/Oracle.sql"/>
+        <folder path="/bibliotheque - 6 - back-end/lib"/>
+    </selectedElements>
+</jardesc>

@@ -4,7 +4,6 @@
 
 package ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.implementations;
 
-import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.PretDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.DAOException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidCriterionException;
@@ -24,6 +23,7 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.MissingLoanEx
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.IPretFacade;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.service.interfaces.IPretService;
+import org.hibernate.Session;
 
 /**
  * Facade pour interagir avec le service de prêts.
@@ -118,8 +118,7 @@ public class PretFacade extends Facade implements IPretFacade {
         ExistingLoanException,
         ExistingReservationException,
         InvalidDTOClassException,
-        FacadeException,
-        InvalidCriterionValueException {
+        FacadeException {
         try {
             getPretService().renouveler(session,
                 pretDTO);

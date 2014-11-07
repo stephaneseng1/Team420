@@ -6,7 +6,6 @@ package ca.qc.collegeahuntsic.bibliothequeBackEnd.service.interfaces;
 
 import java.sql.Timestamp;
 import java.util.List;
-import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.PretDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.DAOException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidCriterionException;
@@ -22,6 +21,7 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingReser
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.InvalidLoanLimitException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.MissingLoanException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException;
+import org.hibernate.Session;
 
 /**
  * Interface de service pour manipuler les prêts dans la base de données.
@@ -32,8 +32,8 @@ public interface IPretService extends IService {
     /**
      * Ajoute un nouveau prêt dans la base de données.
      * 
-     * @param connexion
-     *            La connexion à utiliser
+     * @param session
+     *            La session à utiliser
      * @param pretDTO
      *            Le prêt à ajouter
      * @throws InvalidHibernateSessionException
@@ -43,9 +43,6 @@ public interface IPretService extends IService {
      * @throws InvalidDTOClassException
      *             Si la classe du prêt n'est pas celle que prend en charge le
      *             DAO
-     * @throws InvalidPrimaryKeyRequestException
-     *             Si la requête de la clef primaire du prêt est
-     *             <code>null</code>
      * @throws ServiceException
      *             S'il y a une erreur avec la base de données
      */
@@ -58,8 +55,8 @@ public interface IPretService extends IService {
     /**
      * Lit un prêt à partir de la base de données.
      * 
-     * @param connexion
-     *            La connexion à utiliser
+     * @param session
+     *            La session à utiliser
      * @param idPret
      *            L'ID du prêt à lire
      * @return Le prêt
@@ -78,8 +75,8 @@ public interface IPretService extends IService {
     /**
      * Met à jour un prêt dans la base de données.
      * 
-     * @param connexion
-     *            La connexion à utiliser
+     * @param session
+     *            La session à utiliser
      * @param pretDTO
      *            Le prêt à mettre à jour
      * @throws InvalidHibernateSessionException
@@ -101,8 +98,8 @@ public interface IPretService extends IService {
     /**
      * Supprime un prêt de la base de données.
      * 
-     * @param connexion
-     *            La connexion à utiliser
+     * @param session
+     *            La session à utiliser
      * @param pretDTO
      *            Le prêt à supprimer
      * @throws InvalidHibernateSessionException
@@ -126,8 +123,8 @@ public interface IPretService extends IService {
      * ordre croissant sur <code>sortByPropertyName</code>. Si aucun prêt n'est
      * trouvé, une {@link List} vide est retournée.
      * 
-     * @param connexion
-     *            La connexion à utiliser
+     * @param session
+     *            La session à utiliser
      * @param sortByPropertyName
      *            The nom de la propriété à utiliser pour classer
      * @return La liste de tous les prêts ; une liste vide sinon
@@ -148,8 +145,8 @@ public interface IPretService extends IService {
      * croissant sur <code>sortByPropertyName</code>. Si aucun prêt n'est
      * trouvé, une {@link List} vide est retournée.
      * 
-     * @param connexion
-     *            La connexion à utiliser
+     * @param session
+     *            La session à utiliser
      * @param idMembre
      *            L'ID du membre à trouver
      * @param sortByPropertyName
@@ -179,8 +176,8 @@ public interface IPretService extends IService {
      * croissant sur <code>sortByPropertyName</code>. Si aucun prêt n'est
      * trouvé, une {@link List} vide est retournée.
      * 
-     * @param connexion
-     *            La connexion à utiliser
+     * @param session
+     *            La session à utiliser
      * @param idLivre
      *            L'ID du livre à trouver
      * @param sortByPropertyName
@@ -210,8 +207,8 @@ public interface IPretService extends IService {
      * ordre croissant sur <code>sortByPropertyName</code>. Si aucun prêt n'est
      * trouvé, une {@link List} vide est retournée.
      * 
-     * @param connexion
-     *            La connexion à utiliser
+     * @param session
+     *            La session à utiliser
      * @param datePret
      *            La date de prêt à trouver
      * @param sortByPropertyName
@@ -241,8 +238,8 @@ public interface IPretService extends IService {
      * ordre croissant sur <code>sortByPropertyName</code>. Si aucun prêt n'est
      * trouvé, une {@link List} vide est retournée.
      * 
-     * @param connexion
-     *            La connexion à utiliser
+     * @param session
+     *            La session à utiliser
      * @param dateRetour
      *            La date de retour à trouver
      * @param sortByPropertyName
@@ -270,8 +267,8 @@ public interface IPretService extends IService {
     /**
      * Commence un prêt.
      * 
-     * @param connexion
-     *            La connexion à utiliser
+     * @param session
+     *            La session à utiliser
      * @param pretDTO
      *            Le prêt à commencer
      * @throws InvalidHibernateSessionException
@@ -301,6 +298,7 @@ public interface IPretService extends IService {
      * @throws ServiceException
      *             S'il y a une erreur avec la base de données
      * @throws DAOException
+     *             S'il y a une erreur avec le dao
      */
     void commencer(Session session,
         PretDTO pretDTO) throws InvalidHibernateSessionException,
@@ -320,8 +318,8 @@ public interface IPretService extends IService {
     /**
      * Renouvelle le prêt d'un livre.
      * 
-     * @param connexion
-     *            La connexion à utiliser
+     * @param session
+     *            La session à utiliser
      * @param pretDTO
      *            Le prêt à renouveler
      * @throws InvalidHibernateSessionException
@@ -371,8 +369,8 @@ public interface IPretService extends IService {
     /**
      * Termine un prêt.
      * 
-     * @param connexion
-     *            La connexion à utiliser
+     * @param session
+     *            La session à utiliser
      * @param pretDTO
      *            Le prêt à terminer
      * @throws InvalidHibernateSessionException

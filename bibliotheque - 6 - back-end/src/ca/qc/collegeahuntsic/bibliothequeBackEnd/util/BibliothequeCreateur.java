@@ -4,6 +4,11 @@
 
 package ca.qc.collegeahuntsic.bibliothequeBackEnd.util;
 
+import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.BibliothequeException;
+import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.ILivreFacade;
+import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.IMembreFacade;
+import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.IPretFacade;
+import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.IReservationFacade;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,11 +16,6 @@ import org.hibernate.Transaction;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.BibliothequeException;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.ILivreFacade;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.IMembreFacade;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.IPretFacade;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.IReservationFacade;
 
 /**
  * Utilitaire de création des outils de la bibliothèque.

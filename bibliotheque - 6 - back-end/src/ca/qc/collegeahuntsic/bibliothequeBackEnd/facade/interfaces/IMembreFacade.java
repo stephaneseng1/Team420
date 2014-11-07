@@ -4,7 +4,6 @@
 
 package ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces;
 
-import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidCriterionValueException;
@@ -17,6 +16,7 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dto.MissingDTOExcepti
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.facade.FacadeException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingLoanException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingReservationException;
+import org.hibernate.Session;
 
 /**
  * Interface de façade pour manipuler les membres dans la base de données.
@@ -27,8 +27,8 @@ public interface IMembreFacade extends IFacade {
     /**
      * Inscrit un membre.
      *
-     * @param connexion
-     *            La connexion à utiliser
+     * @param session 
+     *            La session à utiliser
      * @param membreDTO
      *            Le membre à inscrire
      * @throws InvalidHibernateSessionException
@@ -38,9 +38,6 @@ public interface IMembreFacade extends IFacade {
      * @throws InvalidDTOClassException
      *             Si la classe du membre n'est pas celle que prend en charge le
      *             DAO
-     * @throws InvalidPrimaryKeyRequestException
-     *             Si la requête de la clef primaire du membre est
-     *             <code>null</code>
      * @throws FacadeException
      *             S'il y a une erreur avec la base de données
      */
@@ -53,8 +50,8 @@ public interface IMembreFacade extends IFacade {
     /**
      * Désincrit un membre.
      *
-     * @param connexion
-     *            La connexion à utiliser
+     * @param session
+     *            La session à utiliser
      * @param membreDTO
      *            Le membre à désinscrire
      * @throws InvalidHibernateSessionException
@@ -94,6 +91,15 @@ public interface IMembreFacade extends IFacade {
         FacadeException,
         InvalidCriterionValueException;
 
+    /**.
+     * Get le membre
+     * @param session La session à utiliser 
+     * @param idMembre Le id du membre
+     * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
+     * @throws InvalidPrimaryKeyException Si la clef primaire du livre est <code>null</code>
+     * @throws FacadeException S'il y a une erreur avec la base de données
+     * @return Le livre
+     */
     MembreDTO getMembre(Session session,
         String idMembre) throws InvalidHibernateSessionException,
         InvalidPrimaryKeyException,

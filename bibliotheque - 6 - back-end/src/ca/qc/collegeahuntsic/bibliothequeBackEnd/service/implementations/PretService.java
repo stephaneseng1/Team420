@@ -44,12 +44,6 @@ public class PretService extends Service implements IPretService {
      *
      * @param pretDAO
      *            Le DAO de la table <code>pret</code>
-     * @param membreDAO
-     *            Le DAO de la table <code>membre</code>
-     * @param livreDAO
-     *            Le DAO de la table <code>livre</code>
-     * @param reservationDAO
-     *            Le DAO de la table <code>reservation</code>
      * @throws InvalidDAOException
      *             Si le DAO de prêt est <code>null</code>, si le DAO de membre
      *             est <code>null</code>, si le DAO de livre est
@@ -283,14 +277,14 @@ public class PretService extends Service implements IPretService {
             throw new InvalidDTOException("Le prêt ne peut être null");
         }
 
-        MembreDTO unMembreDTO = pretDTO.getMembreDTO();
-        LivreDTO unLivreDTO = pretDTO.getLivreDTO();
+        final MembreDTO unMembreDTO = pretDTO.getMembreDTO();
+        final LivreDTO unLivreDTO = pretDTO.getLivreDTO();
 
-        Set<PretDTO> prets = unLivreDTO.getPrets();
+        final Set<PretDTO> prets = unLivreDTO.getPrets();
         if(!prets.isEmpty()) {
             for(PretDTO pret : prets) {
                 if(pret.getDateRetour() == null) {
-                    MembreDTO emprunteur = pret.getMembreDTO();
+                    final MembreDTO emprunteur = pret.getMembreDTO();
 
                     throw new ExistingLoanException("Le livre "
                         + unLivreDTO.getTitre()
@@ -314,10 +308,10 @@ public class PretService extends Service implements IPretService {
                 + unMembreDTO.getLimitePret()
                 + " emprunt(s) maximum)");
         }
-        List<ReservationDTO> reservations = new ArrayList<>(unLivreDTO.getReservations());
+        final List<ReservationDTO> reservations = new ArrayList<>(unLivreDTO.getReservations());
         if(!reservations.isEmpty()) {
-            ReservationDTO reservationDTO = reservations.get(0);
-            MembreDTO booker = reservationDTO.getMembreDTO();
+            final ReservationDTO reservationDTO = reservations.get(0);
+            final MembreDTO booker = reservationDTO.getMembreDTO();
             throw new ExistingReservationException("Le livre "
                 + unLivreDTO.getTitre()
                 + " (ID de livre : "
@@ -359,16 +353,16 @@ public class PretService extends Service implements IPretService {
         if(pretDTO == null) {
             throw new InvalidDTOException("Le prêt ne peut être null");
         }
-        PretDTO unPretDTO = getPret(session,
+        final PretDTO unPretDTO = getPret(session,
             pretDTO.getIdPret());
         if(unPretDTO == null) {
             throw new MissingDTOException("Le prêt "
                 + pretDTO.getIdPret()
                 + " n'existe pas");
         }
-        MembreDTO unMembreDTO = unPretDTO.getMembreDTO();
-        LivreDTO unLivreDTO = unPretDTO.getLivreDTO();
-        Set<PretDTO> prets = unLivreDTO.getPrets();
+        final MembreDTO unMembreDTO = unPretDTO.getMembreDTO();
+        final LivreDTO unLivreDTO = unPretDTO.getLivreDTO();
+        final Set<PretDTO> prets = unLivreDTO.getPrets();
         if(prets.isEmpty()) {
             throw new MissingLoanException("Le livre "
                 + unLivreDTO.getTitre()
@@ -391,10 +385,10 @@ public class PretService extends Service implements IPretService {
                 + unMembreDTO.getIdMembre()
                 + ")");
         }
-        List<ReservationDTO> reservations = new ArrayList<>(unLivreDTO.getReservations());
+        final List<ReservationDTO> reservations = new ArrayList<>(unLivreDTO.getReservations());
         if(!reservations.isEmpty()) {
-            ReservationDTO reservationDTO = reservations.get(0);
-            MembreDTO booker = reservationDTO.getMembreDTO();
+            final ReservationDTO reservationDTO = reservations.get(0);
+            final MembreDTO booker = reservationDTO.getMembreDTO();
             throw new ExistingReservationException("Le livre "
                 + unLivreDTO.getTitre()
                 + " (ID de livre : "
@@ -434,16 +428,16 @@ public class PretService extends Service implements IPretService {
         if(pretDTO == null) {
             throw new InvalidDTOException("Le prêt ne peut être null");
         }
-        PretDTO unPretDTO = getPret(session,
+        final PretDTO unPretDTO = getPret(session,
             pretDTO.getIdPret());
         if(unPretDTO == null) {
             throw new MissingDTOException("Le prêt "
                 + pretDTO.getIdPret()
                 + " n'existe pas");
         }
-        MembreDTO unMembreDTO = unPretDTO.getMembreDTO();
-        LivreDTO unLivreDTO = unPretDTO.getLivreDTO();
-        Set<PretDTO> prets = unLivreDTO.getPrets();
+        final MembreDTO unMembreDTO = unPretDTO.getMembreDTO();
+        final LivreDTO unLivreDTO = unPretDTO.getLivreDTO();
+        final Set<PretDTO> prets = unLivreDTO.getPrets();
         if(prets.isEmpty()) {
             throw new MissingLoanException("Le livre "
                 + unLivreDTO.getTitre()

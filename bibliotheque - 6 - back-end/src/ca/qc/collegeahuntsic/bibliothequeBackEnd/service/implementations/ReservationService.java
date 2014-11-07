@@ -257,10 +257,10 @@ public class ReservationService extends Service implements IReservationService {
         if(reservationDTO == null) {
             throw new InvalidDTOException("La réservation ne peut être null");
         }
-        MembreDTO unMembreDTO = reservationDTO.getMembreDTO();
-        LivreDTO unLivreDTO = reservationDTO.getLivreDTO();
+        final MembreDTO unMembreDTO = reservationDTO.getMembreDTO();
+        final LivreDTO unLivreDTO = reservationDTO.getLivreDTO();
 
-        Set<PretDTO> prets = unLivreDTO.getPrets();
+        final Set<PretDTO> prets = unLivreDTO.getPrets();
         if(prets.isEmpty()) {
             for(PretDTO pretDTO : prets) {
                 if(pretDTO.getDateRetour() == null) {
@@ -287,7 +287,7 @@ public class ReservationService extends Service implements IReservationService {
                 + unMembreDTO.getIdMembre()
                 + ")");
         }
-        Set<ReservationDTO> reservations = new HashSet<>(unLivreDTO.getReservations());
+        final Set<ReservationDTO> reservations = new HashSet<>(unLivreDTO.getReservations());
         if(!reservations.isEmpty()) {
             for(ReservationDTO uneAutreReservationDTO : reservations) {
                 if(unLivreDTO.equals(uneAutreReservationDTO.getLivreDTO())) {
@@ -337,12 +337,12 @@ public class ReservationService extends Service implements IReservationService {
                 + reservationDTO.getIdReservation()
                 + " n'existe pas");
         }
-        MembreDTO unMembreDTO = uneReservationDTO.getMembreDTO();
-        LivreDTO unLivreDTO = uneReservationDTO.getLivreDTO();
-        List<ReservationDTO> reservations = new ArrayList<>(unLivreDTO.getReservations());
+        final MembreDTO unMembreDTO = uneReservationDTO.getMembreDTO();
+        final LivreDTO unLivreDTO = uneReservationDTO.getLivreDTO();
+        final List<ReservationDTO> reservations = new ArrayList<>(unLivreDTO.getReservations());
         if(!reservations.isEmpty()) {
             uneReservationDTO = reservations.get(0);
-            MembreDTO booker = uneReservationDTO.getMembreDTO();
+            final MembreDTO booker = uneReservationDTO.getMembreDTO();
             throw new ExistingReservationException("Le livre "
                 + unLivreDTO.getTitre()
                 + " (ID de livre : "
@@ -353,11 +353,11 @@ public class ReservationService extends Service implements IReservationService {
                 + booker.getIdMembre()
                 + ")");
         }
-        Set<PretDTO> prets = unLivreDTO.getPrets();
+        final Set<PretDTO> prets = unLivreDTO.getPrets();
         if(!prets.isEmpty()) {
             for(PretDTO pretDTO : prets) {
                 if(pretDTO.getDateRetour() == null) {
-                    MembreDTO emprunteur = pretDTO.getMembreDTO();
+                    final MembreDTO emprunteur = pretDTO.getMembreDTO();
                     throw new ExistingLoanException("Le livre "
                         + unLivreDTO.getTitre()
                         + " (ID de livre : "
@@ -382,9 +382,7 @@ public class ReservationService extends Service implements IReservationService {
         annuler(session,
             uneReservationDTO);
         unMembreDTO.setNbPret(Integer.toString(Integer.parseInt(unMembreDTO.getNbPret()) + 1));
-        /*        getPretDAO().update(session,
-                    unMembreDTO);*/
-        PretDTO unPretDTO = new PretDTO();
+        final PretDTO unPretDTO = new PretDTO();
         unPretDTO.setMembreDTO(unMembreDTO);
         unPretDTO.setLivreDTO(unLivreDTO);
         unPretDTO.setDatePret(new Timestamp(System.currentTimeMillis()));
@@ -410,7 +408,7 @@ public class ReservationService extends Service implements IReservationService {
         if(reservationDTO == null) {
             throw new InvalidDTOException("La réservation ne peut être null");
         }
-        ReservationDTO uneReservationDTO = getReservation(session,
+        final ReservationDTO uneReservationDTO = getReservation(session,
             reservationDTO.getIdReservation());
         if(uneReservationDTO == null) {
             throw new MissingDTOException("La réservation "

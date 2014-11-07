@@ -4,6 +4,11 @@
 
 package ca.qc.collegeahuntsic.bibliotheque.util;
 
+import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.BibliothequeException;
+import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.ILivreFacade;
+import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.IMembreFacade;
+import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.IPretFacade;
+import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.IReservationFacade;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,11 +16,6 @@ import org.hibernate.Transaction;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import ca.qc.collegeahuntsic.bibliotheque.exception.BibliothequeException;
-import ca.qc.collegeahuntsic.bibliotheque.facade.interfaces.ILivreFacade;
-import ca.qc.collegeahuntsic.bibliotheque.facade.interfaces.IMembreFacade;
-import ca.qc.collegeahuntsic.bibliotheque.facade.interfaces.IPretFacade;
-import ca.qc.collegeahuntsic.bibliotheque.facade.interfaces.IReservationFacade;
 
 /**
  * Utilitaire de création des outils de la bibliothèque.
@@ -82,10 +82,10 @@ public class BibliothequeCreateur {
     /**
      * Setter de la variable d'instance <code>this.sessionFactory</code>.
      *
-     * @param sessionFactory La valeur à utiliser pour la variable d'instance <code>this.sessionFactory</code>
+     * @param sessionFactory1 La valeur à utiliser pour la variable d'instance <code>this.sessionFactory</code>
      */
-    private void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    private void setSessionFactory(SessionFactory sessionFactory1) {
+        this.sessionFactory = sessionFactory1;
     }
 
     /**
@@ -100,10 +100,10 @@ public class BibliothequeCreateur {
     /**
      * Setter de la variable d'instance <code>this.session</code>.
      *
-     * @param session La valeur à utiliser pour la variable d'instance <code>this.session</code>
+     * @param session1 La valeur à utiliser pour la variable d'instance <code>this.session</code>
      */
-    private void setSession(Session session) {
-        this.session = session;
+    private void setSession(Session session1) {
+        this.session = session1;
     }
 
     /**
@@ -118,10 +118,10 @@ public class BibliothequeCreateur {
     /**
      * Setter de la variable d'instance <code>this.transaction</code>.
      *
-     * @param transaction La valeur à utiliser pour la variable d'instance <code>this.transaction</code>
+     * @param transaction1 La valeur à utiliser pour la variable d'instance <code>this.transaction</code>
      */
-    private void setTransaction(Transaction transaction) {
-        this.transaction = transaction;
+    private void setTransaction(Transaction transaction1) {
+        this.transaction = transaction1;
     }
 
     /**
@@ -136,10 +136,10 @@ public class BibliothequeCreateur {
     /**
      * Setter de la variable d'instance <code>this.membreFacade</code>.
      *
-     * @param membreFacade La valeur à utiliser pour la variable d'instance <code>this.membreFacade</code>
+     * @param membreFacade1 La valeur à utiliser pour la variable d'instance <code>this.membreFacade</code>
      */
-    private void setMembreFacade(IMembreFacade membreFacade) {
-        this.membreFacade = membreFacade;
+    private void setMembreFacade(IMembreFacade membreFacade1) {
+        this.membreFacade = membreFacade1;
     }
 
     /**
@@ -154,10 +154,10 @@ public class BibliothequeCreateur {
     /**
      * Setter de la variable d'instance <code>this.livreFacade</code>.
      *
-     * @param livreFacade La valeur à utiliser pour la variable d'instance <code>this.livreFacade</code>
+     * @param livreFacade1 La valeur à utiliser pour la variable d'instance <code>this.livreFacade</code>
      */
-    private void setLivreFacade(ILivreFacade livreFacade) {
-        this.livreFacade = livreFacade;
+    private void setLivreFacade(ILivreFacade livreFacade1) {
+        this.livreFacade = livreFacade1;
     }
 
     /**
@@ -172,10 +172,10 @@ public class BibliothequeCreateur {
     /**
      * Setter de la variable d'instance <code>this.pretFacade</code>.
      *
-     * @param pretFacade La valeur à utiliser pour la variable d'instance <code>this.pretFacade</code>
+     * @param pretFacade1 La valeur à utiliser pour la variable d'instance <code>this.pretFacade</code>
      */
-    private void setPretFacade(IPretFacade pretFacade) {
-        this.pretFacade = pretFacade;
+    private void setPretFacade(IPretFacade pretFacade1) {
+        this.pretFacade = pretFacade1;
     }
 
     /**
@@ -190,10 +190,10 @@ public class BibliothequeCreateur {
     /**
      * Setter de la variable d'instance <code>this.reservationFacade</code>.
      *
-     * @param reservationFacade La valeur à utiliser pour la variable d'instance <code>this.reservationFacade</code>
+     * @param reservationFacade1 La valeur à utiliser pour la variable d'instance <code>this.reservationFacade</code>
      */
-    private void setReservationFacade(IReservationFacade reservationFacade) {
-        this.reservationFacade = reservationFacade;
+    private void setReservationFacade(IReservationFacade reservationFacade1) {
+        this.reservationFacade = reservationFacade1;
     }
 
     // EndRegion Getters and Setters

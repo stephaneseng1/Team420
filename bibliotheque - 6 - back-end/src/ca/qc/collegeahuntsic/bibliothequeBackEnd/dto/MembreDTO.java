@@ -138,18 +138,38 @@ public final class MembreDTO extends DTO {
         this.nbPret = nbPret;
     }
 
+    /**
+     * Getter de la variable d'instance <code>this.prets</code>.
+     *
+     * @return La variable d'instance <code>this.prets</code>
+     */
     public Set<PretDTO> getPrets() {
         return this.prets;
     }
 
+    /**
+     * Setter de la variable d'instance <code>this.prets</code>.
+     *
+     * @param prets La valeur à utiliser pour la variable d'instance <code>this.prets</code>
+     */
     public void setPrets(Set<PretDTO> prets) {
         this.prets = prets;
     }
 
+    /**
+     * Getter de la variable d'instance <code>this.reservations</code>.
+     *
+     * @return La variable d'instance <code>this.reservations</code>
+     */
     public Set<ReservationDTO> getReservations() {
         return this.reservations;
     }
 
+    /**
+     * Setter de la variable d'instance <code>this.reservations</code>.
+     *
+     * @param reservations La valeur à utiliser pour la variable d'instance <code>this.reservations</code>
+     */
     public void setReservations(Set<ReservationDTO> reservations) {
         this.reservations = reservations;
     }
@@ -166,8 +186,8 @@ public final class MembreDTO extends DTO {
             equals = obj != null
                 && obj instanceof MembreDTO;
             if(equals) {
-                MembreDTO membreDTO = (MembreDTO) obj;
-                EqualsBuilder equalsBuilder = new EqualsBuilder();
+                final MembreDTO membreDTO = (MembreDTO) obj;
+                final EqualsBuilder equalsBuilder = new EqualsBuilder();
                 equalsBuilder.appendSuper(super.equals(membreDTO));
                 equalsBuilder.append(getIdMembre(),
                     membreDTO.getIdMembre());
@@ -182,7 +202,7 @@ public final class MembreDTO extends DTO {
      */
     @Override
     public int hashCode() {
-        HashCodeBuilder hashCodeBuilder = new HashCodeBuilder(461,
+        final HashCodeBuilder hashCodeBuilder = new HashCodeBuilder(461,
             451);
         hashCodeBuilder.appendSuper(super.hashCode());
         hashCodeBuilder.append(getIdMembre());

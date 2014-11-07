@@ -8,8 +8,6 @@ import java.io.InputStreamReader;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.StringTokenizer;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.LivreDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.PretDTO;
@@ -31,6 +29,8 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.InvalidLoanLi
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.MissingLoanException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.util.BibliothequeCreateur;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.util.FormatteurDate;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Interface du système de gestion d'une bibliothèque
@@ -48,21 +48,31 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.util.FormatteurDate;
  * Pré-condition la base de données de la bibliothèque doit exister
  *
  * Post-condition le programme effectue les maj associées à chaque transaction
- * </pre>
+ * @author Stephane Seng
  */
 public class Bibliotheque {
     private static BibliothequeCreateur gestionBiblio;
 
     private static final Log LOGGER = LogFactory.getLog(Bibliotheque.class);
 
+    /**.
+     * Constructeur
+     * 
+     */
+    public Bibliotheque() {
+        super();
+    }
+
     /**
      * Ouverture de la BD, traitement des transactions et fermeture de la BD.
+     * @param argv Les arguments
+     * @throws Exception Les exceptions
      */
-    public static void main(String argv[]) throws Exception {
+    public static void main(String[] argv) throws Exception {
         // validation du nombre de parametres
         try {
             // ouverture du fichier de transactions
-            InputStream sourceTransaction = Bibliotheque.class.getResourceAsStream("../../../../bibliotheque.dat");
+            final InputStream sourceTransaction = Bibliotheque.class.getResourceAsStream("../../../../bibliotheque.dat");
 
             try(
                 BufferedReader reader = new BufferedReader(new InputStreamReader(sourceTransaction))) {
@@ -70,22 +80,22 @@ public class Bibliotheque {
                 traiterTransactions(reader);
             }
         } catch(Exception e) {
-            e.printStackTrace();
             gestionBiblio.rollbackTransaction();
             Bibliotheque.LOGGER.info(e);
         }
         Bibliotheque.LOGGER.info("Usage: java Biblio <serveur> <bd> <user> <password> [<fichier-transactions>]");
     }
 
-    /**
+    /**.
      * Traitement des transactions de la bibliothèque
+     * @param reader Le bufferedreader
+     * @throws Exception Les exceptions
      */
     static void traiterTransactions(BufferedReader reader) throws Exception {
         afficherAide();
         String transaction = lireTransaction(reader);
         while(!finTransaction(transaction)) {
-            /* découpage de la transaction en mots */
-            StringTokenizer tokenizer = new StringTokenizer(transaction,
+            final StringTokenizer tokenizer = new StringTokenizer(transaction,
                 " ");
             if(tokenizer.hasMoreTokens()) {
                 executerTransaction(tokenizer);
@@ -94,35 +104,39 @@ public class Bibliotheque {
         }
     }
 
-    /**
+    /**.
      * Lecture d'une transaction
+     * @param reader Le bufferedreader
+     * @throws IOException Les exceptions
+     * @return transaction
      */
     static String lireTransaction(BufferedReader reader) throws IOException {
-        String transaction = reader.readLine();
+        final String transaction = reader.readLine();
         if(transaction != null) {
             Bibliotheque.LOGGER.info(transaction);
         }
-        /* echo si lecture dans un fichier */
         return transaction;
     }
 
-    /**
+    /**.
      * Décodage et traitement d'une transaction
      *
-     * @throws InvalidCriterionValueException
-     * @throws DAOException
+     * @param tokenizer Le StringTokenizer
+     * @throws BibliothequeException Exception de bibliotheque
+     * @throws InvalidCriterionValueException Exception criterion value
+     * @throws DAOException Exception dao
      */
     static void executerTransaction(StringTokenizer tokenizer) throws BibliothequeException,
         InvalidCriterionValueException,
         DAOException {
         try {
-            String command = tokenizer.nextToken();
+            final String command = tokenizer.nextToken();
 
             if("aide".startsWith(command)) {
                 afficherAide();
             } else if("acquerir".startsWith(command)) {
                 gestionBiblio.beginTransaction();
-                LivreDTO livreDTO = new LivreDTO();
+                final LivreDTO livreDTO = new LivreDTO();
                 livreDTO.setTitre(readString(tokenizer));
                 livreDTO.setAuteur(readString(tokenizer));
                 livreDTO.setDateAcquisition(readDate(tokenizer));
@@ -131,24 +145,24 @@ public class Bibliotheque {
                 gestionBiblio.commitTransaction();
             } else if("vendre".startsWith(command)) {
                 gestionBiblio.beginTransaction();
-                LivreDTO livreDTO = new LivreDTO();
+                final LivreDTO livreDTO = new LivreDTO();
                 livreDTO.setIdLivre(readString(tokenizer));
                 gestionBiblio.getLivreFacade().vendre(gestionBiblio.getSession(),
                     livreDTO);
                 gestionBiblio.commitTransaction();
             } else if("preter".startsWith(command)) {
                 gestionBiblio.beginTransaction();
-                PretDTO pretDTO = new PretDTO();
-                String membreId = readString(tokenizer);
-                String livreId = readString(tokenizer);
-                MembreDTO membreDTO = gestionBiblio.getMembreFacade().getMembre(gestionBiblio.getSession(),
+                final PretDTO pretDTO = new PretDTO();
+                final String membreId = readString(tokenizer);
+                final String livreId = readString(tokenizer);
+                final MembreDTO membreDTO = gestionBiblio.getMembreFacade().getMembre(gestionBiblio.getSession(),
                     membreId);
                 if(membreDTO == null) {
                     throw new MissingDTOException("Le membreId "
                         + membreId
                         + " est null.");
                 }
-                LivreDTO livreDTO = gestionBiblio.getLivreFacade().getLivre(gestionBiblio.getSession(),
+                final LivreDTO livreDTO = gestionBiblio.getLivreFacade().getLivre(gestionBiblio.getSession(),
                     livreId);
                 pretDTO.setMembreDTO(membreDTO);
                 if(livreDTO == null) {
@@ -162,21 +176,21 @@ public class Bibliotheque {
                 gestionBiblio.commitTransaction();
             } else if("renouveler".startsWith(command)) {
                 gestionBiblio.beginTransaction();
-                PretDTO pretDTO = new PretDTO();
+                final PretDTO pretDTO = new PretDTO();
                 pretDTO.setIdPret(readString(tokenizer));
                 gestionBiblio.getPretFacade().renouveler(gestionBiblio.getSession(),
                     pretDTO);
                 gestionBiblio.commitTransaction();
             } else if("retourner".startsWith(command)) {
                 gestionBiblio.beginTransaction();
-                PretDTO pretDTO = new PretDTO();
+                final PretDTO pretDTO = new PretDTO();
                 pretDTO.setIdPret(readString(tokenizer));
                 gestionBiblio.getPretFacade().terminer(gestionBiblio.getSession(),
                     pretDTO);
                 gestionBiblio.commitTransaction();
             } else if("inscrire".startsWith(command)) {
                 gestionBiblio.beginTransaction();
-                MembreDTO membreDTO = new MembreDTO();
+                final MembreDTO membreDTO = new MembreDTO();
                 membreDTO.setNom(readString(tokenizer));
                 membreDTO.setTelephone(readString(tokenizer));
                 membreDTO.setLimitePret(readString(tokenizer));
@@ -186,7 +200,7 @@ public class Bibliotheque {
                 gestionBiblio.commitTransaction();
             } else if("desinscrire".startsWith(command)) {
                 gestionBiblio.beginTransaction();
-                MembreDTO membreDTO = new MembreDTO();
+                final MembreDTO membreDTO = new MembreDTO();
                 membreDTO.setIdMembre(readString(tokenizer));
                 gestionBiblio.getMembreFacade().desinscrire(gestionBiblio.getSession(),
                     membreDTO);
@@ -196,10 +210,10 @@ public class Bibliotheque {
                 // identiques
                 Thread.sleep(1);
                 gestionBiblio.beginTransaction();
-                ReservationDTO reservationDTO = new ReservationDTO();
-                String membreId = readString(tokenizer);
-                String livreId = readString(tokenizer);
-                MembreDTO membreDTO = gestionBiblio.getMembreFacade().getMembre(gestionBiblio.getSession(),
+                final ReservationDTO reservationDTO = new ReservationDTO();
+                final String membreId = readString(tokenizer);
+                final String livreId = readString(tokenizer);
+                final MembreDTO membreDTO = gestionBiblio.getMembreFacade().getMembre(gestionBiblio.getSession(),
                     membreId);
                 if(membreDTO == null) {
                     throw new MissingDTOException("Le membreId "
@@ -207,7 +221,7 @@ public class Bibliotheque {
                         + " est null.");
                 }
                 reservationDTO.setMembreDTO(membreDTO);
-                LivreDTO livreDTO = gestionBiblio.getLivreFacade().getLivre(gestionBiblio.getSession(),
+                final LivreDTO livreDTO = gestionBiblio.getLivreFacade().getLivre(gestionBiblio.getSession(),
                     livreId);
                 if(livreDTO == null) {
                     throw new MissingDTOException("Le livreId "
@@ -220,14 +234,14 @@ public class Bibliotheque {
                 gestionBiblio.commitTransaction();
             } else if("utiliser".startsWith(command)) {
                 gestionBiblio.beginTransaction();
-                ReservationDTO reservationDTO = new ReservationDTO();
+                final ReservationDTO reservationDTO = new ReservationDTO();
                 reservationDTO.setIdReservation(readString(tokenizer));
                 gestionBiblio.getReservationFacade().utiliser(gestionBiblio.getSession(),
                     reservationDTO);
                 gestionBiblio.commitTransaction();
             } else if("annuler".startsWith(command)) {
                 gestionBiblio.beginTransaction();
-                ReservationDTO reservationDTO = new ReservationDTO();
+                final ReservationDTO reservationDTO = new ReservationDTO();
                 reservationDTO.setIdReservation(readString(tokenizer));
                 gestionBiblio.getReservationFacade().annuler(gestionBiblio.getSession(),
                     reservationDTO);
@@ -260,7 +274,7 @@ public class Bibliotheque {
         }
     }
 
-    /**
+    /**.
      * Affiche le menu des transactions acceptées par le système
      */
     static void afficherAide() {
@@ -288,28 +302,29 @@ public class Bibliotheque {
 
     /**
      * Vérifie si la fin du traitement des transactions est atteinte.
+     * @param transaction Le string de fin
+     * @return true fin
      */
     static boolean finTransaction(String transaction) {
-        /* fin de fichier atteinte */
         if(transaction == null) {
             return true;
         }
 
-        StringTokenizer tokenizer = new StringTokenizer(transaction,
+        final StringTokenizer tokenizer = new StringTokenizer(transaction,
             " ");
 
-        /* ligne ne contenant que des espaces */
         if(!tokenizer.hasMoreTokens()) {
             return false;
         }
-
-        /* commande "exit" */
-        String commande = tokenizer.nextToken();
+        final String commande = tokenizer.nextToken();
         return commande.equals("exit");
     }
 
-    /**
+    /**.
      * lecture d'une chaîne de caractères de la transaction entrée à l'écran
+     * @param tokenizer Le StringTokenizer
+     * @throws BibliothequeException exceptions de bibliotheque
+     * @return Le prochain token
      */
     static String readString(StringTokenizer tokenizer) throws BibliothequeException {
         if(tokenizer.hasMoreElements()) {
@@ -318,12 +333,15 @@ public class Bibliotheque {
         throw new BibliothequeException("autre paramètre attendu");
     }
 
-    /**
+    /**.
      * lecture d'un int java de la transaction entrée à l'écran
+     * @param tokenizer Le StringTokenizer
+     * @throws BibliothequeException Exceptions
+     * @return retourne le int du tokenizer
      */
     static int readInt(StringTokenizer tokenizer) throws BibliothequeException {
         if(tokenizer.hasMoreElements()) {
-            String token = tokenizer.nextToken();
+            final String token = tokenizer.nextToken();
             try {
                 return Integer.valueOf(token).intValue();
             } catch(NumberFormatException e) {
@@ -335,12 +353,15 @@ public class Bibliotheque {
         throw new BibliothequeException("autre paramètre attendu");
     }
 
-    /**
+    /**.
      * lecture d'un long java de la transaction entrée à l'écran
+     * @param tokenizer Le StringTokenizer
+     * @throws BibliothequeException Exceptions
+     * @return retourne le long du tokenizer
      */
     static long readLong(StringTokenizer tokenizer) throws BibliothequeException {
         if(tokenizer.hasMoreElements()) {
-            String token = tokenizer.nextToken();
+            final String token = tokenizer.nextToken();
             try {
                 return Long.valueOf(token).longValue();
             } catch(NumberFormatException e) {
@@ -352,12 +373,15 @@ public class Bibliotheque {
         throw new BibliothequeException("autre paramètre attendu");
     }
 
-    /**
+    /**.
      * lecture d'une date en format YYYY-MM-DD
+     * @param tokenizer Le StringTokenizer
+     * @throws BibliothequeException Exceptions
+     * @return retourne la date en string du tokenizer
      */
     static Timestamp readDate(StringTokenizer tokenizer) throws BibliothequeException {
         if(tokenizer.hasMoreElements()) {
-            String token = tokenizer.nextToken();
+            final String token = tokenizer.nextToken();
             try {
                 return FormatteurDate.timestampValue(token);
             } catch(ParseException e) {

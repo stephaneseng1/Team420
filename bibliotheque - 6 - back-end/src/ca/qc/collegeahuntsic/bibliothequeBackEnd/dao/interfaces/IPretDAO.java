@@ -6,13 +6,13 @@ package ca.qc.collegeahuntsic.bibliothequeBackEnd.dao.interfaces;
 
 import java.sql.Timestamp;
 import java.util.List;
-import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.PretDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.DAOException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidCriterionValueException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidHibernateSessionException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidSortByPropertyException;
+import org.hibernate.Session;
 
 /**
  * Interface DAO pour manipuler les prêts dans la base de données.
@@ -41,6 +41,7 @@ public interface IPretDAO extends IDAO {
      * @throws DAOException
      *             S'il y a une erreur avec la base de données
      * @throws InvalidCriterionValueException
+     *             Si l'ID du livre est <code>null</code>
      */
     List<PretDTO> findByMembre(Session session,
         String idMembre,
@@ -71,6 +72,7 @@ public interface IPretDAO extends IDAO {
      * @throws DAOException
      *             S'il y a une erreur avec la base de données
      * @throws InvalidCriterionValueException
+     *             Si l'ID du livre est <code>null</code>
      */
     List<PretDTO> findByLivre(Session session,
         String idLivre,
@@ -101,6 +103,7 @@ public interface IPretDAO extends IDAO {
      * @throws DAOException
      *             S'il y a une erreur avec la base de données
      * @throws InvalidCriterionValueException
+     *             Si l'ID du livre est <code>null</code>
      */
     List<PretDTO> findByDatePret(Session session,
         Timestamp datePret,

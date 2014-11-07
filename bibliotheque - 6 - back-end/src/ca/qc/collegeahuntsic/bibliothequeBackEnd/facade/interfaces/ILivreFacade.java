@@ -4,7 +4,6 @@
 
 package ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces;
 
-import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.LivreDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidHibernateSessionException;
@@ -16,6 +15,7 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dto.MissingDTOExcepti
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.facade.FacadeException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingLoanException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingReservationException;
+import org.hibernate.Session;
 
 /**
  * Interface de façade pour manipuler les livres dans la base de données.
@@ -26,24 +26,23 @@ public interface ILivreFacade extends IFacade {
     /**
      * Acquiert un livre.
      *
-     * @param connexion La connexion à utiliser
+     * @param session La session à utiliser
      * @param livreDTO Le livre à acquérir
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
      * @throws InvalidDTOException Si le livre est <code>null</code>
      * @throws InvalidDTOClassException Si la classe du livre n'est pas celle que prend en charge le DAO
-     * @throws InvalidPrimaryKeyRequestException Si la requête de la clef primaire du livre est <code>null</code>
      * @throws FacadeException S'il y a une erreur avec la base de données
      */
-    void acquerir(Session connexion,
+    void acquerir(Session session,
         LivreDTO livreDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidDTOClassException,
         FacadeException;
 
-    /**
+    /**.
      * Vend un livre
      *
-     * @param connexion La connexion à utiliser
+     * @param session La session à utiliser
      * @param livreDTO Le livre à vendre
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
      * @throws InvalidDTOException Si le livre est <code>null</code>
@@ -56,7 +55,7 @@ public interface ILivreFacade extends IFacade {
      * @throws ExistingReservationException Si le livre a été réservé
      * @throws FacadeException S'il y a une erreur avec la base de données
      */
-    void vendre(Session connexion,
+    void vendre(Session session,
         LivreDTO livreDTO) throws InvalidHibernateSessionException,
         InvalidDTOException,
         InvalidDTOClassException,
@@ -68,6 +67,15 @@ public interface ILivreFacade extends IFacade {
         ExistingReservationException,
         FacadeException;
 
+    /**.
+     * Get le livre
+     * @param session La session à utiliser 
+     * @param idLivre Le id du livre
+     * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
+     * @throws InvalidPrimaryKeyException Si la clef primaire du livre est <code>null</code>
+     * @throws FacadeException S'il y a une erreur avec la base de données
+     * @return Le livre
+     */
     LivreDTO getLivre(Session session,
         String idLivre) throws InvalidHibernateSessionException,
         InvalidPrimaryKeyException,

@@ -5,7 +5,6 @@
 package ca.qc.collegeahuntsic.bibliothequeBackEnd.service.interfaces;
 
 import java.util.List;
-import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.LivreDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidCriterionValueException;
@@ -18,6 +17,7 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dto.MissingDTOExcepti
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingLoanException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingReservationException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException;
+import org.hibernate.Session;
 
 /**
  * Interface de base pour les services.<br />
@@ -29,8 +29,8 @@ public interface ILivreService extends IService {
     /**
      * Ajoute un nouveau livre dans la base de données.
      * 
-     * @param connexion La connexion à utiliser
      * @param livreDTO Le livre à ajouter
+     * @param session La session a utiliser
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
      * @throws InvalidDTOException Si le livre est <code>null</code>
      * @throws InvalidDTOClassException Si la classe du livre n'est pas celle que prend en charge le DAO
@@ -45,11 +45,12 @@ public interface ILivreService extends IService {
     /**
      * Lit un livre à partir de la base de données.
      * 
-     * @param connexion La connexion à utiliser
      * @param idLivre L'ID du livre à lire
+     * @param session La session a utiliser
      * @return Le livre
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
      * @throws ServiceException S'il y a une erreur avec la base de données
+     * @throws InvalidPrimaryKeyException Si la primary key est invalid
      */
     LivreDTO getLivre(Session session,
         String idLivre) throws InvalidHibernateSessionException,
@@ -59,8 +60,8 @@ public interface ILivreService extends IService {
     /**
      * Met à jour un livre dans la base de données.
      * 
-     * @param connexion La connexion à utiliser
      * @param livreDTO Le livre à mettre à jour
+     * @param session La session a utiliser
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
      * @throws InvalidDTOException Si le livre est <code>null</code>
      * @throws InvalidDTOClassException Si la classe du livre n'est pas celle que prend en charge le DAO
@@ -75,7 +76,7 @@ public interface ILivreService extends IService {
     /**
      * Supprime un livre de la base de données.
      * 
-     * @param connexion La connexion à utiliser
+     * @param session La session à utiliser
      * @param livreDTO Le livre à supprimer
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
      * @throws InvalidDTOException Si le livre est <code>null</code>
@@ -92,7 +93,7 @@ public interface ILivreService extends IService {
      * Trouve tous les livres de la base de données. La liste est classée par ordre croissant sur <code>sortByPropertyName</code>. Si aucun
      * livre n'est trouvé, une {@link List} vide est retournée.
      * 
-     * @param connexion La connexion à utiliser
+     * @param session La session à utiliser
      * @param sortByPropertyName The nom de la propriété à utiliser pour classer
      * @return La liste de tous les livres ; une liste vide sinon
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
@@ -108,7 +109,7 @@ public interface ILivreService extends IService {
      * Trouve les livres à partir d'un titre. La liste est classée par ordre croissant sur <code>sortByPropertyName</code>. Si aucun livre
      * n'est trouvé, une {@link List} vide est retournée.
      * 
-     * @param connexion La connexion à utiliser
+     * @param session La session à utiliser
      * @param titre Le titre à trouver
      * @param sortByPropertyName The nom de la propriété à utiliser pour classer
      * @return La liste des livres correspondants ; une liste vide sinon
@@ -129,7 +130,7 @@ public interface ILivreService extends IService {
     /**
      * Acquiert un livre.
      * 
-     * @param connexion La connexion à utiliser
+     * @param session La session à utiliser
      * @param livreDTO Le livre à acquérir
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
      * @throws InvalidDTOException Si le livre est <code>null</code>
@@ -145,7 +146,7 @@ public interface ILivreService extends IService {
     /**
      * Vend un livre.
      * 
-     * @param connexion La connexion à utiliser
+     * @param session La session à utiliser
      * @param livreDTO Le livre à vendre
      * @throws InvalidHibernateSessionException Si la connexion est <code>null</code>
      * @throws InvalidDTOException Si le livre est <code>null</code>
@@ -156,6 +157,7 @@ public interface ILivreService extends IService {
      * @throws ExistingLoanException Si le livre a été prêté
      * @throws ExistingReservationException Si le livre a été réservé
      * @throws ServiceException S'il y a une erreur avec la base de données
+     * @throws InvalidPrimaryKeyException Si la primary key est invalid
      */
 
     void vendre(Session session,

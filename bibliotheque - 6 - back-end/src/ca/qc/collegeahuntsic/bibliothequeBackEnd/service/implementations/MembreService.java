@@ -6,7 +6,6 @@ package ca.qc.collegeahuntsic.bibliothequeBackEnd.service.implementations;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dao.interfaces.IMembreDAO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.ReservationDTO;
@@ -24,6 +23,7 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingReser
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.InvalidDAOException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.service.interfaces.IMembreService;
+import org.hibernate.Session;
 
 /**
  * Service de la table <code>membre</code>.
@@ -212,7 +212,7 @@ public class MembreService extends Service implements IMembreService {
             throw new InvalidDTOException("Le membre ne peut être null");
         }
         try {
-            MembreDTO unMembreDTO = getMembre(session,
+            final MembreDTO unMembreDTO = getMembre(session,
                 membreDTO.getIdMembre());
             if(unMembreDTO == null) {
                 throw new MissingDTOException("Le membre "
@@ -226,10 +226,10 @@ public class MembreService extends Service implements IMembreService {
                     + unMembreDTO.getIdMembre()
                     + ") a encore des prêts");
             }
-            List<ReservationDTO> reservations = new ArrayList<>(unMembreDTO.getReservations());
+            final List<ReservationDTO> reservations = new ArrayList<>(unMembreDTO.getReservations());
             if(!reservations.isEmpty()) {
-                ReservationDTO reservationDTO = reservations.get(0);
-                MembreDTO booker = reservationDTO.getMembreDTO();
+                final ReservationDTO reservationDTO = reservations.get(0);
+                final MembreDTO booker = reservationDTO.getMembreDTO();
                 throw new ExistingReservationException("Le membre "
                     + booker.getNom()
                     + " (ID de membre : "
