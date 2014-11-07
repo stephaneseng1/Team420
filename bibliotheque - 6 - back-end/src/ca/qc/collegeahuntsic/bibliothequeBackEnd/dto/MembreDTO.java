@@ -54,7 +54,7 @@ public final class MembreDTO extends DTO {
      * @return La variable d'instance <code>this.idMembre</code>
      */
     public String getIdMembre() {
-        return idMembre;
+        return this.idMembre;
     }
 
     /**
@@ -72,7 +72,7 @@ public final class MembreDTO extends DTO {
      * @return La variable d'instance <code>this.nom</code>
      */
     public String getNom() {
-        return nom;
+        return this.nom;
     }
 
     /**
@@ -90,7 +90,7 @@ public final class MembreDTO extends DTO {
      * @return La variable d'instance <code>this.telephone</code>
      */
     public String getTelephone() {
-        return telephone;
+        return this.telephone;
     }
 
     /**
@@ -108,7 +108,7 @@ public final class MembreDTO extends DTO {
      * @return La variable d'instance <code>this.limitePret</code>
      */
     public String getLimitePret() {
-        return limitePret;
+        return this.limitePret;
     }
 
     /**
@@ -126,7 +126,7 @@ public final class MembreDTO extends DTO {
      * @return La variable d'instance <code>this.nbPret</code>
      */
     public String getNbPret() {
-        return nbPret;
+        return this.nbPret;
     }
 
     /**
@@ -139,7 +139,7 @@ public final class MembreDTO extends DTO {
     }
 
     public Set<PretDTO> getPrets() {
-        return prets;
+        return this.prets;
     }
 
     public void setPrets(Set<PretDTO> prets) {
@@ -147,7 +147,7 @@ public final class MembreDTO extends DTO {
     }
 
     public Set<ReservationDTO> getReservations() {
-        return reservations;
+        return this.reservations;
     }
 
     public void setReservations(Set<ReservationDTO> reservations) {

@@ -1,0 +1,19 @@
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le livre Life_&_Games_of_Mikhail_Tal (ID de livre : 1) est déjà réservé pour quelqu'un d'autre
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le livre Life_&_Games_of_Mikhail_Tal (ID de livre : 1) est réservé pour Antonio (ID de membre : 2)
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le prêt 2 n'existe pas
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** La réservation 2 n'existe pas
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le livreId 999 est null.
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le membreId 999 est null.
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le livre Life_&_Games_of_Mikhail_Tal (ID de livre : 1) est réservé pour Antonio (ID de membre : 2)
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le livre Life_&_Games_of_Mikhail_Tal (ID de livre : 1) est réservé pour Antonio (ID de membre : 2)
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le livre Life_&_Games_of_Mikhail_Tal (ID de livre : 1) est réservé pour Antonio (ID de membre : 2)
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le livre Life_&_Games_of_Mikhail_Tal (ID de livre : 1) est déjà réservé pour quelqu'un d'autre
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le livre Life_&_Games_of_Mikhail_Tal (ID de livre : 1) est déjà réservé pour quelqu'un d'autre
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le prêt 3 n'existe pas
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le livre Life_&_Games_of_Mikhail_Tal (ID de livre : 1) est réservé pour Antonio (ID de membre : 2)
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le prêt 3 n'existe pas
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le livreId 998 est null.
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le livre Game_of_Thrones_Tome_1 (ID de livre : 2) a été prêté à Gilles (ID de membre : 1)
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le membreId 998 est null.
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** La réservation 4 n'existe pas
+2014-11-07 14:45:40-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** La réservation 3 n'existe pas

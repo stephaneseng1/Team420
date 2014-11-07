@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dao.interfaces.IPretDAO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dao.interfaces.IReservationDAO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.LivreDTO;
@@ -32,6 +31,7 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.InvalidLoanLi
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.MissingLoanException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.service.interfaces.IReservationService;
+import org.hibernate.Session;
 
 /**
  * Service de la table <code>reservation</code>.
@@ -75,7 +75,7 @@ public class ReservationService extends Service implements IReservationService {
      * @return La variable d'instance <code>this.reservationDAO</code>
      */
     private IReservationDAO getReservationDAO() {
-        return reservationDAO;
+        return this.reservationDAO;
     }
 
     /**
@@ -95,7 +95,7 @@ public class ReservationService extends Service implements IReservationService {
      * @return La variable d'instance <code>this.pretDAO</code>
      */
     private IPretDAO getPretDAO() {
-        return pretDAO;
+        return this.pretDAO;
     }
 
     /**

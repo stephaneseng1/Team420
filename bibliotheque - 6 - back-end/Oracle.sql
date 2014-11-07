@@ -44,3 +44,5 @@ CREATE TABLE reservation (idReservation   NUMBER     CHECK (idReservation > 0),
                           CONSTRAINT      cleEtrangereReservation UNIQUE (idMembre, idLivre),
                           CONSTRAINT      refReservationMembre    FOREIGN KEY (idMembre) REFERENCES membre (idMembre) ON DELETE CASCADE,
                           CONSTRAINT      refReservationLivre     FOREIGN KEY (idLivre)  REFERENCES livre (idLivre)   ON DELETE CASCADE);
+						  
+--@"M:/Eclipse Juno/git/Team420/bibliotheque - 6 - back-end/Oracle.sql"

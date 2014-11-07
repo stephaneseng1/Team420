@@ -4,7 +4,6 @@
 
 package ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.implementations;
 
-import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidCriterionValueException;
@@ -21,6 +20,7 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingReser
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.IMembreFacade;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.service.interfaces.IMembreService;
+import org.hibernate.Session;
 
 /**
  * Facade pour interagir avec le service de membres.
@@ -53,7 +53,7 @@ public class MembreFacade extends Facade implements IMembreFacade {
      * @return La variable d'instance <code>this.membreService</code>
      */
     private IMembreService getMembreService() {
-        return membreService;
+        return this.membreService;
     }
 
     /**

@@ -4,7 +4,6 @@
 
 package ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.implementations;
 
-import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.LivreDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidCriterionException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidHibernateSessionException;
@@ -20,6 +19,7 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingReser
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.ILivreFacade;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.service.interfaces.ILivreService;
+import org.hibernate.Session;
 
 /**
  * Facade pour interagir avec le service de livres.
@@ -52,7 +52,7 @@ public class LivreFacade extends Facade implements ILivreFacade {
      * @return La variable d'instance <code>this.livreService</code>
      */
     private ILivreService getLivreService() {
-        return livreService;
+        return this.livreService;
     }
 
     /**
