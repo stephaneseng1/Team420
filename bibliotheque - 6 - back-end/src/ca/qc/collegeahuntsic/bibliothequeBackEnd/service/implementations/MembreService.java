@@ -6,6 +6,7 @@ package ca.qc.collegeahuntsic.bibliothequeBackEnd.service.implementations;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dao.interfaces.IMembreDAO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.ReservationDTO;
@@ -23,11 +24,10 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingReser
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.InvalidDAOException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.service.interfaces.IMembreService;
-import org.hibernate.Session;
 
 /**
  * Service de la table <code>membre</code>.
- * 
+ *
  * @author Gilles Benichou
  */
 public class MembreService extends Service implements IMembreService {
@@ -35,7 +35,7 @@ public class MembreService extends Service implements IMembreService {
 
     /**
      * Crée le service de la table <code>membre</code>.
-     * 
+     *
      * @param membreDAO
      *            Le DAO de la table <code>membre</code>
      * @throws InvalidDAOException
@@ -53,7 +53,7 @@ public class MembreService extends Service implements IMembreService {
     // Region Getters and Setters
     /**
      * Getter de la variable d'instance <code>this.membreDAO</code>.
-     * 
+     *
      * @return La variable d'instance <code>this.membreDAO</code>
      */
     private IMembreDAO getMembreDAO() {
@@ -62,7 +62,7 @@ public class MembreService extends Service implements IMembreService {
 
     /**
      * Setter de la variable d'instance <code>this.membreDAO</code>.
-     * 
+     *
      * @param membreDAO
      *            La valeur à utiliser pour la variable d'instance
      *            <code>this.membreDAO</code>
@@ -143,6 +143,7 @@ public class MembreService extends Service implements IMembreService {
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("unchecked")
     @Override
     public List<MembreDTO> getAllMembres(Session session,
         String sortByPropertyName) throws InvalidHibernateSessionException,

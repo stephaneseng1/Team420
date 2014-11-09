@@ -7,6 +7,7 @@ package ca.qc.collegeahuntsic.bibliothequeBackEnd.service.implementations;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dao.interfaces.ILivreDAO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.LivreDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.MembreDTO;
@@ -26,7 +27,6 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingReser
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.InvalidDAOException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.service.interfaces.ILivreService;
-import org.hibernate.Session;
 
 /**
  * Service de la table <code>livre</code>.
@@ -38,7 +38,7 @@ public class LivreService extends Service implements ILivreService {
 
     /**
      * Crée le service de la table <code>livre</code>.
-     * 
+     *
      * @param livreDAO
      *            Le DAO de la table <code>livre</code>
      * @throws InvalidDAOException
@@ -154,6 +154,7 @@ public class LivreService extends Service implements ILivreService {
     /**
      * {@inheritDoc}
      */
+    @SuppressWarnings("unchecked")
     @Override
     public List<LivreDTO> getAllLivre(Session session,
         String sortByPropertyName) throws InvalidHibernateSessionException,

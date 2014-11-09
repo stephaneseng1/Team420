@@ -4,30 +4,17 @@
 
 package ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.implementations;
 
+import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.ReservationDTO;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.DAOException;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidCriterionException;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidCriterionValueException;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidHibernateSessionException;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidPrimaryKeyException;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidSortByPropertyException;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dto.InvalidDTOClassException;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dto.InvalidDTOException;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dto.MissingDTOException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.facade.FacadeException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.facade.InvalidServiceException;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingLoanException;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingReservationException;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.InvalidLoanLimitException;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.MissingLoanException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.IReservationFacade;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.service.interfaces.IReservationService;
-import org.hibernate.Session;
 
 /**
  * Facade pour interagir avec le service de réservations.
- * 
+ *
  * @author Gilles Benichou
  */
 public class ReservationFacade extends Facade implements IReservationFacade {
@@ -36,23 +23,25 @@ public class ReservationFacade extends Facade implements IReservationFacade {
     /**
      * Crée la façade de la table <code>reservation</code>.
      * 
-     * @param reservationService
-     *            Le service de la table <code>reservation</code>
-     * @throws InvalidServiceException
-     *             Si le service de réservations est <code>null</code>
+     * @param reservationService Le service de la table <code>reservation</code>
+     * @throws FacadeException Si le service de réservations est <code>null</code>
      */
-    ReservationFacade(IReservationService reservationService) throws InvalidServiceException {
+    ReservationFacade(IReservationService reservationService) throws FacadeException {
         super();
-        if(reservationService == null) {
-            throw new InvalidServiceException("Le service de réservations ne peut être null");
+        try {
+            if(reservationService == null) {
+                throw new InvalidServiceException("Le service de réservations ne peut être null");
+            }
+            setReservationService(reservationService);
+        } catch(InvalidServiceException exception) {
+            throw new FacadeException(exception);
         }
-        setReservationService(reservationService);
     }
 
     // Region Getters and Setters
     /**
      * Getter de la variable d'instance <code>this.reservationService</code>.
-     * 
+     *
      * @return La variable d'instance <code>this.reservationService</code>
      */
     private IReservationService getReservationService() {
@@ -61,10 +50,8 @@ public class ReservationFacade extends Facade implements IReservationFacade {
 
     /**
      * Setter de la variable d'instance <code>this.reservationService</code>.
-     * 
-     * @param reservationService
-     *            La valeur à utiliser pour la variable d'instance
-     *            <code>this.reservationService</code>
+     *
+     * @param reservationService La valeur à utiliser pour la variable d'instance <code>this.reservationService</code>
      */
     private void setReservationService(IReservationService reservationService) {
         this.reservationService = reservationService;
@@ -76,19 +63,22 @@ public class ReservationFacade extends Facade implements IReservationFacade {
      * {@inheritDoc}
      */
     @Override
+    public ReservationDTO getReservation(Session session,
+        String idReservation) throws FacadeException {
+        try {
+            return getReservationService().get(session,
+                idReservation);
+        } catch(ServiceException serviceException) {
+            throw new FacadeException(serviceException);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void placer(Session session,
-        ReservationDTO reservationDTO) throws InvalidHibernateSessionException,
-        InvalidDTOException,
-        InvalidPrimaryKeyException,
-        MissingDTOException,
-        InvalidCriterionException,
-        InvalidSortByPropertyException,
-        MissingLoanException,
-        ExistingLoanException,
-        ExistingReservationException,
-        InvalidDTOClassException,
-        FacadeException,
-        InvalidCriterionValueException {
+        ReservationDTO reservationDTO) throws FacadeException {
         try {
             getReservationService().placer(session,
                 reservationDTO);
@@ -99,24 +89,10 @@ public class ReservationFacade extends Facade implements IReservationFacade {
 
     /**
      * {@inheritDoc}
-     * 
-     * @throws DAOException
      */
     @Override
     public void utiliser(Session session,
-        ReservationDTO reservationDTO) throws InvalidHibernateSessionException,
-        InvalidDTOException,
-        InvalidPrimaryKeyException,
-        MissingDTOException,
-        InvalidCriterionException,
-        InvalidSortByPropertyException,
-        ExistingReservationException,
-        ExistingLoanException,
-        InvalidLoanLimitException,
-        InvalidDTOClassException,
-        FacadeException,
-        InvalidCriterionValueException,
-        DAOException {
+        ReservationDTO reservationDTO) throws FacadeException {
         try {
             getReservationService().utiliser(session,
                 reservationDTO);
@@ -130,12 +106,7 @@ public class ReservationFacade extends Facade implements IReservationFacade {
      */
     @Override
     public void annuler(Session session,
-        ReservationDTO reservationDTO) throws InvalidHibernateSessionException,
-        InvalidDTOException,
-        InvalidPrimaryKeyException,
-        MissingDTOException,
-        InvalidDTOClassException,
-        FacadeException {
+        ReservationDTO reservationDTO) throws FacadeException {
         try {
             getReservationService().annuler(session,
                 reservationDTO);

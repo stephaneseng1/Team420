@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.StringTokenizer;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.LivreDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.PretDTO;
@@ -25,12 +27,8 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dto.MissingDTOExcepti
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.facade.FacadeException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingLoanException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingReservationException;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.InvalidLoanLimitException;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.MissingLoanException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.util.BibliothequeCreateur;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.util.FormatteurDate;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Interface du système de gestion d'une bibliothèque
@@ -57,7 +55,7 @@ public class Bibliotheque {
 
     /**.
      * Constructeur
-     * 
+     *
      */
     public Bibliotheque() {
         super();
@@ -234,8 +232,9 @@ public class Bibliotheque {
                 gestionBiblio.commitTransaction();
             } else if("utiliser".startsWith(command)) {
                 gestionBiblio.beginTransaction();
-                final ReservationDTO reservationDTO = new ReservationDTO();
-                reservationDTO.setIdReservation(readString(tokenizer));
+                ReservationDTO reservationDTO;
+                reservationDTO = gestionBiblio.getReservationFacade().getReservation(gestionBiblio.getSession(),
+                    readString(tokenizer));
                 gestionBiblio.getReservationFacade().utiliser(gestionBiblio.getSession(),
                     reservationDTO);
                 gestionBiblio.commitTransaction();
@@ -261,9 +260,7 @@ public class Bibliotheque {
             | InvalidCriterionException
             | InvalidSortByPropertyException
             | ExistingLoanException
-            | ExistingReservationException
-            | InvalidLoanLimitException
-            | MissingLoanException exception) {
+            | ExistingReservationException exception) {
             Bibliotheque.LOGGER.error("**** "
                 + exception.getMessage());
             gestionBiblio.rollbackTransaction();
