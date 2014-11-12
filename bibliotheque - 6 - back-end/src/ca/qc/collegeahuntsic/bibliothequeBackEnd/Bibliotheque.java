@@ -8,8 +8,6 @@ import java.io.InputStreamReader;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.StringTokenizer;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.LivreDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.PretDTO;
@@ -29,6 +27,8 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingLoanE
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingReservationException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.util.BibliothequeCreateur;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.util.FormatteurDate;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Interface du système de gestion d'une bibliothèque
@@ -246,7 +246,7 @@ public class Bibliotheque {
                     reservationDTO);
                 gestionBiblio.commitTransaction();
             } else if("--".startsWith(command)) {
-                // ne rien faire; c'est un commentaire
+                Bibliotheque.LOGGER.info("");
             } else {
                 Bibliotheque.LOGGER.info("  Transactions non reconnue.  Essayer \"aide\"");
             }

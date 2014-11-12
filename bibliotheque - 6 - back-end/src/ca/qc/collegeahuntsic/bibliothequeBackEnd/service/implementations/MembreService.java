@@ -6,7 +6,6 @@ package ca.qc.collegeahuntsic.bibliothequeBackEnd.service.implementations;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dao.interfaces.IMembreDAO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.MembreDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.ReservationDTO;
@@ -24,6 +23,7 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingReser
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.InvalidDAOException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.service.interfaces.IMembreService;
+import org.hibernate.Session;
 
 /**
  * Service de la table <code>membre</code>.
@@ -143,7 +143,6 @@ public class MembreService extends Service implements IMembreService {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings("unchecked")
     @Override
     public List<MembreDTO> getAllMembres(Session session,
         String sortByPropertyName) throws InvalidHibernateSessionException,

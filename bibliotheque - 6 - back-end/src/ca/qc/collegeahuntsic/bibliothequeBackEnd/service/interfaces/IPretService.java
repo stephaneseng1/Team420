@@ -6,10 +6,15 @@ package ca.qc.collegeahuntsic.bibliothequeBackEnd.service.interfaces;
 
 import java.sql.Timestamp;
 import java.util.List;
-import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.PretDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException;
+import org.hibernate.Session;
 
+/**
+ * Interface de service pour manipuler les membres dans la base de données.
+ * 
+ * @author Stephane Seng
+ */
 public interface IPretService extends IService {
     /**
      * Ajoute un nouveau prêt dans la base de données.

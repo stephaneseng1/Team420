@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dao.interfaces.IPretDAO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dao.interfaces.IReservationDAO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.LivreDTO;
@@ -27,6 +26,7 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.InvalidLoanLi
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.MissingLoanException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.service.interfaces.IReservationService;
+import org.hibernate.Session;
 
 /**
  * Service de la table <code>reservation</code>.
@@ -176,7 +176,6 @@ public class ReservationService extends Service implements IReservationService {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings("unchecked")
     @Override
     public List<ReservationDTO> getAll(Session session,
         String sortByPropertyName) throws ServiceException {

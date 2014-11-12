@@ -8,7 +8,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import org.hibernate.Session;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dao.interfaces.IPretDAO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.LivreDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.MembreDTO;
@@ -29,6 +28,7 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.InvalidLoanLi
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.MissingLoanException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.service.interfaces.IPretService;
+import org.hibernate.Session;
 
 /**
  * Service de la table <code>pret</code>.
@@ -144,7 +144,6 @@ public class PretService extends Service implements IPretService {
     /**
      * {@inheritDoc}
      */
-    @SuppressWarnings("unchecked")
     @Override
     public List<PretDTO> getAll(Session session,
         String sortByPropertyName) throws ServiceException {

@@ -5,12 +5,12 @@
 package ca.qc.collegeahuntsic.bibliothequeBackEnd.service.interfaces;
 
 import java.util.List;
+import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.ReservationDTO;
+import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException;
 import org.hibernate.Session;
 //Fichier IReservationService.java
 //Auteur : Gilles Bénichou
 //Date de création : 2014-09-01
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.ReservationDTO;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException;
 
 /**
  * Interface de service pour manipuler les réservations dans la base de données.
