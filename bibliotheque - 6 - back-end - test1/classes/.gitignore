@@ -1,0 +1,4 @@
+/test
+/log4j.properties
+/testApplicationContext.xml
+/testApplicationContext-jdbc.xml
