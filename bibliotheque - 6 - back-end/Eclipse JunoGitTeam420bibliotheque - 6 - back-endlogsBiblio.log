@@ -1,0 +1,27 @@
+2014-11-12 12:32:43-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le livreId 1 est null.
+2014-11-12 12:32:43-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException: ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dto.MissingDTOException: Le prêt 1 n'existe pas
+2014-11-12 12:32:43-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le livreId 1 est null.
+2014-11-12 12:32:43-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** Le livreId 1 est null.
+2014-11-12 12:32:43-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException: ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dto.MissingDTOException: Le prêt 1 n'existe pas
+2014-11-12 12:32:43-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException: ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dto.InvalidDTOException: La réservation ne peut être null
+2014-11-12 12:32:43-[main][ERROR][ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque]-**** ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ServiceException: ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dto.MissingDTOException: Le prêt 2 n'existe pas
+2014-11-12 12:32:43-[main][ERROR][org.hibernate.event.def.AbstractFlushingEventListener]-Could not synchronize database state with session
+org.hibernate.StaleStateException: Batch update returned unexpected row count from update [0]; actual row count: 0; expected: 1
+	at org.hibernate.jdbc.Expectations$BasicExpectation.checkBatched(Expectations.java:61)
+	at org.hibernate.jdbc.Expectations$BasicExpectation.verifyOutcome(Expectations.java:46)
+	at org.hibernate.jdbc.NonBatchingBatcher.addToBatch(NonBatchingBatcher.java:24)
+	at org.hibernate.persister.entity.AbstractEntityPersister.delete(AbstractEntityPersister.java:2525)
+	at org.hibernate.persister.entity.AbstractEntityPersister.delete(AbstractEntityPersister.java:2702)
+	at org.hibernate.action.EntityDeleteAction.execute(EntityDeleteAction.java:77)
+	at org.hibernate.engine.ActionQueue.execute(ActionQueue.java:279)
+	at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:263)
+	at org.hibernate.engine.ActionQueue.executeActions(ActionQueue.java:172)
+	at org.hibernate.event.def.AbstractFlushingEventListener.performExecutions(AbstractFlushingEventListener.java:298)
+	at org.hibernate.event.def.DefaultFlushEventListener.onFlush(DefaultFlushEventListener.java:27)
+	at org.hibernate.impl.SessionImpl.flush(SessionImpl.java:1000)
+	at org.hibernate.impl.SessionImpl.managedFlush(SessionImpl.java:338)
+	at org.hibernate.transaction.JDBCTransaction.commit(JDBCTransaction.java:106)
+	at ca.qc.collegeahuntsic.bibliothequeBackEnd.util.BibliothequeCreateur.commitTransaction(BibliothequeCreateur.java:263)
+	at ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque.executerTransaction(Bibliotheque.java:247)
+	at ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque.traiterTransactions(Bibliotheque.java:99)
+	at ca.qc.collegeahuntsic.bibliothequeBackEnd.Bibliotheque.main(Bibliotheque.java:78)
