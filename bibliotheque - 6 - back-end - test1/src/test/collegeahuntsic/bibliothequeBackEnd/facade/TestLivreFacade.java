@@ -32,7 +32,7 @@ public class TestLivreFacade extends TestCase {
 
     private static final String TITRE = "Titre "; //$NON-NLS-1$
 
-    private static final String AUTHOR = "Auteur "; //$NON-NLS-1$
+    private static final String AUTEUR = "Auteur "; //$NON-NLS-1$
 
     private static int sequence = 1;
 
@@ -94,7 +94,7 @@ public class TestLivreFacade extends TestCase {
             final LivreDTO livreDTO = new LivreDTO();
             livreDTO.setTitre(TestLivreFacade.TITRE
                 + TestLivreFacade.sequence);
-            livreDTO.setAuteur(TestLivreFacade.AUTHOR
+            livreDTO.setAuteur(TestLivreFacade.AUTEUR
                 + TestLivreFacade.sequence);
             livreDTO.setDateAcquisition(new Timestamp(System.currentTimeMillis()));
             TestLivreFacade.sequence = TestLivreFacade.sequence + 1;
@@ -212,6 +212,61 @@ public class TestLivreFacade extends TestCase {
 
     /**
      * 
+     * Test cases pour update un livre.
+     *
+     * @throws TestCaseFailedException gérer les tests failures
+     */
+    public void testUpdate() throws TestCaseFailedException {
+        try {
+            testAcquerirLivre();
+            beginTransaction();
+            final List<LivreDTO> livres = getLivreFacade().getAllLivres(getSession(),
+                LivreDTO.ID_LIVRE_COLUMN_NAME);
+            assertNotNull(livres);
+            assertFalse(livres.isEmpty());
+            LivreDTO livreDTO = livres.get(0);
+            final String idlivre = livreDTO.getIdLivre();
+
+            final String titre = TITRE
+                + TestLivreFacade.sequence
+                + 1;
+            final String auteur = AUTEUR
+                + TestLivreFacade.sequence
+                + 1;
+            final Timestamp dateacquisition = new Timestamp(System.currentTimeMillis());
+            livreDTO.setTitre(titre);
+            livreDTO.setAuteur(auteur);
+            livreDTO.setDateAcquisition(dateacquisition);
+            getLivreFacade().updateLivre(getSession(),
+                livreDTO);
+            livreDTO = getLivreFacade().getLivre(getSession(),
+                idlivre);
+            assertEquals(livreDTO.getIdLivre(),
+                idlivre);
+            assertEquals(livreDTO.getTitre(),
+                titre);
+            assertEquals(livreDTO.getAuteur(),
+                auteur);
+            assertEquals(livreDTO.getDateAcquisition(),
+                dateacquisition);
+            commitTransaction();
+        } catch(
+            InvalidHibernateSessionException
+            | FacadeException
+            | InvalidSortByPropertyException
+            | InvalidDTOException
+            | InvalidPrimaryKeyException exception) {
+            try {
+                rollbackTransaction();
+            } catch(TestCaseFailedException testCaseFailedException) {
+                TestLivreFacade.LOGGER.error(testCaseFailedException);
+            }
+            TestLivreFacade.LOGGER.error(exception);
+        }
+    }
+
+    /**
+     * 
      * Test cases pour vendre un livre.
      *
      * @throws TestCaseFailedException gérer les tests failures
@@ -223,8 +278,6 @@ public class TestLivreFacade extends TestCase {
             beginTransaction();
             final List<LivreDTO> livres = getLivreFacade().getAllLivres(getSession(),
                 LivreDTO.TITRE_COLUMN_NAME);
-            commitTransaction();
-
             assertFalse(livres.isEmpty());
             LivreDTO livreDTO = livres.get(livres.size() - 1);
             assertNotNull(livreDTO);
@@ -232,34 +285,32 @@ public class TestLivreFacade extends TestCase {
             assertNotNull(livreDTO.getIdLivre());
             assertNotNull(livreDTO.getTitre());
             assertNotNull(livreDTO.getDateAcquisition());
+            commitTransaction();
 
             beginTransaction();
             getLivreFacade().vendreLivre(getSession(),
                 livreDTO);
-
             livreDTO = getLivreFacade().getLivre(getSession(),
                 livreDTO.getIdLivre());
 
             assertNull(livreDTO);
-            assertNull(livreDTO.getAuteur());
-            assertNull(livreDTO.getIdLivre());
-            assertNull(livreDTO.getTitre());
-            assertNull(livreDTO.getDateAcquisition());
+
             commitTransaction();
         } catch(
             InvalidHibernateSessionException
             | InvalidSortByPropertyException
             | FacadeException
+            | InvalidPrimaryKeyException
             | InvalidDTOException
             | ExistingLoanException
-            | ExistingReservationException
-            | InvalidPrimaryKeyException exception) {
+            | ExistingReservationException exception) {
             try {
                 rollbackTransaction();
             } catch(TestCaseFailedException testCaseFailedException) {
                 TestLivreFacade.LOGGER.error(testCaseFailedException);
             }
+            TestLivreFacade.LOGGER.error(exception);
         }
-
     }
+
 }
