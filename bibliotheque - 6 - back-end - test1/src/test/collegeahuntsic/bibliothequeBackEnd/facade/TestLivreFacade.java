@@ -8,6 +8,9 @@ import java.sql.Timestamp;
 import java.util.List;
 import junit.framework.Test;
 import junit.framework.TestSuite;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import test.collegeahuntsic.bibliothequeBackEnd.exception.TestCaseFailedException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.dto.LivreDTO;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidHibernateSessionException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dao.InvalidPrimaryKeyException;
@@ -16,9 +19,6 @@ import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.dto.InvalidDTOExcepti
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.facade.FacadeException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingLoanException;
 import ca.qc.collegeahuntsic.bibliothequeBackEnd.exception.service.ExistingReservationException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import test.collegeahuntsic.bibliothequeBackEnd.exception.TestCaseFailedException;
 
 /**
  * Test cases for Livre.
@@ -28,7 +28,7 @@ import test.collegeahuntsic.bibliothequeBackEnd.exception.TestCaseFailedExceptio
 public class TestLivreFacade extends TestCase {
     private static final Log LOGGER = LogFactory.getLog(TestLivreFacade.class);
 
-    private static final String TEST_CASE_TITLE = "Livre facade test case"; //$NON-NLS-1$
+    public static final String TEST_CASE_TITLE = "Livre facade test case"; //$NON-NLS-1$
 
     private static final String TITRE = "Titre "; //$NON-NLS-1$
 
@@ -39,7 +39,7 @@ public class TestLivreFacade extends TestCase {
     /**
      * Default Constructor.
      *@param name Nom du test
-     * 
+     *
      * @throws TestCaseFailedException gérer les tests failures.
      */
     public TestLivreFacade(String name) throws TestCaseFailedException {
@@ -48,7 +48,7 @@ public class TestLivreFacade extends TestCase {
 
     /**
      * Sets the test case up.
-     * 
+     *
      * @throws Exception If an error occurs
      */
     @Override
@@ -58,7 +58,7 @@ public class TestLivreFacade extends TestCase {
 
     /**
      * Tears the test case down.
-     * 
+     *
      * @throws Exception If an error occurs
      */
     @Override
@@ -72,7 +72,7 @@ public class TestLivreFacade extends TestCase {
      * <ul>
      * <li>{@link test.collegeahuntsic.bibliothequeBackEnd.facade.TestLivreFacade#suite() }
      * </ul>
-     * 
+     *
      * @return Test The tests to be executed in this test case
      */
     public static Test suite() {
@@ -82,7 +82,7 @@ public class TestLivreFacade extends TestCase {
     }
 
     /**
-     * 
+     *
      * Test cases pour aquérir un livre.
      *
      * @throws TestCaseFailedException gérer les tests failures.
@@ -116,7 +116,7 @@ public class TestLivreFacade extends TestCase {
 
     /**
      * Test cases pour get un livre.
-     * 
+     *
      * @throws TestCaseFailedException gérer les tests failures.
      */
 
@@ -177,7 +177,7 @@ public class TestLivreFacade extends TestCase {
     }
 
     /**
-     * 
+     *
      * Test cases pour get tout les livres.
      *
      * @throws TestCaseFailedException gérer les tests failures
@@ -211,7 +211,7 @@ public class TestLivreFacade extends TestCase {
     }
 
     /**
-     * 
+     *
      * Test cases pour update un livre.
      *
      * @throws TestCaseFailedException gérer les tests failures
@@ -266,7 +266,7 @@ public class TestLivreFacade extends TestCase {
     }
 
     /**
-     * 
+     *
      * Test cases pour vendre un livre.
      *
      * @throws TestCaseFailedException gérer les tests failures

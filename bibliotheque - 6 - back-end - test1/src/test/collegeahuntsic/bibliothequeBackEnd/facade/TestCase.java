@@ -4,10 +4,6 @@
 
 package test.collegeahuntsic.bibliothequeBackEnd.facade;
 
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.ILivreFacade;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.IMembreFacade;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.IPretFacade;
-import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.IReservationFacade;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -16,6 +12,10 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import test.collegeahuntsic.bibliothequeBackEnd.exception.TestCaseFailedException;
+import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.ILivreFacade;
+import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.IMembreFacade;
+import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.IPretFacade;
+import ca.qc.collegeahuntsic.bibliothequeBackEnd.facade.interfaces.IReservationFacade;
 
 /**
  * Base test case. <br />
